@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloorballServer", "FloorballServer\FloorballServer.csproj", "{9BB8A613-8E32-4CEC-B05C-D7830111723D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "FloorballServer\WebApi.csproj", "{9BB8A613-8E32-4CEC-B05C-D7830111723D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bll", "Bll\Bll.csproj", "{EAB2B970-6632-49D2-9E10-80BD614EBB35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseMaker", "WpfApplication1\DatabaseMaker.csproj", "{1E88A406-68AC-4BC6-BE50-94C16A479B8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{9BB8A613-8E32-4CEC-B05C-D7830111723D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BB8A613-8E32-4CEC-B05C-D7830111723D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BB8A613-8E32-4CEC-B05C-D7830111723D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAB2B970-6632-49D2-9E10-80BD614EBB35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAB2B970-6632-49D2-9E10-80BD614EBB35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAB2B970-6632-49D2-9E10-80BD614EBB35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAB2B970-6632-49D2-9E10-80BD614EBB35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E88A406-68AC-4BC6-BE50-94C16A479B8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E88A406-68AC-4BC6-BE50-94C16A479B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E88A406-68AC-4BC6-BE50-94C16A479B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E88A406-68AC-4BC6-BE50-94C16A479B8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
