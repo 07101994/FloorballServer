@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace WpfApplication1
 {
-    public class ComboboxLeagueModel
+    public class ComboboxModel
     {
         public int Id { get; set; }
-        public String Name { get; set; }
 
-        public String Year { get; set; }
+        public string Name { get; set; }
 
-        public String DisplayName
+        public string DisplayName
         {
-            get { return Name + " (" + Year + ")"; }
+            get { return Id != -1 ? Name + " (" + Id + ")" : Name; }
         }
 
 

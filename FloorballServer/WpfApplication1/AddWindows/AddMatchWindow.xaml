@@ -1,0 +1,61 @@
+﻿<Window x:Class="WpfApplication1.AddWindows.AddMatchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication1.AddWindows"
+        mc:Ignorable="d"
+        Title="Új Mérkőzés" Height="400" Width="500"
+        ResizeMode="NoResize">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Save"  CanExecute="SaveCommandCanExecute" Executed="SaveCommandExecuted"/>
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Mérkőzés felvétele" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"></Label>
+        <Grid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Bajnokság:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Forduló:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Hazai:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="Vendég:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="Dátum:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <Label Grid.Row="5" Grid.Column="0" Content="Stadion:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=ComboboxModel}" DisplayMemberPath="DisplayName" SelectionChanged="league_SelectionChanged" SelectedValuePath="Id" x:Name="league" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250"></ComboBox>
+            <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Path=RoundsModel, Mode=TwoWay}" SelectionChanged="round_SelectionChanged" x:Name="round" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250"></ComboBox>
+            <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Path=HomeModel, Mode=TwoWay}" DisplayMemberPath="DisplayName" SelectedValuePath="Id" x:Name="home" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250"></ComboBox>
+            <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Path=AwayModel, Mode=TwoWay}" DisplayMemberPath="DisplayName" SelectedValuePath="Id" x:Name="away"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="250"></ComboBox>
+            <DatePicker Grid.Row="4" Grid.Column="1" SelectedDate="{Binding SelectedDate, Mode=TwoWay}" x:Name="date"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="250"></DatePicker>
+            <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding Path=ComboboxModel}" DisplayMemberPath="DisplayName" SelectedValuePath="Id" x:Name="stadium"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="250"></ComboBox>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" Width="75" Content="Add" Command="ApplicationCommands.Save"></Button>
+            <Button Grid.Row="0" Grid.Column="1" Width="75" Content="Back" Height="20" Margin="12,0" VerticalAlignment="Top" Click="BackButtonClicked"></Button>
+        </Grid>
+    </Grid>
+</Window>

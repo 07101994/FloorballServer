@@ -5,64 +5,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="925"
+        Title="Floorball adatbázis menedzselő" Height="650" Width="925"
         ResizeMode="NoResize">
-    <Grid>
-        <Grid.Resources>
-            <DataTemplate x:Key="listBoxItem">
-                <WrapPanel>
-                    <TextBlock></TextBlock>
-                    <CheckBox></CheckBox>
-                </WrapPanel>
-            </DataTemplate>
-        </Grid.Resources>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="40" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Hozzáadás">
+                <MenuItem Header="_Bajnokság" Click="AddLeagueClick"/>
+                <MenuItem Header="_Stadion" Click="AddStadiumClick"/>
+                <MenuItem Header="_Csapat" Click="AddTeamClick"/>
+                <MenuItem Header="_Mérkőzés" Click="AddMatchClick"/>
+                <MenuItem Header="_Játékos" Click="AddPlayerClick"/>
+                <MenuItem Header="_Bíró" Click="AddRefereeClick"/>
+            </MenuItem>
+            <MenuItem Header="_Törlés">
+                <MenuItem Header="_Liga"/>
+                <MenuItem Header="_Csapat"/>
+                <MenuItem Header="_Mérkőzés"/>
+                <MenuItem Header="_Játékos"/>
+                <MenuItem Header="_Bíró"/>
+                <MenuItem Header="_Esemény"/>
+            </MenuItem>
+            <MenuItem Header="_Szerkesztése">
+                <MenuItem Header="_Mérkőzés" Click="EditMatchClick"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.Resources>
+                <DataTemplate x:Key="listBoxItem">
+                    <WrapPanel>
+                        <TextBlock></TextBlock>
+                        <CheckBox></CheckBox>
+                    </WrapPanel>
+                </DataTemplate>
+            </Grid.Resources>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="40" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.Row="0" Grid.Column="0" x:Name="comboBoxLeague" ItemsSource="{Binding Path=ComboboxLeagueModel}" DisplayMemberPath="DisplayName" SelectedValuePath="Id"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" SelectionChanged="comboBoxLeague_SelectionChanged"/>
-            <ComboBox Grid.Row="0" Grid.Column="1" x:Name="comboBoxTable" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" SelectionChanged="comboBoxTable_SelectionChanged" />
-            <ListBox Grid.Row="1" Grid.Column="0" x:Name="leftList" ItemsSource="{Binding Path=ListItemModel}" BorderBrush="CadetBlue" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" >
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <ListBoxItem>
-                            <WrapPanel>
-                                <RadioButton GroupName="radiobutton" Content="{Binding Path=Name}" Click="RadioButton_Checked" Tag="{Binding Path=Id}"></RadioButton>
-                                <TextBlock Text=" ("></TextBlock>
-                                <TextBlock Text="{Binding Path=Id}"></TextBlock>
-                                <TextBlock Text=")"></TextBlock>
-                            </WrapPanel>
-                        </ListBoxItem>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Grid Grid.Row="1" Grid.Column="1">
+            <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="20" />
+                    <RowDefinition Height="40" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Row="0" Grid.Column="0" x:Name="filter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" ></TextBox>
-                <ListBox Grid.Row="1" Grid.Column="0" x:Name="rightList" ItemsSource="{Binding Path=ListItemModel}" BorderBrush="CadetBlue" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400">
+                <ComboBox Grid.Row="0" Grid.Column="0" x:Name="comboBoxLeague" ItemsSource="{Binding Path=ComboboxLeagueModel}" DisplayMemberPath="DisplayName" SelectedValuePath="Id"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" SelectionChanged="comboBoxLeague_SelectionChanged"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" x:Name="comboBoxTable" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" SelectionChanged="comboBoxTable_SelectionChanged" />
+                <ListBox Grid.Row="1" Grid.Column="0" x:Name="leftList" ItemsSource="{Binding LeftList}" BorderBrush="CadetBlue" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <ListBoxItem>
                                 <WrapPanel>
-                                    <CheckBox IsChecked="{Binding Path=IsChecked, Mode=TwoWay}" Content="{Binding Path=Name}" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"></CheckBox>
+                                    <RadioButton GroupName="radiobutton" Content="{Binding Path=Name}" Click="RadioButton_Checked" Tag="{Binding Path=Id}"></RadioButton>
                                     <TextBlock Text=" ("></TextBlock>
                                     <TextBlock Text="{Binding Path=Id}"></TextBlock>
                                     <TextBlock Text=")"></TextBlock>
@@ -71,16 +70,40 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Row="0" Grid.Column="0" x:Name="filter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" ></TextBox>
+                    <ListBox Grid.Row="1" Grid.Column="0" x:Name="rightList" ItemsSource="{Binding RightList,Mode=TwoWay}" BorderBrush="CadetBlue" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <ListBoxItem>
+                                    <WrapPanel>
+                                        <CheckBox IsChecked="{Binding Path=IsChecked, Mode=TwoWay}" Content="{Binding Path=Name}" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"></CheckBox>
+                                        <TextBlock Text=" ("></TextBlock>
+                                        <TextBlock Text="{Binding Path=Id}"></TextBlock>
+                                        <TextBlock Text=")"></TextBlock>
+                                    </WrapPanel>
+                                </ListBoxItem>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
             </Grid>
-        </Grid>
-        <Grid Grid.Row="1" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" x:Name="buttonSave" Content="Save" Width="75" Click="buttonSave_Click"/>
-            <Button Grid.Column="1" x:Name="buttonBack" Content="Undo" Width="75" Click="buttonBack_Click"/>
-        </Grid>
+            <Grid Grid.Row="1" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="buttonSave" Content="Save" Width="75" Click="buttonSave_Click"/>
+                <Button Grid.Column="1" x:Name="buttonBack" Content="Undo" Width="75" Click="buttonBack_Click"/>
+            </Grid>
 
-    </Grid>
+        </Grid>
+    </DockPanel>
 </Window>

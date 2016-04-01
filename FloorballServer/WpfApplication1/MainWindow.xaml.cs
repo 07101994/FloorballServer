@@ -21,14 +21,29 @@ namespace WpfApplication1
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public static Dictionary<int,bool> Ids { get; set; }
         public static bool allowAddingId = true;
         public int selectedRadioButtonName;
         public int selectedId;
 
-        ObservableCollection<ListItemModel> players;
+        //ObservableCollection<ListItemModel> modelRight;
+        //ObservableCollection<ListItemModel> modelLeft;
+
+        public ObservableCollection<ListItemModel> RightList { get; set; }
+
+        public ObservableCollection<ListItemModel> LeftList { get; set; }
+
+        AddLeagueWindow addLeagueWindow;
+        AddStadiumWindow addStadiumWindow;
+        AddTeamWindow addTeamWindow;
+        AddWindows.AddRefereeWindow addReferreWindow;
+        AddWindows.AddPlayerWindow addPlayerWindow;
+        AddWindows.AddMatchWindow addMatchWindow;
+        EditMatchWindow editMatchWindow;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public MainWindow()
         {
@@ -40,32 +55,28 @@ namespace WpfApplication1
             buttonBack.IsEnabled = false;
 
             comboBoxLeague.DataContext = this;
+            leftList.DataContext = this;
+            rightList.DataContext = this;
 
-            List<ComboboxLeagueModel> comboboxLeagueModel = new List<ComboboxLeagueModel>(); 
-            List<League> leagues = DatabaseManager.GetLeagues();
-            foreach (var l in leagues)
-            {
-                ComboboxLeagueModel model = new ComboboxLeagueModel();
-                model.Name = l.Name;
-                model.Id = l.Id;
-                model.Year = l.Year.ToString("yyyy");
-                comboboxLeagueModel.Add(model);
-            }
-            comboBoxLeague.ItemsSource = comboboxLeagueModel;
+            comboBoxLeague.ItemsSource = ModelHelper.FillLeaguesComboBox();
             comboBoxLeague.SelectedIndex = 0;
 
-            comboBoxTable.ItemsSource = new List<String>(new String[] {"Player-Team","Player-Match" });
+            comboBoxTable.ItemsSource = new List<String>(new String[] {"Add player to team","Add player to match","Add referee to match"});
             comboBoxTable.SelectedIndex = 0;
+
+            //ICollectionView view = CollectionViewSource.GetDefaultView(RightList);
+            //new TextSearchFilter(view, filter);
 
 
         }
+
 
         private void comboBoxLeague_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (comboBoxTable.SelectedValue == null)
                 return;
 
-            loadListBoxes(comboBoxLeague.SelectedValue ,comboBoxTable.SelectedValue);            
+            loadListBoxes(comboBoxLeague.SelectedValue ,comboBoxTable.SelectedIndex);            
 
         }
 
@@ -74,19 +85,16 @@ namespace WpfApplication1
             if (comboBoxLeague.SelectedValue == null)
                 return;
 
-            loadListBoxes(comboBoxLeague.SelectedValue, comboBoxTable.SelectedValue);
+            loadListBoxes(comboBoxLeague.SelectedValue, comboBoxTable.SelectedIndex);
+            ICollectionView view = CollectionViewSource.GetDefaultView(RightList);
+            new TextSearchFilter(view, filter);
         }
 
-        private void loadListBoxes(object year, object table)
+        private ObservableCollection<ListItemModel> LoadListBoxWithPlayers()
         {
+            ObservableCollection<ListItemModel> players = new ObservableCollection<ListItemModel>();
 
-            if (year == null || table == null)
-                return;
-
-            List<ListItemModel> modelLeft = new List<ListItemModel>();
-            players = new ObservableCollection<ListItemModel>();
-
-            List<Player> playersList = DatabaseManager.GetPlayers();
+            List<Player> playersList = DatabaseManager.GetAllPlayer();
             foreach (var player in playersList)
             {
                 var model = new ListItemModel();
@@ -96,46 +104,122 @@ namespace WpfApplication1
                 players.Add(model);
             }
 
-            ICollectionView view = CollectionViewSource.GetDefaultView(players);
-            new TextSearchFilter(view, filter);
+            
 
+            return players;
 
-            if (table.ToString() == "Player-Match")
+        }
+
+        private ObservableCollection<ListItemModel> LoadListBoxWithTeams(int leagueId)
+        {
+            ObservableCollection<ListItemModel> teams = new ObservableCollection<ListItemModel>();
+
+            List<Team> teamList = DatabaseManager.GetTeamsByLeague(leagueId);
+            foreach (var team in teamList)
             {
+                var model = new ListItemModel();
+                model.Name = team.Name;
+                model.Id = team.Id;
 
-                List<Match> matches = DatabaseManager.GetMatchesByLeague(Convert.ToInt32(comboBoxLeague.SelectedValue));
-                foreach (var match in matches)
-                {
-                    var model = new ListItemModel();
-                    model.Name = match.HomeTeam.Name + " - " + match.AwayTeam.Name;
-                    model.Id = match.Id;
+                teams.Add(model);
+            }
 
-                    modelLeft.Add(model);
-                }
+            return teams;
+        }
 
-                leftList.ItemsSource = modelLeft;
-                rightList.ItemsSource = players;
+        private ObservableCollection<ListItemModel> LoadListBoxWithMatches(int leagueId)
+        {
+            ObservableCollection<ListItemModel> matches = new ObservableCollection<ListItemModel>();
+
+            List<Match> matchesList = DatabaseManager.GetMatchesByLeague(leagueId);
+            foreach (var match in matchesList)
+            {
+                var model = new ListItemModel();
+                model.Name = match.HomeTeam.Name + " - " + match.AwayTeam.Name;
+                model.Id = match.Id;
+
+                matches.Add(model);
+            }
+
+            return matches;
+        }
+
+        private ObservableCollection<ListItemModel> LoadListBoxWithReferees()
+        {
+            ObservableCollection<ListItemModel> referees = new ObservableCollection<ListItemModel>();
+
+            List<Referee> refereesList = DatabaseManager.GetAllReferee();
+
+            foreach (var referee in refereesList)
+            {
+                var model = new ListItemModel();
+                model.Name = referee.Name;
+                model.Id = referee.Id;
+
+                referees.Add(model);
+            }
+
+            return referees;
+        }
+
+        private void loadListBoxes(object year, object table)
+        {
+
+            if (year == null || table == null)
+                return;
+
+
+            if (Convert.ToInt32(table) == 1)
+            {
+                LeftList = LoadListBoxWithMatches(Convert.ToInt32(comboBoxLeague.SelectedValue));
+                OnPropertyChanged("LeftList");
+
+                RightList = LoadListBoxWithPlayers();
+                OnPropertyChanged("RightList");
+
+                //modelRight = LoadListBoxWithPlayers();
+                //modelLeft = LoadListBoxWithMatches(Convert.ToInt32(comboBoxLeague.SelectedValue));
+
+                //leftList.ItemsSource = modelLeft;
+                //rightList.ItemsSource = modelRight;
 
 
             }
             else
             {
-                if (table.ToString() == "Player-Team")
+                if (Convert.ToInt32(table) == 0)
                 {
-                    
-                    //List<Team> teams = DatabaseManager.GetTeamsByYear(DateTime.ParseExact(year.ToString(), "yyyy", System.Globalization.CultureInfo.InvariantCulture));
-                    List<Team> teams = DatabaseManager.GetTeamsByLeague(Convert.ToInt32(comboBoxLeague.SelectedValue));
-                    foreach (var team in teams)
+
+                    LeftList = LoadListBoxWithTeams(Convert.ToInt32(comboBoxLeague.SelectedValue));
+                    OnPropertyChanged("LeftList");
+
+                    RightList = LoadListBoxWithPlayers();
+                    OnPropertyChanged("RightList");
+
+                    //modelRight = LoadListBoxWithPlayers();
+                    //modelLeft = LoadListBoxWithTeams(Convert.ToInt32(comboBoxLeague.SelectedValue));
+
+                    //rightList.ItemsSource = modelRight;
+                    //leftList.ItemsSource = modelLeft;
+                }
+                else
+                {
+                    if (Convert.ToInt32(table) == 2)
                     {
-                        var model = new ListItemModel();
-                        model.Name = team.Name;
-                        model.Id = team.Id;
 
-                        modelLeft.Add(model);
+                        LeftList = LoadListBoxWithReferees();
+                        OnPropertyChanged("LeftList");
+
+                        RightList = LoadListBoxWithMatches(Convert.ToInt32(comboBoxLeague.SelectedValue));
+                        OnPropertyChanged("RightList");
+
+                        //modelLeft = LoadListBoxWithReferees();
+                        //modelRight = LoadListBoxWithMatches(Convert.ToInt32(comboBoxLeague.SelectedValue));
+
+                        //rightList.ItemsSource = modelRight;
+                        //leftList.ItemsSource = modelLeft;
+
                     }
-
-                    rightList.ItemsSource = players;
-                    leftList.ItemsSource = modelLeft;
                 }
 
             }
@@ -143,15 +227,15 @@ namespace WpfApplication1
 
         }
 
-        private void UpdatePlayers(int id)
+        private void UpdateModelRight(int id)
         {
-            if (comboBoxTable.SelectedValue.ToString() == "Player-Match")
+            if (comboBoxTable.SelectedIndex == 1)
             {
                 var match = DatabaseManager.GetMatchById(id);
 
-                while (players.Count != 0)
+                while (RightList.Count != 0)
                 {
-                    players.RemoveAt(0);
+                    RightList.RemoveAt(0);
                 }
 
                 List<Player> playersList = match.HomeTeam.Players.ToList();
@@ -162,18 +246,18 @@ namespace WpfApplication1
                     model.Name = player.Name;
                     model.Id = player.RegNum;
 
-                    players.Add(model);
+                    RightList.Add(model);
                 }
 
             }
             else
             {
-                if (comboBoxTable.SelectedValue.ToString() == "Player-Team")
+                if (comboBoxTable.SelectedIndex == 0)
                 {
                     allowAddingId = false;
                     List<Player> playersInTeam = DatabaseManager.GetPlayersByTeam(id);
 
-                    foreach (var p in players)
+                    foreach (var p in RightList)
                     {
                         if (playersInTeam.Select(p1 => p1.RegNum).Contains(p.Id))
                         {
@@ -186,8 +270,29 @@ namespace WpfApplication1
                     }
                     allowAddingId = true;
                 }
+                else
+                {
+                    if (comboBoxTable.SelectedIndex == 2)
+                    {
+                        allowAddingId = false;
+                        List<Match> matches = DatabaseManager.GetMatchesByReferee(selectedId);
+
+                        foreach (var p in RightList)
+                        {
+                            if (matches.Select(m => m.Id).Contains(p.Id))
+                            {
+                                p.IsChecked = true;
+                            }
+                            else
+                            {
+                                p.IsChecked = false;
+                            }
+                        }
+                        allowAddingId = true;
+                    }
+                }
             }
-        }
+        }   
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -196,7 +301,7 @@ namespace WpfApplication1
             int id = Convert.ToInt32(element.Tag);
             selectedId = id;
 
-            UpdatePlayers(id);
+            UpdateModelRight(id);
 
         }
 
@@ -245,13 +350,23 @@ namespace WpfApplication1
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
-            if (comboBoxTable.SelectedValue.ToString() == "Player-Match")
+            if (comboBoxTable.SelectedIndex == 1)
             {
-
+                foreach (var id in Ids)
+                {
+                    if (id.Value)
+                    {
+                        DatabaseManager.AddPlayerToMatch(id.Key, selectedId);
+                    }
+                    else
+                    {
+                        DatabaseManager.RemovePlayerFromMatch(id.Key, selectedId);
+                    }
+                }
             }
             else
             {
-                if (comboBoxTable.SelectedValue.ToString() == "Player-Team")
+                if (comboBoxTable.SelectedIndex == 0)
                 {
                     foreach (var id in Ids)
                     {
@@ -276,10 +391,79 @@ namespace WpfApplication1
         {
             Ids = new Dictionary<int, bool>();
 
-            UpdatePlayers(selectedId);
+            UpdateModelRight(selectedId);
 
             buttonSave.IsEnabled = false;
             buttonBack.IsEnabled = false;
+        }
+
+        private void AddLeagueClick(object sender, RoutedEventArgs e)
+        {
+            addLeagueWindow = new AddLeagueWindow();
+
+            addLeagueWindow.Closed += AddLeagueWindow_Closed;
+
+            addLeagueWindow.ShowDialog();
+
+        }
+
+        private void AddLeagueWindow_Closed(object sender, EventArgs e)
+        {
+
+            comboBoxLeague.ItemsSource = ModelHelper.FillLeaguesComboBox();
+            comboBoxLeague.SelectedIndex = 0;
+
+        }
+
+        private void AddStadiumClick(object sender, RoutedEventArgs e)
+        {
+            addStadiumWindow = new AddStadiumWindow();
+
+            addStadiumWindow.ShowDialog();
+        }
+
+        private void AddTeamClick(object sender, RoutedEventArgs e)
+        {
+            addTeamWindow = new AddTeamWindow();
+
+            addTeamWindow.ShowDialog();
+        }
+
+        private void AddRefereeClick(object sender, RoutedEventArgs e)
+        {
+            addReferreWindow = new AddWindows.AddRefereeWindow();
+
+            addReferreWindow.ShowDialog();
+        }
+
+        private void AddPlayerClick(object sender, RoutedEventArgs e)
+        {
+            addPlayerWindow = new AddWindows.AddPlayerWindow();
+
+            addPlayerWindow.ShowDialog();
+        }
+
+        private void AddMatchClick(object sender, RoutedEventArgs e)
+        {
+            addMatchWindow = new AddWindows.AddMatchWindow();
+
+            addMatchWindow.ShowDialog();
+        }
+
+        private void EditMatchClick(object sender, RoutedEventArgs e)
+        {
+
+            editMatchWindow = new EditMatchWindow(DatabaseManager.GetMatchById(1));
+
+            editMatchWindow.ShowDialog();
+
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

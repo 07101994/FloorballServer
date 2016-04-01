@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>App_Data/XmlDocument.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -221,8 +222,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\ModelHelper.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Floorball\EventModel.cs" />
+    <Compile Include="Models\Floorball\EventMessageModel.cs" />
+    <Compile Include="Models\Floorball\LeagueModel.cs" />
+    <Compile Include="Models\Floorball\MatchModel.cs" />
+    <Compile Include="Models\Floorball\PlayerModel.cs" />
+    <Compile Include="Models\Floorball\RefereeModel.cs" />
+    <Compile Include="Models\Floorball\StadiumModel.cs" />
+    <Compile Include="Models\Floorball\StatisticModel.cs" />
+    <Compile Include="Models\Floorball\TeamModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
