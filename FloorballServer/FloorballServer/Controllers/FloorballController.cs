@@ -38,22 +38,41 @@ namespace FloorballServer.Controllers
         public HttpResponseMessage Years()
         {
 
-            List<DateTime> years = DatabaseManager.GetAllYear();
+            List<int> years = DatabaseManager.GetAllYear().Select(d => d.Year).ToList();
             
             return Request.CreateResponse(HttpStatusCode.OK,years);
         }
 
         /// <summary>
-        /// Get leagues by year.
+        /// Get all leagues.
         /// </summary>
         /// <returns></returns>
-        //GET api/floorball/leagues/{year}
+        //GET api/floorball/leagues/
         [HttpGet]
         public HttpResponseMessage Leagues()
         {
             List<LeagueModel> list = new List<LeagueModel>();
 
             foreach (var l in DatabaseManager.GetAllLeague())
+            {
+                LeagueModel model = ModelHelper.CreateLeagueModel(l);
+                list.Add(model);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, list);
+        }
+
+        /// <summary>
+        /// Get all leagues by year.
+        /// </summary>
+        /// <returns></returns>
+        //GET api/floorball/leagues/
+        [HttpGet]
+        public HttpResponseMessage LeaguesByYear(string year)
+        {
+            List<LeagueModel> list = new List<LeagueModel>();
+
+            foreach (var l in DatabaseManager.GetLeaguesByYear(DateTime.ParseExact(year, "yyyy", CultureInfo.InvariantCulture)))
             {
                 LeagueModel model = ModelHelper.CreateLeagueModel(l);
                 list.Add(model);
