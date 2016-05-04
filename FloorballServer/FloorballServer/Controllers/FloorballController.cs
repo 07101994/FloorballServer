@@ -125,6 +125,27 @@ namespace FloorballServer.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, matches);
         }
 
+        /// <summary>
+        /// Get statistics by league.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        //GET api/floorball/referee/{id}/matches
+        [Route("api/floorball/leagues/{id}/statistics")]
+        [HttpGet]
+        public HttpResponseMessage StatisticsByLeague(int id)
+        {
+
+            List<StatisticModel> statistics = new List<StatisticModel>();
+
+            foreach (var s in DatabaseManager.GetStatisticsByleague(id))
+            {
+                statistics.Add(ModelHelper.CreateStatisticsModel(s));
+            }
+            
+            return Request.CreateResponse(HttpStatusCode.OK, statistics);
+        }
+         
 
         /// <summary>
         /// Get events by category
@@ -278,6 +299,27 @@ namespace FloorballServer.Controllers
             }
 
             return Request.CreateResponse(HttpStatusCode.OK,players);
+        }
+
+        /// <summary>
+        /// Get players by league
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        //GET api/floorball/leagues/{id}/players
+        [Route("api/floorball/leagues/{id}/players")]
+        [HttpGet]
+        public HttpResponseMessage PlayersByLeague(int id)
+        {
+
+            List<PlayerModel> players = new List<PlayerModel>();
+
+            foreach (var p in DatabaseManager.GetPlayersByLeague(id))
+            {
+                players.Add(ModelHelper.CreatePlayerModel(p));
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, players);
         }
 
         /// <summary>

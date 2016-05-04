@@ -97,6 +97,18 @@ namespace FloorballServer.Helper
             return model;
         }
 
+        public static StatisticModel CreateStatisticsModel(Statistic s)
+        {
+            StatisticModel model = new StatisticModel();
+            model.Id = s.Id;
+            model.Name = s.Name;
+            model.Number = s.Number;
+            model.PlayerRegNum = s.PlayerRegNum;
+            model.TeamId = s.TeamId;
+
+            return model;
+        }
+
         public static EventModel CreateEventModel(Event e)
         {
             EventModel model = new EventModel();
