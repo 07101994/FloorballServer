@@ -23,7 +23,7 @@ namespace Bll
         }
     
         public int Id { get; set; }
-        public string Date { get; set; }
+        public System.DateTime Date { get; set; }
         public short Round { get; set; }
         public string State { get; set; }
         public short GoalsH { get; set; }

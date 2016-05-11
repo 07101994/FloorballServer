@@ -34,5 +34,6 @@ namespace Bll
         public virtual DbSet<Stadium> Stadiums { get; set; }
         public virtual DbSet<Statistic> Statistics { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<Update> Updates { get; set; }
     }
 }

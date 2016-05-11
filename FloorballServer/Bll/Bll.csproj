@@ -95,13 +95,16 @@
     <Compile Include="Team.cs">
       <DependentUpon>FloorballModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Update.cs">
+      <DependentUpon>FloorballModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
     <EntityDeploy Include="FloorballModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>FloorballModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="App.Config" />
     <None Include="FloorballModel.edmx.diagram">
       <DependentUpon>FloorballModel.edmx</DependentUpon>
     </None>

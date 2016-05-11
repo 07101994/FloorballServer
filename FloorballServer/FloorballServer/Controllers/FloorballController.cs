@@ -19,14 +19,16 @@ namespace FloorballServer.Controllers
 
         #region GET
 
-        //GET api/floorball/updates
+        //GET api/floorball/updates?date={date}
         [HttpGet]
-        public HttpResponseMessage Updates()
+        public HttpResponseMessage Updates(DateTime date)
         {
 
-            //TODO: implement
+            List<Update> updates = DatabaseManager.GetUpdatesAfterDate(date);
 
-            return Request.CreateResponse();
+            string json = Serializer.SerializeUpdates(updates);
+
+            return Request.CreateResponse(HttpStatusCode.OK,json);
         }
 
         /// <summary>
@@ -197,6 +199,26 @@ namespace FloorballServer.Controllers
         }
 
         /// <summary>
+        /// Get all match.
+        /// </summary>
+        /// <returns></returns>
+        //GET api/floorball/matches/
+        [HttpGet]
+        public HttpResponseMessage Matches()
+        {
+            List<MatchModel> list = new List<MatchModel>();
+
+            foreach (var m in DatabaseManager.GetAllMatch())
+            {
+                MatchModel model = ModelHelper.CreateMatchModel(m);
+                list.Add(model);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, list);
+        }
+
+
+        /// <summary>
         /// Get match.
         /// </summary>
         /// <param name="id"></param>
@@ -206,6 +228,24 @@ namespace FloorballServer.Controllers
         public HttpResponseMessage Matches(int id)
         {
             return Request.CreateResponse(HttpStatusCode.OK, ModelHelper.CreateMatchModel(DatabaseManager.GetMatchById(id)));
+        }
+
+        /// <summary>
+        /// Get all teams
+        /// </summary>
+        /// <returns></returns>
+        //GET api/floorball/teams/{id}
+        [HttpGet]
+        public HttpResponseMessage Teams()
+        {
+            List<TeamModel> teams = new List<TeamModel>();
+
+            foreach (var t in DatabaseManager.GetAllTeam())
+            {
+                teams.Add(ModelHelper.CreateTeamModel(t));
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, teams);
         }
 
         /// <summary>
@@ -408,14 +448,21 @@ namespace FloorballServer.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        //GET api/floorball/actualmatches/
+        //GET api/floorball/actual/
+        [Route("api/floorball/matches/actual")]
         [HttpGet]
         public HttpResponseMessage ActualMatches()
         {
 
-            //TODO: implement
+            List<MatchModel> matches = new List<MatchModel>();
 
-            return Request.CreateResponse();
+            foreach (var m in DatabaseManager.GetActualMatches())
+            {
+                matches.Add(ModelHelper.CreateMatchModel(m));
+            }
+
+
+            return Request.CreateResponse(HttpStatusCode.OK, matches);
         }
 
         /// <summary>
@@ -449,6 +496,66 @@ namespace FloorballServer.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, events);
         }
+
+        /// <summary>
+        /// Get all event
+        /// </summary>
+        /// <returns></returns>
+        //GET api/floorball/events
+        [HttpGet]
+        public HttpResponseMessage Events()
+        {
+            List<EventModel> list = new List<EventModel>();
+
+            foreach (var e in DatabaseManager.GetAllEvent())
+            {
+                EventModel model = ModelHelper.CreateEventModel(e);
+                list.Add(model);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, list);
+        }
+
+
+        /// <summary>
+        /// Get all eventmessage
+        /// </summary>
+        /// <returns></returns>
+        //GET api/floorball/eventmessages
+        [HttpGet]
+        public HttpResponseMessage Eventmessages()
+        {
+            List<EventMessageModel> list = new List<EventMessageModel>();
+
+            foreach (var e in DatabaseManager.GetAllEventMessage())
+            {
+                EventMessageModel model = ModelHelper.CreateEventMessageModel(e);
+                list.Add(model);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, list);
+        }
+
+        /// <summary>
+        /// Get all statistic
+        /// </summary>
+        /// <returns></returns>
+        //GET api/floorball/statistics
+        [HttpGet]
+        public HttpResponseMessage Statistics()
+        {
+            List<StatisticModel> list = new List<StatisticModel>();
+
+            foreach (var s in DatabaseManager.GetAllStatistic())
+            {
+                StatisticModel model = ModelHelper.CreateStatisticsModel(s);
+                list.Add(model);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, list);
+        }
+
+
 
         /// <summary>
         /// Get event by id
@@ -589,7 +696,7 @@ namespace FloorballServer.Controllers
             //string jsonContent = requestContent.ReadAsStringAsync().Result;
             //EventModel model = JsonConvert.DeserializeObject<EventModel>(jsonContent);
 
-            int id = DatabaseManager.AddEvent(e.MatchId, e.Type, TimeSpan.ParseExact(e.Time, "h\\h\\:m\\m\\:s\\s", CultureInfo.InvariantCulture), e.PlayerId, e.EventMessageId, e.TeamId);
+            int id = DatabaseManager.AddEvent(e.MatchId, e.Type, e.Time /*TimeSpan.ParseExact(e.Time, "h\\h\\:m\\m\\:s\\s", CultureInfo.InvariantCulture)*/, e.PlayerId, e.EventMessageId, e.TeamId);
 
             return Request.CreateResponse(HttpStatusCode.OK,id);
         }

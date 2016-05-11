@@ -41,7 +41,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Date" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Round" Type="smallint" Nullable="false" />
           <Property Name="State" Type="nvarchar(max)" Nullable="false" />
           <Property Name="GoalsH" Type="smallint" Nullable="false" />
@@ -128,6 +128,17 @@
           <Property Name="Get" Type="smallint" Nullable="false" />
           <Property Name="StadiumId" Type="int" Nullable="false" />
           <Property Name="LeagueId" Type="int" Nullable="false" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Updates">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="data1" Type="int" Nullable="false" />
+          <Property Name="data2" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_EventMatch">
           <End Role="Matches" Type="Self.Matches" Multiplicity="1" />
@@ -358,6 +369,7 @@
           <EntitySet Name="Stadiums" EntityType="Self.Stadiums" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Statistics" EntityType="Self.Statistics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Updates" EntityType="Self.Updates" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_EventMatch" Association="Self.FK_EventMatch">
             <End Role="Matches" EntitySet="Matches" />
             <End Role="Events" EntitySet="Events" />
@@ -478,7 +490,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Round" Type="Int16" Nullable="false" />
           <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="GoalsH" Type="Int16" Nullable="false" />
@@ -564,6 +576,7 @@
           <NavigationProperty Name="Statistics" Relationship="Self.FK_StatisticTeam" FromRole="Teams" ToRole="Statistics" />
           <NavigationProperty Name="Players" Relationship="Self.PlayerTeam" FromRole="Teams" ToRole="Players" />
           <NavigationProperty Name="Events" Relationship="FloorballModel.FK_Events_Teams" FromRole="Team" ToRole="Event" />
+          <Property Name="Sex" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Events_EventMessages">
           <End Role="EventMessages" Type="Self.EventMessage" Multiplicity="1" />
@@ -779,6 +792,7 @@
             <End Role="Team" EntitySet="Teams" />
             <End Role="Event" EntitySet="Events" />
           </AssociationSet>
+          <EntitySet Name="Updates" EntityType="FloorballModel.Update" />
         </EntityContainer>
         <Association Name="FK_Events_Teams">
           <End Type="FloorballModel.Team" Role="Team" Multiplicity="1" />
@@ -792,6 +806,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Update">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="data1" Type="Int32" Nullable="false" />
+          <Property Name="data2" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -892,6 +916,7 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="FloorballModel.Team">
               <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
@@ -931,6 +956,17 @@
               <ScalarProperty Name="Id" ColumnName="Referees_Id" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Updates">
+            <EntityTypeMapping TypeName="FloorballModel.Update">
+              <MappingFragment StoreEntitySet="Updates">
+                <ScalarProperty Name="data2" ColumnName="data2" />
+                <ScalarProperty Name="data1" ColumnName="data1" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

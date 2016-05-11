@@ -11,7 +11,7 @@ namespace FloorballServer.Models.Floorball
 
         public string Type { get; set; }
 
-        public string Time { get; set; }
+        public TimeSpan Time { get; set; }
 
         public int MatchId { get; set; }
 

@@ -24,6 +24,7 @@ namespace FloorballServer.Helper
             model.TeamId = t.TeamId;
             model.Year = t.Year;
             model.Coach = t.Coach;
+            model.Sex = t.Sex;
 
             return model;
         }
@@ -116,7 +117,7 @@ namespace FloorballServer.Helper
             model.Id = e.Id;
             model.MatchId = e.MatchId;
             model.PlayerId = e.PlayerRegNum;
-            model.Time = e.Time.ToString(@"h\h\:m\m\:s\s", System.Globalization.CultureInfo.InvariantCulture);
+            model.Time = e.Time;//.ToString(@"h\h\:m\m\:s\s", System.Globalization.CultureInfo.InvariantCulture);
             model.Type = e.Type;
 
             return model; 
