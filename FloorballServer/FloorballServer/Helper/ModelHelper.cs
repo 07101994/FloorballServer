@@ -119,6 +119,7 @@ namespace FloorballServer.Helper
             model.PlayerId = e.PlayerRegNum;
             model.Time = e.Time;//.ToString(@"h\h\:m\m\:s\s", System.Globalization.CultureInfo.InvariantCulture);
             model.Type = e.Type;
+            model.TeamId = e.TeamId;
 
             return model; 
         }

@@ -218,6 +218,63 @@ namespace Bll
             }
         }
 
+        public static List<List<int>> GetAllPlayerAndMatchId()
+        {
+            using (var db = new FloorballEntities())
+            {
+                List<List<int>> list = new List<List<int>>();
+                foreach (var player in db.Players.Include("Matches"))
+                {
+                    foreach (var match in player.Matches)
+                    {
+                        list.Add(new List<int> { player.RegNum, match.Id});
+
+                    }
+
+                }
+
+                return list;
+            }
+        }
+
+        public static List<List<int>> GetAllPlayerAndTeamId()
+        {
+            using (var db = new FloorballEntities())
+            {
+                List<List<int>> list = new List<List<int>>();
+                foreach (var player in db.Players.Include("Teams"))
+                {
+                    foreach (var team in player.Teams)
+                    {
+                        list.Add(new List<int> { player.RegNum, team.Id });
+
+                    }
+
+                }
+
+                return list;
+            }
+        }
+
+        public static List<List<int>> GetAllRefereeAndMatchId()
+        {
+            using (var db = new FloorballEntities())
+            {
+                List<List<int>> list = new List<List<int>>();
+                foreach (var referee in db.Referees.Include("Matches"))
+                {
+                    foreach (var match in referee.Matches)
+                    {
+                        list.Add(new List <int> { referee.Id, match.Id });
+
+                    }
+
+                }
+
+                return list;
+            }
+        }
+
         public static int GetNumberOfRoundsInLeague(int leagueId)
         {
             using (var db = new FloorballEntities())

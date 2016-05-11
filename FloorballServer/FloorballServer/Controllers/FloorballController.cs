@@ -556,6 +556,36 @@ namespace FloorballServer.Controllers
         }
 
 
+        //GET api/floorball/players/teams
+        //GET api/floorball/teams/players
+        [Route("api/floorball/players/teams")]
+        [Route("api/floorball/teams/players")]
+        [HttpGet]
+        public HttpResponseMessage PlayersAndTeams()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, DatabaseManager.GetAllPlayerAndTeamId());
+        }
+
+        //GET api/floorball/players/matches
+        //GET api/floorball/matches/players
+        [Route("api/floorball/players/matches")]
+        [Route("api/floorball/matches/players")]
+        [HttpGet]
+        public HttpResponseMessage PlayersAndMatches()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, DatabaseManager.GetAllPlayerAndMatchId());
+        }
+
+        //GET api/floorball/refereess/matches
+        //GET api/floorball/matches/referees
+        [Route("api/floorball/referees/matches")]
+        [Route("api/floorball/matches/referees")]
+        [HttpGet]
+        public HttpResponseMessage RefereesAndMatches()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, DatabaseManager.GetAllRefereeAndMatchId());
+        }
+
 
         /// <summary>
         /// Get event by id
