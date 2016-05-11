@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -327,10 +328,10 @@ namespace Bll
                 l.Rounds = rounds;
 
                 db.Leagues.Add(l);
+                db.SaveChanges();
 
                 AddUpdate(db, "addLeague", DateTime.Now, l.Id);
 
-                db.SaveChanges();
                 return l.Id;
             }
         }
@@ -345,15 +346,16 @@ namespace Bll
 
 
                 db.Stadiums.Add(s);
+                db.SaveChanges();
 
                 AddUpdate(db, "addStadium", DateTime.Now, s.Id);
 
-                db.SaveChanges();
+
                 return s.Id;
             }
         }
 
-        public static int AddTeam(string name, DateTime year, string coach, int stadiumId, int leagueId)
+        public static int AddTeam(string name, string sex, DateTime year, string coach, int stadiumId, int leagueId)
         {
             using (var db = new FloorballEntities())
             {
@@ -366,13 +368,39 @@ namespace Bll
                 t.Points = 0;
                 t.StadiumId = stadiumId;
                 t.LeagueId = leagueId;
+                t.Sex = sex;
                 t.Standing = (short)(db.Leagues.Include("Teams").Where(l => l.Id == leagueId).First().Teams.Count + 1);
 
                 db.Teams.Add(t);
 
-                AddUpdate(db, "addTeam", DateTime.Now, t.Id);
+                //AddUpdate(db, "addTeam", DateTime.Now, t.Id);
+
+                //try
+                //{
+                //db.SaveChanges();
+
+                //}
+                //catch (DbEntityValidationException e)
+                //{
+                //    foreach (var eve in e.EntityValidationErrors)
+                //    {
+                //        System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                //            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                //        foreach (var ve in eve.ValidationErrors)
+                //        {
+                //            System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                //ve.PropertyName,
+                //eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                //ve.ErrorMessage);
+                //        }
+                //    }
+                //}
 
                 db.SaveChanges();
+
+                AddUpdate(db, "addTeam", DateTime.Now, t.Id);
+
+
                 return t.Id;
             }
         }
@@ -387,10 +415,11 @@ namespace Bll
                 r.Penalty = 0;
 
                 db.Referees.Add(r);
+                db.SaveChanges();
 
                 AddUpdate(db, "addReferee", DateTime.Now, r.Id);
 
-                db.SaveChanges();
+
                 return r.Id;
             }
         }
@@ -406,10 +435,10 @@ namespace Bll
                 p.Date = date.Date;
 
                 db.Players.Add(p);
+                db.SaveChanges();
 
                 AddUpdate(db, "addPlayer", DateTime.Now, p.RegNum);
 
-                db.SaveChanges();
                 return p.RegNum;
             }
         }
@@ -427,12 +456,10 @@ namespace Bll
                             select t).First();
 
                 team.Players.Add(player);
+                AddStatisticsForPlayerInTeam(player, team, db);
+                db.SaveChanges();
 
                 AddUpdate(db, "playerToTeam", DateTime.Now, player.RegNum, team.Id);
-
-                AddStatisticsForPlayerInTeam(player, team, db);
-
-                db.SaveChanges();
 
             }
         }
@@ -454,10 +481,9 @@ namespace Bll
                     throw new Exception("Player cannot be added to match!");
 
                 match.Players.Add(player);
+                db.SaveChanges();
 
                 AddUpdate(db, "playerToMacth", DateTime.Now, player.RegNum, match.Id);
-
-                db.SaveChanges();
 
             }
         }
@@ -477,7 +503,21 @@ namespace Bll
 
                 db.Statistics.Add(s);
 
-                AddUpdate(db, "addStat", DateTime.Now, player.RegNum, team.Id);
+                //AddUpdate(db, "addStat", DateTime.Now, player.RegNum, team.Id);
+            }
+        }
+
+        public static void AddRefereeToMatch(int refereeId, int matchId)
+        {
+            using (var db = new FloorballEntities())
+            {
+                var referee = db.Referees.Where(r => r.Id == refereeId).First();
+                var match = db.Matches.Where(m => m.Id == matchId).First();
+
+                match.Referees.Add(referee);
+                db.SaveChanges();
+
+                AddUpdate(db, "addRefereeToMatch", DateTime.Now, refereeId, matchId);
             }
         }
 
@@ -495,7 +535,6 @@ namespace Bll
 
                 db.Events.Add(e);
 
-                AddUpdate(db, "addEvent", DateTime.Now, e.Id);
 
                 if (playerId != -1 && type != "I" && type != "B")
                 {
@@ -503,6 +542,9 @@ namespace Bll
                 }
 
                 db.SaveChanges();
+
+                AddUpdate(db, "addEvent", DateTime.Now, e.Id);
+
 
                 return e.Id;
             }
@@ -518,7 +560,8 @@ namespace Bll
             u.data2 = data2;
 
             db.Updates.Add(u);
-                
+            db.SaveChanges();
+
         }
 
         #endregion
@@ -540,10 +583,10 @@ namespace Bll
 
                 RemoveStatisticsForPlayerInTeam(player, team, db);
                 team.Players.Remove(player);
+                db.SaveChanges();
 
                 AddUpdate(db, "removePlayerFromTeam", DateTime.Now, playerId, teamId);
 
-                db.SaveChanges();
 
             }
         }
@@ -566,10 +609,10 @@ namespace Bll
 
 
                 match.Players.Remove(player);
+                db.SaveChanges();
 
                 AddUpdate(db, "removePlayerFromMatch", DateTime.Now, playerId, matchId);
 
-                db.SaveChanges();
 
             }
         }
@@ -582,7 +625,7 @@ namespace Bll
             foreach (var s in statisctics)
             {
                 db.Statistics.Remove(s);
-                AddUpdate(db, "removeStat", DateTime.Now, player.RegNum, team.Id);
+                //AddUpdate(db, "removeStat", DateTime.Now, player.RegNum, team.Id);
             }
 
         }
@@ -630,6 +673,25 @@ namespace Bll
                 AddUpdate(db, "removeEvent", DateTime.Now, e.Id);
 
                 db.SaveChanges();
+            }
+        }
+
+        public static void RemoveRefereeFromMatch(int refereeId, int matchId)
+        {
+            using (var db = new FloorballEntities())
+            {
+                var referee = db.Referees.Where(r => r.Id == refereeId).First();
+                var match = db.Matches.Where(m => m.Id == matchId).First();
+
+                if (!(referee.Matches.Contains(match)))
+                    throw new Exception("Referee cannot be removed from match!");
+
+
+                match.Referees.Remove(referee);
+                db.SaveChanges();
+
+                AddUpdate(db, "removeRefereeFromMatch", DateTime.Now, refereeId, matchId);
+
             }
         }
 

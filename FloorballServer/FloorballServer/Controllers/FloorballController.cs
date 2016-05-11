@@ -609,6 +609,24 @@ namespace FloorballServer.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        /// <summary>
+        /// Add referee to match
+        /// </summary>
+        /// <param name="refereeId"></param>
+        /// <param name="matchId"></param>
+        /// <returns></returns>
+        //PUT api/floorball/players/{playerId}/matches/{matchId}
+        //PUT api/floorball/matches/{matchId}/players/{playerId}
+        [Route("api/floorball/referees/{refereeId}/matches/{matchId}")]
+        [Route("api/floorball/matches/{matchId}/referees/{refereeId}")]
+        [HttpPut]
+        public HttpResponseMessage AddRefereeToMatch(int refereeId, int matchId)
+        {
+            DatabaseManager.AddRefereeToMatch(refereeId, matchId);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
         #endregion
 
         #region POST
@@ -650,7 +668,7 @@ namespace FloorballServer.Controllers
         [HttpPost]
         public HttpResponseMessage Teams(TeamModel team)
         {
-            int id = DatabaseManager.AddTeam(team.Name, team.Year, team.Coach, team.StadiumId, team.LeagueId);
+            int id = DatabaseManager.AddTeam(team.Name, team.Sex, team.Year, team.Coach, team.StadiumId, team.LeagueId);
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
@@ -744,7 +762,19 @@ namespace FloorballServer.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        
+
+        //DELETE api/floorball/players/{playerId}/matches/{matchId}
+        //DELETE api/floorball/matches/{matchId}/players/{playerId}
+        [Route("api/floorball/referees/{refereeId}/matches/{matchId}")]
+        [Route("api/floorball/matches/{matchId}/referees/{refereeId}")]
+        [HttpDelete]
+        public HttpResponseMessage RemoveRefereeFromMatch(int refereeId, int matchId)
+        {
+            DatabaseManager.RemoveRefereeFromMatch(refereeId, matchId);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
         /// <summary>
         /// Delete event
         /// </summary>

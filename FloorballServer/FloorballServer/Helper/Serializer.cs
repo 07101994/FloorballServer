@@ -78,6 +78,8 @@ namespace FloorballServer.Helper
 
                     case "refereeToMatch":
 
+                        dict.Add("refereeToMatch", new { refereeId = u.data1, matchId = u.data2});
+
                         break;
 
                     case "removePlayerFromTeam":
@@ -93,6 +95,8 @@ namespace FloorballServer.Helper
                         break;
 
                     case "removeRefereeFromMatch":
+
+                        dict.Add("removeRefereeFromMatch", new { refereeId = u.data1, matchId = u.data2 });
 
                         break;
 
