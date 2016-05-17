@@ -135,7 +135,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="data1" Type="int" Nullable="false" />
           <Property Name="data2" Type="int" Nullable="false" />
@@ -285,7 +285,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StatisticPlayer">
-          <End Role="Players" Type="Self.Players" Multiplicity="1" />
+          <End Role="Players" Type="Self.Players" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Statistics" Type="Self.Statistics" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Players">
@@ -811,7 +813,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="data1" Type="Int32" Nullable="false" />
           <Property Name="data2" Type="Int32" Nullable="false" />

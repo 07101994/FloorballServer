@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -434,7 +435,7 @@ namespace Bll
 
                 //try
                 //{
-                //db.SaveChanges();
+                //    db.SaveChanges();
 
                 //}
                 //catch (DbEntityValidationException e)
@@ -617,7 +618,28 @@ namespace Bll
             u.data2 = data2;
 
             db.Updates.Add(u);
-            db.SaveChanges();
+
+            
+                try
+                {
+                    db.SaveChanges();
+
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Debug.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                ve.PropertyName,
+                eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                ve.ErrorMessage);
+                        }
+                    }
+                }
 
         }
 
@@ -640,6 +662,10 @@ namespace Bll
 
                 RemoveStatisticsForPlayerInTeam(player, team, db);
                 team.Players.Remove(player);
+
+                //db.Teams.Attach(team);
+                //db.Entry(team).Collection(e => e.Players). = true;
+                
                 db.SaveChanges();
 
                 AddUpdate(db, "removePlayerFromTeam", DateTime.Now, playerId, teamId);
@@ -666,6 +692,11 @@ namespace Bll
 
 
                 match.Players.Remove(player);
+
+                db.Matches.Attach(match);
+                db.Entry(match).Property(e => e.Players).IsModified = true;
+
+
                 db.SaveChanges();
 
                 AddUpdate(db, "removePlayerFromMatch", DateTime.Now, playerId, matchId);
@@ -682,7 +713,6 @@ namespace Bll
             foreach (var s in statisctics)
             {
                 db.Statistics.Remove(s);
-                //AddUpdate(db, "removeStat", DateTime.Now, player.RegNum, team.Id);
             }
 
         }
@@ -745,6 +775,10 @@ namespace Bll
 
 
                 match.Referees.Remove(referee);
+
+                db.Matches.Attach(match);
+                db.Entry(match).Property(e => e.Referees).IsModified = true;
+
                 db.SaveChanges();
 
                 AddUpdate(db, "removeRefereeFromMatch", DateTime.Now, refereeId, matchId);
