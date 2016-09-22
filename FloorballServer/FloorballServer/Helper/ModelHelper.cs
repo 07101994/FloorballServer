@@ -20,6 +20,7 @@ namespace FloorballServer.Helper
             model.Name = t.Name;
             model.Points = t.Points;
             model.Scored = t.Scored;
+            model.Standing = t.Standing;
             model.StadiumId = t.StadiumId;
             model.TeamId = t.TeamId;
             model.Year = t.Year;

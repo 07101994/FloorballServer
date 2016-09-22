@@ -1,6 +1,8 @@
 ﻿using Bll;
 using FloorballServer.Helper;
+using FloorballServer.Live;
 using FloorballServer.Models.Floorball;
+using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -745,6 +747,9 @@ namespace FloorballServer.Controllers
             //EventModel model = JsonConvert.DeserializeObject<EventModel>(jsonContent);
 
             int id = DatabaseManager.AddEvent(e.MatchId, e.Type, e.Time/* TimeSpan.ParseExact(e.Time, "h\\h\\:m\\m\\:s\\s", CultureInfo.InvariantCulture)*/, e.PlayerId, e.EventMessageId, e.TeamId);
+
+            Communicator comm = new Communicator();
+            comm.AddEventToMatch(e, "hu"); 
 
             return Request.CreateResponse(HttpStatusCode.OK,id);
         }

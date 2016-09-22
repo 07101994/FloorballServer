@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
+using Microsoft.AspNet.SignalR;
+using FloorballServer.Live;
 
 [assembly: OwinStartup(typeof(FloorballServer.Startup))]
 
@@ -15,8 +17,9 @@ namespace FloorballServer
         {
             ConfigureAuth(app);
 
+            GlobalHost.HubPipeline.AddModule(new ErrorHandlingPipelineModule());
             app.MapSignalR();
-            var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            //var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             
 
         }
