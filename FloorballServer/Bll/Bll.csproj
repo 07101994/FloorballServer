@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseManager.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Event.cs">
       <DependentUpon>FloorballModel.tt</DependentUpon>
     </Compile>

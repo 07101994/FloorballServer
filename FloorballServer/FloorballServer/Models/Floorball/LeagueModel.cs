@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bll;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,6 +21,7 @@ namespace FloorballServer.Models.Floorball
 
         public int Rounds { get; set; }
 
+        public CountriesEnum Country { get; set; }
 
     }
 }

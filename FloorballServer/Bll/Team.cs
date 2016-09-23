@@ -37,6 +37,7 @@ namespace Bll
         public int StadiumId { get; set; }
         public int LeagueId { get; set; }
         public string Sex { get; set; }
+        public string Country { get; set; }
     
         public virtual League League { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

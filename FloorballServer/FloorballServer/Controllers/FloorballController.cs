@@ -672,7 +672,7 @@ namespace FloorballServer.Controllers
         [HttpPost]
         public HttpResponseMessage Leagues(LeagueModel league)
         {
-            int id = DatabaseManager.AddLeague(league.Name, league.Year, league.type, league.ClassName, league.Rounds);
+            int id = DatabaseManager.AddLeague(league.Name, league.Year, league.type, league.ClassName, league.Rounds, league.Country);
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
@@ -700,7 +700,7 @@ namespace FloorballServer.Controllers
         [HttpPost]
         public HttpResponseMessage Teams(TeamModel team)
         {
-            int id = DatabaseManager.AddTeam(team.Name, team.Sex, team.Year, team.Coach, team.StadiumId, team.LeagueId);
+            int id = DatabaseManager.AddTeam(team.Name, team.Sex, team.Year, team.Coach, team.StadiumId, team.LeagueId, team.Country);
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
@@ -728,7 +728,7 @@ namespace FloorballServer.Controllers
         [HttpPost]
         public HttpResponseMessage Players(PlayerModel player)
         {
-            int id = DatabaseManager.AddPlayer(player.Name,player.RegNum,player.Number,player.BirthDate);
+            int id = DatabaseManager.AddPlayer(player.FirstName, player.SecondName, player.RegNum,player.Number,player.BirthDate);
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }

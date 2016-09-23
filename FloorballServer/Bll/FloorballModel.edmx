@@ -35,6 +35,7 @@
           <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ClassName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Rounds" Type="int" Nullable="false" />
+          <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Matches">
           <Key>
@@ -65,9 +66,10 @@
             <PropertyRef Name="RegNum" />
           </Key>
           <Property Name="RegNum" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Number" Type="smallint" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="PlayerTeam">
           <Key>
@@ -129,6 +131,7 @@
           <Property Name="StadiumId" Type="int" Nullable="false" />
           <Property Name="LeagueId" Type="int" Nullable="false" />
           <Property Name="Sex" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Updates">
           <Key>
@@ -486,6 +489,7 @@
           <Property Name="Rounds" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Matches" Relationship="Self.FK_LeagueMatch" FromRole="Leagues" ToRole="Matches" />
           <NavigationProperty Name="Teams" Relationship="Self.FK_Teams_Leagues" FromRole="Leagues" ToRole="Teams" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Match">
           <Key>
@@ -515,13 +519,14 @@
             <PropertyRef Name="RegNum" />
           </Key>
           <Property Name="RegNum" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Number" Type="Int16" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Events" Relationship="Self.FK_PlayerEvent" FromRole="Players" ToRole="Events" />
           <NavigationProperty Name="Statistics" Relationship="Self.FK_StatisticPlayer" FromRole="Players" ToRole="Statistics" />
           <NavigationProperty Name="Matches" Relationship="Self.PlayerMatch" FromRole="Players" ToRole="Matches" />
           <NavigationProperty Name="Teams" Relationship="Self.PlayerTeam" FromRole="Players" ToRole="Teams" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Referee">
           <Key>
@@ -579,6 +584,7 @@
           <NavigationProperty Name="Players" Relationship="Self.PlayerTeam" FromRole="Teams" ToRole="Players" />
           <NavigationProperty Name="Events" Relationship="FloorballModel.FK_Events_Teams" FromRole="Team" ToRole="Event" />
           <Property Name="Sex" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Events_EventMessages">
           <End Role="EventMessages" Type="Self.EventMessage" Multiplicity="1" />
@@ -849,6 +855,7 @@
           <EntitySetMapping Name="Leagues">
             <EntityTypeMapping TypeName="FloorballModel.League">
               <MappingFragment StoreEntitySet="Leagues">
+                <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -878,8 +885,9 @@
           <EntitySetMapping Name="Players">
             <EntityTypeMapping TypeName="FloorballModel.Player">
               <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="RegNum" ColumnName="RegNum" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
               </MappingFragment>
@@ -918,6 +926,7 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="FloorballModel.Team">
               <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="Sex" ColumnName="Sex" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

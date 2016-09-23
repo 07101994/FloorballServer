@@ -373,7 +373,7 @@ namespace Bll
 
         #region POST
 
-        public static int AddLeague(string name, DateTime year, string type, string classname, int rounds)
+        public static int AddLeague(string name, DateTime year, string type, string classname, int rounds, CountriesEnum country)
         {
             using (var db = new FloorballEntities())
             {
@@ -384,6 +384,7 @@ namespace Bll
                 l.Type = type;
                 l.ClassName = classname;
                 l.Rounds = rounds;
+                l.Country = country.ToFriendlyString();
 
                 db.Leagues.Add(l);
                 db.SaveChanges();
@@ -413,7 +414,7 @@ namespace Bll
             }
         }
 
-        public static int AddTeam(string name, string sex, DateTime year, string coach, int stadiumId, int leagueId)
+        public static int AddTeam(string name, string sex, DateTime year, string coach, int stadiumId, int leagueId, CountriesEnum country)
         {
             using (var db = new FloorballEntities())
             {
@@ -428,6 +429,7 @@ namespace Bll
                 t.LeagueId = leagueId;
                 t.Sex = sex;
                 t.Standing = (short)(db.Leagues.Include("Teams").Where(l => l.Id == leagueId).First().Teams.Count + 1);
+                t.Country = country.ToFriendlyString();
 
                 db.Teams.Add(t);
 
@@ -482,12 +484,13 @@ namespace Bll
             }
         }
 
-        public static int AddPlayer(string name, int regNum, int number, DateTime date)
+        public static int AddPlayer(string firstName, string secondName, int regNum, int number, DateTime date)
         {
             using (var db = new FloorballEntities())
             {
                 Player p = new Player();
-                p.Name = name;
+                p.FirstName = firstName;
+                p.SecondName = secondName;
                 p.RegNum = regNum;
                 p.Number = (short)number;
                 p.Date = date.Date;

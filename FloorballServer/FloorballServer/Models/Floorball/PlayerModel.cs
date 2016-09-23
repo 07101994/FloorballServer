@@ -9,7 +9,8 @@ namespace FloorballServer.Models.Floorball
     {
         public int RegNum { get; set; }
 
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
 
         public short Number { get; set; }
 

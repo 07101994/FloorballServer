@@ -26,6 +26,7 @@ namespace FloorballServer.Helper
             model.Year = t.Year;
             model.Coach = t.Coach;
             model.Sex = t.Sex;
+            model.Country = t.Country.ToEnum<CountriesEnum>();
 
             return model;
         }
@@ -63,6 +64,7 @@ namespace FloorballServer.Helper
             model.Year = l.Year;
             model.Rounds = l.Rounds;
             model.ClassName = l.ClassName;
+            model.Country = l.Country.ToEnum<CountriesEnum>();
 
             return model;
         }
@@ -71,7 +73,8 @@ namespace FloorballServer.Helper
         {
             PlayerModel model = new PlayerModel();
             model.BirthDate = p.Date;
-            model.Name = p.Name;
+            model.FirstName = p.FirstName;
+            model.SecondName = p.SecondName;
             model.Number = p.Number;
             model.RegNum = p.RegNum;
 

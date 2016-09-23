@@ -17,7 +17,7 @@ namespace FloorballServer.Live
 
             NameValueCollection queryString = Context.Request.QueryString as NameValueCollection;
 
-            string[] countries = { "hu", "se", "fl", "sw", "cz"};
+            string[] countries = { "HU", "SE", "FL", "SW", "CZ"};
 
             foreach (var key in queryString.AllKeys)
             {
@@ -30,6 +30,28 @@ namespace FloorballServer.Live
             }
 
             return base.OnConnected();
+        }
+
+
+        public override Task OnDisconnected(bool stopCalled)
+        {
+
+            NameValueCollection queryString = Context.Request.QueryString as NameValueCollection;
+
+            string[] countries = { "HU", "SE", "FL", "SW", "CZ" };
+
+            foreach (var key in queryString.AllKeys)
+            {
+
+                if (countries.Contains(key) && Convert.ToBoolean(queryString.Get(key)))
+                {
+                    Groups.Remove(Context.ConnectionId, key);
+                }
+
+            }
+
+
+            return base.OnDisconnected(stopCalled);
         }
 
     }

@@ -27,6 +27,7 @@ namespace Bll
         public string Type { get; set; }
         public string ClassName { get; set; }
         public int Rounds { get; set; }
+        public string Country { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Match> Matches { get; set; }
