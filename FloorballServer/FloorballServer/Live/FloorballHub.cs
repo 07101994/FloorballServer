@@ -12,21 +12,21 @@ namespace FloorballServer.Live
     public class FloorballHub : Hub
     {
 
+        public static string[] countries = { "HU", "SE", "FL", "SW", "CZ" };
+
         public override Task OnConnected()
         {
 
             NameValueCollection queryString = Context.Request.QueryString as NameValueCollection;
 
-            string[] countries = { "HU", "SE", "FL", "SW", "CZ"};
+            string[] clientCountries = queryString.Get("countries").Split(';');
 
-            foreach (var key in queryString.AllKeys)
+            foreach (var country in clientCountries)
             {
-
-                if (countries.Contains(key) && Convert.ToBoolean(queryString.Get(key)))
+                if (countries.Contains(country))
                 {
-                        Groups.Add(Context.ConnectionId, key);
+                    Groups.Add(Context.ConnectionId, country);
                 }
-
             }
 
             return base.OnConnected();
@@ -38,18 +38,15 @@ namespace FloorballServer.Live
 
             NameValueCollection queryString = Context.Request.QueryString as NameValueCollection;
 
-            string[] countries = { "HU", "SE", "FL", "SW", "CZ" };
+            string[] clientCountries = queryString.Get("countries").Split(';');
 
-            foreach (var key in queryString.AllKeys)
+            foreach (var country in clientCountries)
             {
-
-                if (countries.Contains(key) && Convert.ToBoolean(queryString.Get(key)))
+                if (countries.Contains(country))
                 {
-                    Groups.Remove(Context.ConnectionId, key);
+                    Groups.Remove(Context.ConnectionId, country);
                 }
-
             }
-
 
             return base.OnDisconnected(stopCalled);
         }

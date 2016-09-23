@@ -368,6 +368,15 @@ namespace Bll
             }
         }
 
+        public static CountriesEnum GetCountryByEvent(int eventId)
+        {
+            using (var db = new FloorballEntities())
+            {
+                return db.Events.Include("Match.League").Where(e => e.Id == eventId).First().Match.League.Country.ToEnum<CountriesEnum>();
+            }
+        }
+
+
         #endregion
 
 

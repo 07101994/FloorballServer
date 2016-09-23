@@ -1,4 +1,5 @@
-﻿using FloorballServer.Models.Floorball;
+﻿using Bll;
+using FloorballServer.Models.Floorball;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
@@ -26,17 +27,10 @@ namespace FloorballServer.Live
         }
 
 
-        public void StartMatch(int matchId, string country)
+        public void StartMatch(int matchId, StateEnum state, string country)
         {
 
-            hub.Clients.Group(country).StartMatch(matchId);
-
-        }
-
-        public void EndMatch(int matchId, string country)
-        {
-
-            hub.Clients.Group(country).EndMatch(matchId);
+            hub.Clients.Group(country).ChangeMatchState(matchId,state);
 
         }
 

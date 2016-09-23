@@ -7,6 +7,11 @@ namespace Bll
         HU, SE, FL, SW, CZ
     }
 
+    public enum StateEnum
+    {
+        Confirmed, Playing, Ended
+    }
+
     public static class CountriesEnumExtensions
     {
         public static string ToFriendlyString(this CountriesEnum country)

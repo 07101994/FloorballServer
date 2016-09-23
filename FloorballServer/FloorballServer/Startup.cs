@@ -18,7 +18,11 @@ namespace FloorballServer
             ConfigureAuth(app);
 
             GlobalHost.HubPipeline.AddModule(new ErrorHandlingPipelineModule());
-            app.MapSignalR();
+
+            var hubConfiguration = new HubConfiguration();
+            hubConfiguration.EnableDetailedErrors = true;
+
+            app.MapSignalR(hubConfiguration);
             //var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             
 
