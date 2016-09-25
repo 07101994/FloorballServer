@@ -659,6 +659,30 @@ namespace FloorballServer.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        /// <summary>
+        /// Update match
+        /// </summary>
+        /// <param name="match"></param>
+        /// <returns></returns>
+        //PUT api/floorball/matches
+        [Route("api/floorball/matches")]
+        [HttpPut]
+        public HttpResponseMessage UpdateMatch(MatchModel match)
+        {
+            Match oldMatch = DatabaseManager.GetMatchById(match.Id);
+
+            DatabaseManager.UpdateMatch(match.Id, match.Date, match.Time, match.Round, match.StadiumId, match.GoalsH, match.GoalsA, match.State);
+
+            if (match.Time != oldMatch.Time)
+            {
+                Communicator comm = new Communicator();
+                comm.UpdateMatchTime(match.Id, match.Time, oldMatch.League.Country);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+
         #endregion
 
         #region POST

@@ -376,6 +376,13 @@ namespace Bll
             }
         }
 
+        public static CountriesEnum GetCountryByMatch(int matchId)
+        {
+            using (var db = new FloorballEntities())
+            {
+                return db.Matches.Include("League").Where(m => m.Id == matchId).First().League.Country.ToEnum<CountriesEnum>();
+            }
+        }
 
         #endregion
 
@@ -490,6 +497,32 @@ namespace Bll
 
 
                 return r.Id;
+            }
+        }
+
+        public static int AddMatch(DateTime date, short round, int homeTeamId, int awayTeamId, int leagueId, int stadiumId)
+        {
+            using (var db = new FloorballEntities())
+            {
+                Match m = new Match();
+                m.Date = date;
+                m.Round = round;
+                m.HomeTeamId = homeTeamId;
+                m.AwayTeamId = awayTeamId;
+                m.LeagueId = leagueId;
+                m.StadiumId = stadiumId;
+                m.Time = new TimeSpan(0, 0, 0);
+                m.State = "Confirmed";
+                m.GoalsA = 0;
+                m.GoalsH = 0;
+
+                db.Matches.Add(m);
+                db.SaveChanges();
+
+                AddUpdate(db, "addMatch", DateTime.Now, m.Id);
+
+
+                return m.Id;
             }
         }
 
@@ -820,6 +853,32 @@ namespace Bll
             db.Statistics.Attach(stat);
             var entry = db.Entry(stat);
             entry.Property(e => e.Number).IsModified = true;
+
+        }
+
+
+        public static void UpdateMatch(int matchId, DateTime date, TimeSpan time, short round, int stadiumId, short goalsh, short goalsa, string state)
+        {
+
+            using (var db = new FloorballEntities())
+            {
+                Match match = db.Matches.Where(m => m.Id == matchId).First();
+
+                match.Date = date;
+                match.Time = time;
+                match.Round = round;
+                match.StadiumId = stadiumId;
+                match.GoalsA = goalsa;
+                match.GoalsH = goalsh;
+                match.State = state;
+
+                db.Matches.Attach(match);
+                var entry = db.Entry(match);
+                entry.State = System.Data.Entity.EntityState.Modified;
+
+                db.SaveChanges();
+            }
+
 
         }
 

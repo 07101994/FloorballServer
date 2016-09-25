@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
-using System.Collections.Specialized;
 using FloorballServer.Models.Floorball;
 
 namespace FloorballServer.Live
@@ -17,9 +16,7 @@ namespace FloorballServer.Live
         public override Task OnConnected()
         {
 
-            NameValueCollection queryString = Context.Request.QueryString as NameValueCollection;
-
-            string[] clientCountries = queryString.Get("countries").Split(';');
+            string[] clientCountries = Context.Request.QueryString.Get("countries").Split(';');
 
             foreach (var country in clientCountries)
             {
@@ -36,9 +33,7 @@ namespace FloorballServer.Live
         public override Task OnDisconnected(bool stopCalled)
         {
 
-            NameValueCollection queryString = Context.Request.QueryString as NameValueCollection;
-
-            string[] clientCountries = queryString.Get("countries").Split(';');
+            string[] clientCountries = Context.Request.QueryString.Get("countries").Split(';');
 
             foreach (var country in clientCountries)
             {

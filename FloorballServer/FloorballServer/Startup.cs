@@ -20,8 +20,12 @@ namespace FloorballServer
             GlobalHost.HubPipeline.AddModule(new ErrorHandlingPipelineModule());
 
             var hubConfiguration = new HubConfiguration();
-            hubConfiguration.EnableDetailedErrors = true;
 
+#if DEBUG
+            hubConfiguration.EnableDetailedErrors = true;
+#else
+            hubConfiguration.EnableDetailedErrors = false;
+#endif
             app.MapSignalR(hubConfiguration);
             //var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             

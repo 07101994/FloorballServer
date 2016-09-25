@@ -34,5 +34,10 @@ namespace FloorballServer.Live
 
         }
 
+        public void UpdateMatchTime(int matchId, TimeSpan time, string country)
+        {
+            hub.Clients.Group(country).UpdateMatchTime(matchId, time);
+        }
+
     }
 }
