@@ -8,11 +8,11 @@ namespace Bll.UpdateFolder
 {
     public class UpdateData
     {
-        public UpdateType Type { get; set; }
+        public UpdateEnum Type { get; set; }
 
         public object Entity { get; set; }
 
-        public bool isAdding { get; set; }
+        public bool IsAdding { get; set; }
 
     }
 }

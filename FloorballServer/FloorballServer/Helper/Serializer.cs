@@ -20,39 +20,39 @@ namespace FloorballServer.Helper
 
             foreach (var u in updates)
             {
-                switch (u.name.ToEnum<UpdateType>())
+                switch (u.name.ToEnum<UpdateEnum>())
                 {
-                    case UpdateType.League:
+                    case UpdateEnum.League:
                         updateDataList.Add(GetLeague(u));
                         break;
-                    case UpdateType.Team:
+                    case UpdateEnum.Team:
                         updateDataList.Add(GetTeam(u));
                         break;
-                    case UpdateType.Match:
+                    case UpdateEnum.Match:
                         updateDataList.Add(GetMatch(u));
                         break;
-                    case UpdateType.Player:
+                    case UpdateEnum.Player:
                         updateDataList.Add(GetPlayer(u));
                         break;
-                    case UpdateType.Stadium:
+                    case UpdateEnum.Stadium:
                         updateDataList.Add(GetStadium(u));
                         break;
-                    case UpdateType.Referee:
+                    case UpdateEnum.Referee:
                         updateDataList.Add(GetReferee(u));
                         break;
-                    case UpdateType.Event:
+                    case UpdateEnum.Event:
                         updateDataList.Add(GetEvent(u));
                         break;
-                    case UpdateType.EventMessage:
+                    case UpdateEnum.EventMessage:
                         updateDataList.Add(GetEventMessage(u));
                         break;
-                    case UpdateType.PlayerToTeam:
+                    case UpdateEnum.PlayerTeam:
                         updateDataList.Add(GetPlayerToTeam(u));
                         break;
-                    case UpdateType.PlayerToMatch:
+                    case UpdateEnum.PlayerMatch:
                         updateDataList.Add(GetPlayerToMatch(u));
                         break;
-                    case UpdateType.RefereeToMatch:
+                    case UpdateEnum.RefereeMatch:
                         updateDataList.Add(GetRefereeToMatch(u));
                         break;
                     default:
@@ -77,18 +77,18 @@ namespace FloorballServer.Helper
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.RefereeToMatch,
+                    Type = UpdateEnum.RefereeMatch,
                     Entity = new { refereeId = u.data1, matchId = u.data2 },
-                    isAdding = true
+                    IsAdding = true
                 };
             }
             else
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.RefereeToMatch,
+                    Type = UpdateEnum.RefereeMatch,
                     Entity = new { refereeId = u.data1, matchId = u.data2 },
-                    isAdding = false
+                    IsAdding = false
                 };
             }
         }
@@ -99,18 +99,18 @@ namespace FloorballServer.Helper
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.PlayerToMatch,
+                    Type = UpdateEnum.PlayerMatch,
                     Entity = new { playerId = u.data1, matchId = u.data2 },
-                    isAdding = true
+                    IsAdding = true
                 };
             }
             else
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.PlayerToMatch,
+                    Type = UpdateEnum.PlayerMatch,
                     Entity = new { playerId = u.data1, matchId = u.data2 },
-                    isAdding = false
+                    IsAdding = false
                 };
             }
         }
@@ -121,18 +121,18 @@ namespace FloorballServer.Helper
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.PlayerToTeam,
+                    Type = UpdateEnum.PlayerTeam,
                     Entity = new { playerId = u.data1, teamId = u.data2 },
-                    isAdding = true
+                    IsAdding = true
                 };
             }
             else
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.PlayerToTeam,
+                    Type = UpdateEnum.PlayerTeam,
                     Entity = new { playerId = u.data1, teamId = u.data2 },
-                    isAdding = false
+                    IsAdding = false
                 };
             }
         }
@@ -143,18 +143,18 @@ namespace FloorballServer.Helper
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.EventMessage,
+                    Type = UpdateEnum.EventMessage,
                     Entity = ModelHelper.CreateEventMessageModel(DatabaseManager.GetEventMessageById(u.data1)),
-                    isAdding = true
+                    IsAdding = true
                 };
             }
             else
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.EventMessage,
+                    Type = UpdateEnum.EventMessage,
                     Entity = new { id = u.data1 },
-                    isAdding = false
+                    IsAdding = false
                 };
             }
         }
@@ -165,18 +165,18 @@ namespace FloorballServer.Helper
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.Event,
+                    Type = UpdateEnum.Event,
                     Entity = ModelHelper.CreateEventModel(DatabaseManager.GetEventById(u.data1)),
-                    isAdding = true
+                    IsAdding = true
                 };
             }
             else
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.Event,
+                    Type = UpdateEnum.Event,
                     Entity = new { id = u.data1 },
-                    isAdding = false
+                    IsAdding = false
                 };
             }
         }
@@ -187,18 +187,18 @@ namespace FloorballServer.Helper
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.Referee,
+                    Type = UpdateEnum.Referee,
                     Entity = ModelHelper.CreateRefereeModel(DatabaseManager.GetRefereeById(u.data1)),
-                    isAdding = true
+                    IsAdding = true
                 };
             }
             else
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.Referee,
+                    Type = UpdateEnum.Referee,
                     Entity = new { id = u.data1 },
-                    isAdding = false
+                    IsAdding = false
                 };
             }
         }
@@ -209,18 +209,18 @@ namespace FloorballServer.Helper
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.Stadium,
+                    Type = UpdateEnum.Stadium,
                     Entity = ModelHelper.CreateStadiumModel(DatabaseManager.GetStadiumById(u.data1)),
-                    isAdding = true
+                    IsAdding = true
                 };
             }
             else
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.Stadium,
+                    Type = UpdateEnum.Stadium,
                     Entity = new { id = u.data1 },
-                    isAdding = false
+                    IsAdding = false
                 };
             }
         }
@@ -231,18 +231,18 @@ namespace FloorballServer.Helper
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.Player,
+                    Type = UpdateEnum.Player,
                     Entity = ModelHelper.CreatePlayerModel(DatabaseManager.GetPlayerById(u.data1)),
-                    isAdding = true
+                    IsAdding = true
                 };
             }
             else
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.Player,
+                    Type = UpdateEnum.Player,
                     Entity = new { id = u.data1 },
-                    isAdding = false
+                    IsAdding = false
                 };
             }
         }
@@ -253,18 +253,18 @@ namespace FloorballServer.Helper
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.Match,
+                    Type = UpdateEnum.Match,
                     Entity = ModelHelper.CreateMatchModel(DatabaseManager.GetMatchById(u.data1)),
-                    isAdding = true
+                    IsAdding = true
                 };
             }
             else
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.Match,
+                    Type = UpdateEnum.Match,
                     Entity = new { id = u.data1 },
-                    isAdding = false
+                    IsAdding = false
                 };
             }
         }
@@ -275,18 +275,18 @@ namespace FloorballServer.Helper
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.Team,
+                    Type = UpdateEnum.Team,
                     Entity = ModelHelper.CreateTeamModel(DatabaseManager.GetTeamById(u.data1)),
-                    isAdding = true
+                    IsAdding = true
                 };
             }
             else
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.Team,
+                    Type = UpdateEnum.Team,
                     Entity = new { id = u.data1 },
-                    isAdding = false
+                    IsAdding = false
                 };
             }
         }
@@ -297,18 +297,18 @@ namespace FloorballServer.Helper
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.League,
+                    Type = UpdateEnum.League,
                     Entity = ModelHelper.CreateLeagueModel(DatabaseManager.GetLeagueById(u.data1)),
-                    isAdding = true
+                    IsAdding = true
                 }; 
             }
             else
             {
                 return new UpdateData
                 {
-                    Type = UpdateType.League,
+                    Type = UpdateEnum.League,
                     Entity = new { id = u.data1},
-                    isAdding = false
+                    IsAdding = false
                 };
             }
         } 

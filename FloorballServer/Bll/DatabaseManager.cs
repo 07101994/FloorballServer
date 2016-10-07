@@ -400,12 +400,12 @@ namespace Bll
                 l.Type = type;
                 l.ClassName = classname;
                 l.Rounds = rounds;
-                l.Country = country.ToFriendlyString();
+                l.Country = country.ToCountryString();
 
                 db.Leagues.Add(l);
                 db.SaveChanges();
 
-                AddUpdate(db, "addLeague", DateTime.Now, l.Id);
+                AddUpdate(db, UpdateEnum.League.ToUpdateString(), DateTime.Now, true, l.Id);
 
                 return l.Id;
             }
@@ -423,7 +423,7 @@ namespace Bll
                 db.Stadiums.Add(s);
                 db.SaveChanges();
 
-                AddUpdate(db, "addStadium", DateTime.Now, s.Id);
+                AddUpdate(db, UpdateEnum.Stadium.ToUpdateString(), DateTime.Now, true, s.Id);
 
 
                 return s.Id;
@@ -445,7 +445,7 @@ namespace Bll
                 t.LeagueId = leagueId;
                 t.Sex = sex;
                 t.Standing = (short)(db.Leagues.Include("Teams").Where(l => l.Id == leagueId).First().Teams.Count + 1);
-                t.Country = country.ToFriendlyString();
+                t.Country = country.ToCountryString();
 
                 db.Teams.Add(t);
 
@@ -474,7 +474,7 @@ namespace Bll
 
                 db.SaveChanges();
 
-                AddUpdate(db, "addTeam", DateTime.Now, t.Id);
+                AddUpdate(db, UpdateEnum.Team.ToUpdateString(), DateTime.Now, true, t.Id);
 
 
                 return t.Id;
@@ -493,7 +493,7 @@ namespace Bll
                 db.Referees.Add(r);
                 db.SaveChanges();
 
-                AddUpdate(db, "addReferee", DateTime.Now, r.Id);
+                AddUpdate(db, UpdateEnum.Referee.ToUpdateString(), DateTime.Now, true, r.Id);
 
 
                 return r.Id;
@@ -519,7 +519,7 @@ namespace Bll
                 db.Matches.Add(m);
                 db.SaveChanges();
 
-                AddUpdate(db, "addMatch", DateTime.Now, m.Id);
+                AddUpdate(db, UpdateEnum.Match.ToUpdateString(), DateTime.Now, true, m.Id);
 
 
                 return m.Id;
@@ -540,7 +540,7 @@ namespace Bll
                 db.Players.Add(p);
                 db.SaveChanges();
 
-                AddUpdate(db, "addPlayer", DateTime.Now, p.RegNum);
+                AddUpdate(db, UpdateEnum.Player.ToUpdateString(), DateTime.Now, true, p.RegNum);
 
                 return p.RegNum;
             }
@@ -562,7 +562,7 @@ namespace Bll
                 AddStatisticsForPlayerInTeam(player, team, db);
                 db.SaveChanges();
 
-                AddUpdate(db, "playerToTeam", DateTime.Now, player.RegNum, team.Id);
+                AddUpdate(db, UpdateEnum.PlayerTeam.ToUpdateString(), DateTime.Now, true, player.RegNum, team.Id);
 
             }
         }
@@ -586,7 +586,7 @@ namespace Bll
                 match.Players.Add(player);
                 db.SaveChanges();
 
-                AddUpdate(db, "playerToMacth", DateTime.Now, player.RegNum, match.Id);
+                AddUpdate(db, UpdateEnum.PlayerMatch.ToUpdateString(), DateTime.Now, true,  player.RegNum, match.Id);
 
             }
         }
@@ -620,7 +620,7 @@ namespace Bll
                 match.Referees.Add(referee);
                 db.SaveChanges();
 
-                AddUpdate(db, "addRefereeToMatch", DateTime.Now, refereeId, matchId);
+                AddUpdate(db, UpdateEnum.RefereeMatch.ToUpdateString(), DateTime.Now, true, refereeId, matchId);
             }
         }
 
@@ -646,14 +646,14 @@ namespace Bll
 
                 db.SaveChanges();
 
-                AddUpdate(db, "addEvent", DateTime.Now, e.Id);
+                AddUpdate(db, UpdateEnum.Event.ToUpdateString(), DateTime.Now, true, e.Id);
 
 
                 return e.Id;
             }
         }
 
-        private static void AddUpdate(FloorballEntities db, string name, DateTime date, int data1, int data2 = -1)
+        private static void AddUpdate(FloorballEntities db, string name, DateTime date, bool isAdding, int data1, int data2 = -1)
         {
 
             Update u = new Update();
@@ -661,6 +661,7 @@ namespace Bll
             u.date = date;
             u.data1 = data1;
             u.data2 = data2;
+            u.isAdding = isAdding;
 
             db.Updates.Add(u);
 
@@ -713,7 +714,7 @@ namespace Bll
 
                 db.SaveChanges();
 
-                AddUpdate(db, "removePlayerFromTeam", DateTime.Now, playerId, teamId);
+                AddUpdate(db, UpdateEnum.PlayerTeam.ToUpdateString(), DateTime.Now, false, playerId, teamId);
 
 
             }
@@ -744,7 +745,7 @@ namespace Bll
 
                 db.SaveChanges();
 
-                AddUpdate(db, "removePlayerFromMatch", DateTime.Now, playerId, matchId);
+                AddUpdate(db, UpdateEnum.PlayerMatch.ToUpdateString(), DateTime.Now, false, playerId, matchId);
 
 
             }
@@ -796,13 +797,13 @@ namespace Bll
 
                     db.Events.Remove(e1);
 
-                    AddUpdate(db, "removeEvent", DateTime.Now, e1.Id);
+                    AddUpdate(db, UpdateEnum.Event.ToUpdateString(), DateTime.Now, false, e1.Id);
                 }
 
 
                 db.Events.Remove(e);
 
-                AddUpdate(db, "removeEvent", DateTime.Now, e.Id);
+                AddUpdate(db, UpdateEnum.Event.ToUpdateString(), DateTime.Now, false, e.Id);
 
                 db.SaveChanges();
             }
@@ -826,7 +827,7 @@ namespace Bll
 
                 db.SaveChanges();
 
-                AddUpdate(db, "removeRefereeFromMatch", DateTime.Now, refereeId, matchId);
+                AddUpdate(db, UpdateEnum.RefereeMatch.ToUpdateString(), DateTime.Now, false, refereeId, matchId);
 
             }
         }

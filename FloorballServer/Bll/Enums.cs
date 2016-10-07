@@ -13,9 +13,9 @@ namespace Bll
     }
 
 
-    public static class CountriesEnumExtensions
+    public static class EnumExtensions
     {
-        public static string ToFriendlyString(this CountriesEnum country)
+        public static string ToCountryString(this CountriesEnum country)
         {
             switch (country)
             {
@@ -34,15 +34,46 @@ namespace Bll
             }
         }
 
+        public static string ToUpdateString(this UpdateEnum country)
+        {
+            switch (country)
+            {
+                case UpdateEnum.League:
+                    return "League";
+                case UpdateEnum.Team:
+                    return "Team";
+                case UpdateEnum.Match:
+                    return "Match";
+                case UpdateEnum.Player:
+                    return "Player";
+                case UpdateEnum.Stadium:
+                    return "Stadium";
+                case UpdateEnum.Referee:
+                    return "Referee";
+                case UpdateEnum.Event:
+                    return "Event";
+                case UpdateEnum.EventMessage:
+                    return "EventMessage";
+                case UpdateEnum.PlayerTeam:
+                    return "PlayerTeam";
+                case UpdateEnum.PlayerMatch:
+                    return "PlayerMatch";
+                case UpdateEnum.RefereeMatch:
+                    return "RefereeMatch";
+                default:
+                    return "League";
+            }
+        }
+
         public static T ToEnum<T>(this string value)
         {
             return (T)Enum.Parse(typeof(T), value, true);
         }
     }
 
-    public enum UpdateType
+    public enum UpdateEnum
     {
         League, Team, Match, Player, Stadium, Referee, Event, EventMessage,
-        PlayerToTeam, PlayerToMatch, RefereeToMatch
+        PlayerTeam, PlayerMatch, RefereeMatch
     }
 }

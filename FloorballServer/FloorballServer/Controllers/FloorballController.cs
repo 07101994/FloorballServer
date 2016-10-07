@@ -773,7 +773,7 @@ namespace FloorballServer.Controllers
             int id = DatabaseManager.AddEvent(e.MatchId, e.Type, e.Time/* TimeSpan.ParseExact(e.Time, "h\\h\\:m\\m\\:s\\s", CultureInfo.InvariantCulture)*/, e.PlayerId, e.EventMessageId, e.TeamId);
 
             Communicator comm = new Communicator();
-            comm.AddEventToMatch(e, DatabaseManager.GetCountryByEvent(e.Id).ToFriendlyString()); 
+            comm.AddEventToMatch(e, DatabaseManager.GetCountryByEvent(e.Id).ToCountryString()); 
 
             return Request.CreateResponse(HttpStatusCode.OK,id);
         }
