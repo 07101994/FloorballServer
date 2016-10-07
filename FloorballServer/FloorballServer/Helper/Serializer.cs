@@ -61,14 +61,16 @@ namespace FloorballServer.Helper
 
             }
 
-            json = JsonConvert.SerializeObject(updateDataList, Formatting.Indented, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All,
-                TypeNameAssemblyFormat = FormatterAssemblyStyle.Simple
-            });
+            //json = JsonConvert.SerializeObject(updateDataList, Formatting.Indented, new JsonSerializerSettings
+            //{
+            //    TypeNameHandling = TypeNameHandling.All,
+            //    TypeNameAssemblyFormat = FormatterAssemblyStyle.Simple
+            //});
 
+            json = JsonConvert.SerializeObject(updateDataList, Formatting.Indented);
 
             return json;
+            //return json;
         }
 
         private static UpdateData GetRefereeToMatch(Update u)

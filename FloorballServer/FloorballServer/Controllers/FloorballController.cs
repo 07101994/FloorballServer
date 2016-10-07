@@ -1,4 +1,5 @@
 ﻿using Bll;
+using Bll.UpdateFolder;
 using FloorballServer.Helper;
 using FloorballServer.Live;
 using FloorballServer.Models.Floorball;
@@ -22,6 +23,7 @@ namespace FloorballServer.Controllers
         #region GET
 
         //GET api/floorball/updates?date={date}
+        //[Route("api/floorball/updates")]
         [HttpGet]
         public HttpResponseMessage Updates(DateTime date)
         {
