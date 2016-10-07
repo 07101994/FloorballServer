@@ -149,7 +149,7 @@ namespace Bll
             using (var db = new FloorballEntities())
             {
                 DateTime threshold = DateTime.Now.AddDays(3);
-                
+
                 return db.Matches.Where(m => m.Date < threshold && m.Date >= DateTime.Now).ToList();
             }
         }
@@ -228,7 +228,7 @@ namespace Bll
                 {
                     foreach (var match in player.Matches)
                     {
-                        list.Add(new List<int> { player.RegNum, match.Id});
+                        list.Add(new List<int> { player.RegNum, match.Id });
 
                     }
 
@@ -266,7 +266,7 @@ namespace Bll
                 {
                     foreach (var match in referee.Matches)
                     {
-                        list.Add(new List <int> { referee.Id, match.Id });
+                        list.Add(new List<int> { referee.Id, match.Id });
 
                     }
 
@@ -655,7 +655,7 @@ namespace Bll
 
         private static void AddUpdate(FloorballEntities db, string name, DateTime date, int data1, int data2 = -1)
         {
-            
+
             Update u = new Update();
             u.name = name;
             u.date = date;
@@ -664,27 +664,27 @@ namespace Bll
 
             db.Updates.Add(u);
 
-            
-                try
-                {
-                    db.SaveChanges();
 
-                }
-                catch (DbEntityValidationException e)
+            try
+            {
+                db.SaveChanges();
+
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
                 {
-                    foreach (var eve in e.EntityValidationErrors)
+                    System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
                     {
-                        System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Debug.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
-                ve.PropertyName,
-                eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                ve.ErrorMessage);
-                        }
+                        Debug.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                                        ve.PropertyName,
+                                        eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                                        ve.ErrorMessage);
                     }
                 }
+            }
 
         }
 
@@ -710,7 +710,7 @@ namespace Bll
 
                 //db.Teams.Attach(team);
                 //db.Entry(team).Collection(e => e.Players). = true;
-                
+
                 db.SaveChanges();
 
                 AddUpdate(db, "removePlayerFromTeam", DateTime.Now, playerId, teamId);
@@ -883,6 +883,6 @@ namespace Bll
         }
 
         #endregion
-        
+
     }
 }

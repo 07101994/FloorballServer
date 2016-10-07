@@ -12,6 +12,7 @@ namespace Bll
         Confirmed, Playing, Ended
     }
 
+
     public static class CountriesEnumExtensions
     {
         public static string ToFriendlyString(this CountriesEnum country)
@@ -37,5 +38,11 @@ namespace Bll
         {
             return (T)Enum.Parse(typeof(T), value, true);
         }
+    }
+
+    public enum UpdateType
+    {
+        League, Team, Match, Player, Stadium, Referee, Event, EventMessage,
+        PlayerToTeam, PlayerToMatch, RefereeToMatch
     }
 }

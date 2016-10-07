@@ -16,8 +16,9 @@ namespace Bll
     {
         public int id { get; set; }
         public string name { get; set; }
-        public System.DateTime date { get; set; }
+        public DateTime date { get; set; }
         public int data1 { get; set; }
         public int data2 { get; set; }
+        public bool isAdding { get; set; }
     }
 }

@@ -231,6 +231,7 @@
     <Compile Include="Helper\ModelHelper.cs" />
     <Compile Include="Helper\NewtonsoftJsonSerializer.cs" />
     <Compile Include="Helper\Serializer.cs" />
+    <Compile Include="Helper\UpdateData.cs" />
     <Compile Include="Live\Communicator.cs" />
     <Compile Include="Live\ErrorHandlingPipelineModule.cs" />
     <Compile Include="Live\FloorballHub.cs" />
