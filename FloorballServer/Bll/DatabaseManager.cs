@@ -10,7 +10,7 @@ namespace Bll
 {
     public class DatabaseManager
     {
-
+        
         #region GET
 
         public static List<DateTime> GetAllYear()
@@ -364,7 +364,7 @@ namespace Bll
         {
             using (var db = new FloorballEntities())
             {
-                return db.Updates.Where(u => u.date > date).ToList();
+                return db.Updates.Where(u => DateTime.Compare(u.date,date) > 0).ToList();
             }
         }
 

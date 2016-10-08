@@ -27,10 +27,11 @@ namespace FloorballServer.Controllers
         [HttpGet]
         public HttpResponseMessage Updates(DateTime date)
         {
-
             List<Update> updates = DatabaseManager.GetUpdatesAfterDate(date);
 
             string json = Serializer.SerializeUpdates(updates);
+
+            //List<UpdateData> u = JsonConvert.DeserializeObject<List<UpdateData>>(json);
 
             return Request.CreateResponse(HttpStatusCode.OK,json);
         }
@@ -207,6 +208,7 @@ namespace FloorballServer.Controllers
         /// </summary>
         /// <returns></returns>
         //GET api/floorball/matches/
+        [Route("api/floorball/matches")]
         [HttpGet]
         public HttpResponseMessage Matches()
         {
@@ -771,11 +773,11 @@ namespace FloorballServer.Controllers
             //HttpContent requestContent = Request.Content;
             //string jsonContent = requestContent.ReadAsStringAsync().Result;
             //EventModel model = JsonConvert.DeserializeObject<EventModel>(jsonContent);
-
+            
             int id = DatabaseManager.AddEvent(e.MatchId, e.Type, e.Time/* TimeSpan.ParseExact(e.Time, "h\\h\\:m\\m\\:s\\s", CultureInfo.InvariantCulture)*/, e.PlayerId, e.EventMessageId, e.TeamId);
 
             Communicator comm = new Communicator();
-            comm.AddEventToMatch(e, DatabaseManager.GetCountryByEvent(e.Id).ToCountryString()); 
+            comm.AddEventToMatch(e, DatabaseManager.GetCountryByEvent(id).ToCountryString()); 
 
             return Request.CreateResponse(HttpStatusCode.OK,id);
         }
