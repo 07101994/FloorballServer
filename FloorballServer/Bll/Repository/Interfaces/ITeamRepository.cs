@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Bll.Repository.Interfaces
+{
+    public interface ITeamRepository : IDisposable
+    {
+
+        #region READ
+
+        Team GetTeamById(int id);
+
+        IEnumerable<Team> GetTeamsByLeague(int leagueId);
+
+        IEnumerable<Team> GetTeamsByYear(DateTime year);
+
+        IEnumerable<Team> GetAllTeam();
+
+        #endregion
+
+        #region CREATE
+
+        int AddPlayer(Player player);
+
+        #endregion
+
+        
+
+
+    }
+}
