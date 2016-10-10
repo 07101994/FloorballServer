@@ -17,6 +17,10 @@ namespace Bll.Repository.Interfaces
 
         IEnumerable<League> GetAllLeague();
 
+        int GetNumberOfRoundsInLeague(int id);
+
+        IEnumerable<int> GetAllYear();
+
         #endregion
 
         #region CREATE

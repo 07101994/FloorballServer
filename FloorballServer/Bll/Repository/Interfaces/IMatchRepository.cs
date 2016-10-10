@@ -13,9 +13,7 @@ namespace Bll.Repository.Interfaces
 
         Match GetMatchById(int id);
 
-        Match GetMatchesByLeague(int leagueId);
-
-        Match GetMatchesByYear(DateTime year);
+        IEnumerable<Match> GetMatchesByLeague(int leagueId);
 
         IEnumerable<Match> GetAllMatch();
 

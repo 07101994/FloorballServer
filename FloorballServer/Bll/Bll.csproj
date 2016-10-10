@@ -91,19 +91,27 @@
     <Compile Include="Referee.cs">
       <DependentUpon>FloorballModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\Implementations\EventMessageRepository.cs" />
     <Compile Include="Repository\Implementations\EventRepository.cs" />
     <Compile Include="Repository\Implementations\LeagueRepository.cs" />
     <Compile Include="Repository\Implementations\PlayerRepository.cs" />
     <Compile Include="Repository\Implementations\RefereeRepository.cs" />
+    <Compile Include="Repository\Implementations\Repository.cs" />
+    <Compile Include="Repository\Implementations\StadiumRepository.cs" />
+    <Compile Include="Repository\Implementations\StatisticRepository.cs" />
     <Compile Include="Repository\Implementations\TeamRepository.cs" />
+    <Compile Include="Repository\Interfaces\IEventMessageRepository.cs" />
     <Compile Include="Repository\Interfaces\IEventRepository.cs" />
     <Compile Include="Repository\Interfaces\ILeagueRepository.cs" />
     <Compile Include="Repository\Interfaces\IMatchRepository.cs" />
     <Compile Include="Repository\Interfaces\IPlayerRepository.cs" />
     <Compile Include="Repository\Interfaces\IRefereeRepository.cs" />
     <Compile Include="Repository\Interfaces\IRepository.cs" />
+    <Compile Include="Repository\Interfaces\IStadiumRepository.cs" />
+    <Compile Include="Repository\Interfaces\IStatisticRepository.cs" />
     <Compile Include="Repository\Interfaces\ITeamRepository.cs" />
     <Compile Include="Repository\Implementations\MatchRepository.cs" />
+    <Compile Include="Repository\IUnitOfWork.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
     <Compile Include="Stadium.cs">
       <DependentUpon>FloorballModel.tt</DependentUpon>

@@ -23,7 +23,7 @@ namespace Bll.Repository.Interfaces
 
         #region CREATE
 
-        int AddPlayer(Player player);
+        int AddTeam(Team team);
 
         #endregion
 

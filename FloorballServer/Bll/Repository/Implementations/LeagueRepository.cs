@@ -8,65 +8,50 @@ using System.Threading.Tasks;
 
 namespace Bll.Repository.Implementations
 {
-    public class LeagueRepository : ILeagueRepository
+    public class LeagueRepository : Repository, ILeagueRepository
     {
-
-        [Inject]
-        public FloorballEntities ctx { get; set; }
 
         public int AddLeague(League league)
         {
-            throw new NotImplementedException();
+            
+            ctx.Leagues.Add(league);
+            ctx.SaveChanges();
+
+            AddUpdate(new Update
+            {
+                name = UpdateEnum.League.ToUpdateString(),
+                isAdding = true,
+                date = DateTime.Now,
+                data1 = league.Id
+            });
+
+            return league.Id;
         }
 
         public IEnumerable<League> GetAllLeague()
         {
-            throw new NotImplementedException();
+            return ctx.Leagues;
         }
 
         public League GetLeagueById(int id)
         {
-            throw new NotImplementedException();
+            return ctx.Leagues.Where(l => l.Id == id).FirstOrDefault();
+        }
+
+        public IEnumerable<int> GetAllYear()
+        {
+            return ctx.Leagues.Select(l => l.Year.Year).Distinct().OrderBy(t => t);
         }
 
         public IEnumerable<League> GetLeaguesByYear(DateTime year)
         {
-            throw new NotImplementedException();
+            return ctx.Leagues.Where(l => l.Year == year);
         }
 
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose(bool disposing)
+        public int GetNumberOfRoundsInLeague(int id)
         {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // TODO: dispose managed state (managed objects).
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
-                disposedValue = true;
-            }
+            return ctx.Leagues.Find(id).Rounds;
         }
 
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~LeagueRepository() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
-
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
-        }
-        #endregion
     }
 }

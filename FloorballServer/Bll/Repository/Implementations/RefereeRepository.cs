@@ -16,32 +16,64 @@ namespace Bll.Repository.Implementations
 
         public int AddReferee(Referee referee)
         {
-            throw new NotImplementedException();
+            ctx.Referees.Add(referee);
+            ctx.SaveChanges();
+
+            AddUpdate(ctx, UpdateEnum.Referee.ToUpdateString(), DateTime.Now, true, referee.Id);
+
+            return referee.Id;
         }
 
         public void AddRefereeToMatch(int refereeId, int matchId)
         {
-            throw new NotImplementedException();
+            var referee = ctx.Referees.Find(refereeId);
+            var match = ctx.Matches.Find(matchId);
+
+            match.Referees.Add(referee);
+            ctx.SaveChanges();
+
+            AddUpdate(ctx, UpdateEnum.RefereeMatch.ToUpdateString(), DateTime.Now, true, refereeId, matchId);
         }
 
         public IEnumerable<Referee> GetAllReferee()
         {
-            throw new NotImplementedException();
+                return ctx.Referees;
         }
 
-        public Referee GetrefereeById(int id)
+        public Referee GetRefereeById(int id)
         {
-            throw new NotImplementedException();
+            return ctx.Referees.Find(id);
+        }
+
+        public Dictionary<int, List<int>> GetAllRefereeAndMatchId()
+        {
+            Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
+            ctx.Matches.Include("Referees").ToList().ForEach(m => dict.Add(m.Id, m.Referees.Select(r => r.Id).ToList()));
+            return dict;
         }
 
         public IEnumerable<Referee> GetRefereesByMatch(int matchId)
         {
-            throw new NotImplementedException();
+                return ctx.Matches.Include("Referees").Where(m => m.Id == matchId).First().Referees;
         }
 
         public void RemoveRefereeFromMatch(int refereeId, int matchId)
         {
-            throw new NotImplementedException();
+            var referee = ctx.Referees.Find(refereeId);
+            var match = ctx.Matches.Find(matchId);
+
+            if (!(referee.Matches.Contains(match)))
+                throw new Exception("Referee cannot be removed from match!");
+
+
+            match.Referees.Remove(referee);
+
+            ctx.Matches.Attach(match);
+            ctx.Entry(match).Property(e => e.Referees).IsModified = true;
+
+            ctx.SaveChanges();
+
+            AddUpdate(ctx, UpdateEnum.RefereeMatch.ToUpdateString(), DateTime.Now, false, refereeId, matchId);
         }
 
         #region IDisposable Support
@@ -77,6 +109,8 @@ namespace Bll.Repository.Implementations
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
+       
         #endregion
     }
 }

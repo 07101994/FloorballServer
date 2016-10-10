@@ -17,6 +17,8 @@ namespace Bll.Repository.Interfaces
 
         IEnumerable<Event> GetAllEvent();
 
+        CountriesEnum GetCountryByEvent(int id);
+
         #endregion
 
         #region CREATE

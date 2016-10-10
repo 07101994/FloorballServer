@@ -21,6 +21,10 @@ namespace Bll.Repository.Interfaces
 
         IEnumerable<Player> GetAllPlayer();
 
+        Dictionary<int, List<int>> GetAllPlayerAndMatchId();
+
+        Dictionary<int, List<int>> GetAllPlayerAndTeamId();
+
         #endregion
 
         #region CREATE

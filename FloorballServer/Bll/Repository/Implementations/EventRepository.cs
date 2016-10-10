@@ -8,70 +8,107 @@ using System.Threading.Tasks;
 
 namespace Bll.Repository.Implementations
 {
-    public class EventRepository : IEventRepository
+    public class EventRepository : Repository, IEventRepository
     {
-        [Inject]
-        public FloorballEntities ctx { get; set; }
 
         public int AddEvent(Event ev)
         {
-            throw new NotImplementedException();
+
+            ctx.Events.Add(ev);
+
+            if (ev.PlayerRegNum != -1 && ev.Type != "I" && ev.Type != "B")
+            {
+                ChangeStatisticFromPlayer(ev.PlayerRegNum, ev.TeamId, ev.Type, ctx, "increase");
+            }
+
+            ctx.SaveChanges();
+
+            AddUpdate(new Update
+            {
+                name = UpdateEnum.Event.ToUpdateString(),
+                date = DateTime.Now,
+                isAdding = true,
+                data1 = ev.Id
+            });
+
+
+            return ev.Id;
         }
 
         public IEnumerable<Event> GetAllEvent()
         {
-            throw new NotImplementedException();
+            return ctx.Events;
         }
 
         public Event GetEventById(int id)
         {
-            throw new NotImplementedException();
+            return ctx.Events.Include("EventMessage").Include("Player").Where(e => e.Id == id).FirstOrDefault();
+        }
+
+        public CountriesEnum GetCountryByEvent(int id)
+        {
+            return ctx.Events.Include("Match.League").Where(e => e.Id == id).First().Match.League.Country.ToEnum<CountriesEnum>();
         }
 
         public IEnumerable<Event> GetEventsByMatch(int matchId)
         {
-            throw new NotImplementedException();
+            return ctx.Matches.Include("Events").Include("Events.Player").Include("Events.Eventmessage").Where(m => m.Id == matchId).First().Events.OrderByDescending(e => e.Time);
         }
 
         public void RemoveEvent(int id)
         {
-            throw new NotImplementedException();
-        }
+            var e = ctx.Events.Include("Match.HomeTeam.Players").Include("Match.AwayTeam.Players").Where(ev => ev.Id == id).FirstOrDefault();
 
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
+            if (e != null && e.Type == "G")
             {
-                if (disposing)
+                int t;
+
+                if (e.Match.HomeTeam.Players.Contains(e.Player))
                 {
-                    // TODO: dispose managed state (managed objects).
+                    t = e.Match.HomeTeamId;
+                }
+                else
+                {
+                    t = e.Match.AwayTeamId;
                 }
 
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
+                ChangeStatisticFromPlayer(e.PlayerRegNum, t, e.Type, ctx, "reduce");
 
-                disposedValue = true;
+                var e1 = ctx.Events.Include("Match.HomeTeam").Include("Match.AwayTeam").Where(ev => ev.MatchId == e.MatchId && ev.Time == e.Time && ev.Type == "A").FirstOrDefault();
+
+                if (e1 != null && e1.Match.HomeTeam.Players.Contains(e1.Player))
+                {
+                    t = e1.Match.HomeTeamId;
+                }
+                else
+                {
+                    t = e1.Match.AwayTeamId;
+                }
+
+                ctx.Events.Remove(e1);
+
+                AddUpdate(new Update
+                {
+                    name = UpdateEnum.Event.ToUpdateString(),
+                    isAdding = false,
+                    date = DateTime.Now,
+                    data1 = e1.Id
+                });
             }
-        }
 
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~EventRepository() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
 
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
+            ctx.Events.Remove(e);
+
+            AddUpdate(new Update
+            {
+                name = UpdateEnum.Event.ToUpdateString(),
+                isAdding = false,
+                date = DateTime.Now,
+                data1 = e.Id
+            });
+
+            ctx.SaveChanges();
         }
-        #endregion
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Bll;
+using Bll.Repository;
 using Bll.UpdateFolder;
 using FloorballServer.Helper;
 using FloorballServer.Live;
@@ -20,6 +21,15 @@ namespace FloorballServer.Controllers
     public class FloorballController : ApiController
     {
 
+        private IUnitOfWork UoW;
+
+        public FloorballController(IUnitOfWork UoW)
+        {
+            this.UoW = UoW;
+        }
+        
+
+
         #region GET
 
         //GET api/floorball/updates?date={date}
@@ -27,9 +37,11 @@ namespace FloorballServer.Controllers
         [HttpGet]
         public HttpResponseMessage Updates(DateTime date)
         {
-            List<Update> updates = DatabaseManager.GetUpdatesAfterDate(date);
+            List<Update> updates = UoW.Repository.GetUpdatesAfterDate(date).ToList();
 
-            string json = Serializer.SerializeUpdates(updates);
+
+            Serializer serializer = new Serializer(new UnitOfWork(null));
+            string json = serializer.SerializeUpdates(updates);
 
             //List<UpdateData> u = JsonConvert.DeserializeObject<List<UpdateData>>(json);
 
@@ -45,7 +57,7 @@ namespace FloorballServer.Controllers
         public HttpResponseMessage Years()
         {
 
-            List<int> years = DatabaseManager.GetAllYear().Select(d => d.Year).ToList();
+            List<int> years = UoW.LeagueRepository.GetAllYear().ToList();
             
             return Request.CreateResponse(HttpStatusCode.OK,years);
         }
@@ -60,11 +72,7 @@ namespace FloorballServer.Controllers
         {
             List<LeagueModel> list = new List<LeagueModel>();
 
-            foreach (var l in DatabaseManager.GetAllLeague())
-            {
-                LeagueModel model = ModelHelper.CreateLeagueModel(l);
-                list.Add(model);
-            }
+            UoW.LeagueRepository.GetAllLeague().ToList().ForEach(l => list.Add(ModelHelper.CreateLeagueModel(l)));
 
             return Request.CreateResponse(HttpStatusCode.OK, list);
         }
@@ -79,11 +87,8 @@ namespace FloorballServer.Controllers
         {
             List<LeagueModel> list = new List<LeagueModel>();
 
-            foreach (var l in DatabaseManager.GetLeaguesByYear(DateTime.ParseExact(year, "yyyy", CultureInfo.InvariantCulture)))
-            {
-                LeagueModel model = ModelHelper.CreateLeagueModel(l);
-                list.Add(model);
-            }
+            DateTime d = DateTime.ParseExact(year, "yyyy", CultureInfo.InvariantCulture);
+            UoW.LeagueRepository.GetLeaguesByYear(d).ToList().ForEach( l => list.Add(ModelHelper.CreateLeagueModel(l)));
 
             return Request.CreateResponse(HttpStatusCode.OK, list);
         }
@@ -101,11 +106,7 @@ namespace FloorballServer.Controllers
 
             List<MatchModel> matches = new List<MatchModel>();
 
-            foreach (var m in DatabaseManager.GetMatchesByLeague(id))
-            {
-                matches.Add(ModelHelper.CreateMatchModel(m));
-            }
-
+            UoW.MatchRepository.GetMatchesByLeague(id).ToList().ForEach(m => matches.Add(ModelHelper.CreateMatchModel(m)));
 
             return Request.CreateResponse(HttpStatusCode.OK, matches);
         }
@@ -123,11 +124,7 @@ namespace FloorballServer.Controllers
 
             List<MatchModel> matches = new List<MatchModel>();
 
-            foreach (var m in DatabaseManager.GetMatchesByReferee(id))
-            {
-                matches.Add(ModelHelper.CreateMatchModel(m));
-            }
-
+            UoW.MatchRepository.GetMatchesByReferee(id).ToList().ForEach(m => matches.Add(ModelHelper.CreateMatchModel(m)));
 
             return Request.CreateResponse(HttpStatusCode.OK, matches);
         }
@@ -145,11 +142,7 @@ namespace FloorballServer.Controllers
 
             List<StatisticModel> statistics = new List<StatisticModel>();
 
-            foreach (var s in DatabaseManager.GetStatisticsByleague(id))
-            {
-                statistics.Add(ModelHelper.CreateStatisticsModel(s));
-            }
-            
+            UoW.StatisticRepository.GetStatisticsByLeague(id).ToList().ForEach(s => statistics.Add(ModelHelper.CreateStatisticsModel(s)));
             return Request.CreateResponse(HttpStatusCode.OK, statistics);
         }
          
@@ -166,11 +159,7 @@ namespace FloorballServer.Controllers
 
             List<EventMessageModel> eventMessages = new List<EventMessageModel>();
 
-            foreach (var e in DatabaseManager.GetEventMessagesByCategory(categoryNumber))
-            {
-                eventMessages.Add(ModelHelper.CreateEventMessageModel(e));
-            }
-
+            UoW.EventMessageRepository.GetEventMessagesByCategory(categoryNumber).ToList().ForEach( e => eventMessages.Add(ModelHelper.CreateEventMessageModel(e)));
 
             return Request.CreateResponse(HttpStatusCode.OK, eventMessages);
         }
@@ -185,7 +174,7 @@ namespace FloorballServer.Controllers
         public HttpResponseMessage EventMessages(int id)
         {
 
-            EventMessageModel eventMessages = ModelHelper.CreateEventMessageModel(DatabaseManager.GetEventMessageById(id));
+            EventMessageModel eventMessages = ModelHelper.CreateEventMessageModel(UoW.EventMessageRepository.GetEventMessageById(id));
 
             return Request.CreateResponse(HttpStatusCode.OK, eventMessages);
         }
@@ -200,7 +189,7 @@ namespace FloorballServer.Controllers
         [HttpGet]
         public HttpResponseMessage Rounds(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, DatabaseManager.GetNumberOfRoundsInLeague(id));
+            return Request.CreateResponse(HttpStatusCode.OK, UoW.LeagueRepository.GetNumberOfRoundsInLeague(id));
         }
 
         /// <summary>
@@ -214,11 +203,7 @@ namespace FloorballServer.Controllers
         {
             List<MatchModel> list = new List<MatchModel>();
 
-            foreach (var m in DatabaseManager.GetAllMatch())
-            {
-                MatchModel model = ModelHelper.CreateMatchModel(m);
-                list.Add(model);
-            }
+            UoW.MatchRepository.GetAllMatch().ToList().ForEach(m => list.Add(ModelHelper.CreateMatchModel(m)));
 
             return Request.CreateResponse(HttpStatusCode.OK, list);
         }
@@ -233,7 +218,7 @@ namespace FloorballServer.Controllers
         [HttpGet]
         public HttpResponseMessage Matches(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, ModelHelper.CreateMatchModel(DatabaseManager.GetMatchById(id)));
+            return Request.CreateResponse(HttpStatusCode.OK, ModelHelper.CreateMatchModel(UoW.MatchRepository.GetMatchById(id)));
         }
 
         /// <summary>
@@ -246,11 +231,7 @@ namespace FloorballServer.Controllers
         {
             List<TeamModel> teams = new List<TeamModel>();
 
-            foreach (var t in DatabaseManager.GetAllTeam())
-            {
-                teams.Add(ModelHelper.CreateTeamModel(t));
-            }
-
+            UoW.TeamRepository.GetAllTeam().ToList().ForEach( t => teams.Add(ModelHelper.CreateTeamModel(t)));
             return Request.CreateResponse(HttpStatusCode.OK, teams);
         }
 
@@ -263,7 +244,7 @@ namespace FloorballServer.Controllers
         [HttpGet]
         public HttpResponseMessage Teams(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK,ModelHelper.CreateTeamModel(DatabaseManager.GetTeamById(id)));
+            return Request.CreateResponse(HttpStatusCode.OK,ModelHelper.CreateTeamModel(UoW.TeamRepository.GetTeamById(id)));
         }
 
         /// <summary>
@@ -279,11 +260,7 @@ namespace FloorballServer.Controllers
 
             List<TeamModel> teams = new List<TeamModel>();
 
-            foreach (var t in DatabaseManager.GetTeamsByLeague(id))
-            {
-                teams.Add(ModelHelper.CreateTeamModel(t));
-            }
-
+            UoW.TeamRepository.GetTeamsByLeague(id).ToList().ForEach( t => teams.Add(ModelHelper.CreateTeamModel(t)));
 
             return Request.CreateResponse(HttpStatusCode.OK,teams);
         }
@@ -300,10 +277,8 @@ namespace FloorballServer.Controllers
 
             List<TeamModel> teams = new List<TeamModel>();
 
-            foreach (var t in DatabaseManager.GetTeamsByYear(DateTime.ParseExact(year,"yyyy", CultureInfo.InvariantCulture)))
-            {
-                teams.Add(ModelHelper.CreateTeamModel(t));
-            }
+            DateTime d = DateTime.ParseExact(year, "yyyy", CultureInfo.InvariantCulture);
+            UoW.TeamRepository.GetTeamsByYear(d).ToList().ForEach( t => teams.Add(ModelHelper.CreateTeamModel(t)));
 
             return Request.CreateResponse(HttpStatusCode.OK, teams);
         }
@@ -318,10 +293,7 @@ namespace FloorballServer.Controllers
         {
             List<PlayerModel> players = new List<PlayerModel>();
 
-            foreach (var p in DatabaseManager.GetAllPlayer())
-            {
-                players.Add(ModelHelper.CreatePlayerModel(p));
-            }
+            UoW.PlayerRepository.GetAllPlayer().ToList().ForEach( p => players.Add(ModelHelper.CreatePlayerModel(p)));
 
             return Request.CreateResponse(HttpStatusCode.OK,players);
         }
@@ -339,10 +311,7 @@ namespace FloorballServer.Controllers
 
             List<PlayerModel> players = new List<PlayerModel>();
 
-            foreach (var p in DatabaseManager.GetPlayersByTeam(id))
-            {
-                players.Add(ModelHelper.CreatePlayerModel(p));
-            }
+            UoW.PlayerRepository.GetPlayersByTeam(id).ToList().ForEach( p => players.Add(ModelHelper.CreatePlayerModel(p)));
 
             return Request.CreateResponse(HttpStatusCode.OK,players);
         }
@@ -360,11 +329,7 @@ namespace FloorballServer.Controllers
 
             List<PlayerModel> players = new List<PlayerModel>();
 
-            foreach (var p in DatabaseManager.GetPlayersByLeague(id))
-            {
-                players.Add(ModelHelper.CreatePlayerModel(p));
-            }
-
+            UoW.PlayerRepository.GetPlayersByLeague(id).ToList().ForEach( p => players.Add(ModelHelper.CreatePlayerModel(p)));
             return Request.CreateResponse(HttpStatusCode.OK, players);
         }
 
@@ -381,11 +346,7 @@ namespace FloorballServer.Controllers
 
             List<PlayerModel> players = new List<PlayerModel>();
 
-            foreach (var p in DatabaseManager.GetPlayersByMatch(id))
-            {
-                players.Add(ModelHelper.CreatePlayerModel(p));
-            }
-
+            UoW.PlayerRepository.GetPlayersByMatch(id).ToList().ForEach( p => players.Add(ModelHelper.CreatePlayerModel(p)));
             return Request.CreateResponse(HttpStatusCode.OK, players);
         }
 
@@ -398,7 +359,7 @@ namespace FloorballServer.Controllers
         [HttpGet]
         public HttpResponseMessage Players(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, ModelHelper.CreatePlayerModel(DatabaseManager.GetPlayerById(id)));
+            return Request.CreateResponse(HttpStatusCode.OK, ModelHelper.CreatePlayerModel(UoW.PlayerRepository.GetPlayerById(id)));
         }
 
         /// <summary>
@@ -409,13 +370,9 @@ namespace FloorballServer.Controllers
         [HttpGet]
         public HttpResponseMessage Referees()
         {
-
             List<RefereeModel> referees = new List<RefereeModel>();
-            foreach (var r in DatabaseManager.GetAllReferee())
-            {
-                referees.Add(ModelHelper.CreateRefereeModel(r));
-            }
-
+            
+            UoW.RefereeRepository.GetAllReferee().ToList().ForEach( r => referees.Add(ModelHelper.CreateRefereeModel(r)));
             return Request.CreateResponse(HttpStatusCode.OK,referees);
         }
 
@@ -427,14 +384,10 @@ namespace FloorballServer.Controllers
         [HttpGet]
         public HttpResponseMessage Stadiums()
         {
-
-            List<StadiumModel> referees = new List<StadiumModel>();
-            foreach (var s in DatabaseManager.GetAllStadium())
-            {
-                referees.Add(ModelHelper.CreateStadiumModel(s));
-            }
-
-            return Request.CreateResponse(HttpStatusCode.OK, referees);
+            List<StadiumModel> stadiums = new List<StadiumModel>();
+            
+            UoW.StadiumRepository.GetAllStadium().ToList().ForEach( s => stadiums.Add(ModelHelper.CreateStadiumModel(s)));
+            return Request.CreateResponse(HttpStatusCode.OK, stadiums);
         }
 
 
@@ -447,7 +400,7 @@ namespace FloorballServer.Controllers
         [HttpGet]
         public HttpResponseMessage Referees(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, ModelHelper.CreateRefereeModel(DatabaseManager.GetRefereeById(id)));
+            return Request.CreateResponse(HttpStatusCode.OK, ModelHelper.CreateRefereeModel(UoW.RefereeRepository.GetRefereeById(id)));
         }
 
         /// <summary>
@@ -462,12 +415,7 @@ namespace FloorballServer.Controllers
 
             List<MatchModel> matches = new List<MatchModel>();
 
-            foreach (var m in DatabaseManager.GetActualMatches())
-            {
-                matches.Add(ModelHelper.CreateMatchModel(m));
-            }
-
-
+            UoW.MatchRepository.GetActualMatches().ToList().ForEach( m => matches.Add(ModelHelper.CreateMatchModel(m)));
             return Request.CreateResponse(HttpStatusCode.OK, matches);
         }
 
@@ -481,7 +429,7 @@ namespace FloorballServer.Controllers
         public HttpResponseMessage Leagues(int id)
         {
 
-            return Request.CreateResponse(HttpStatusCode.OK,ModelHelper.CreateLeagueModel(DatabaseManager.GetLeagueById(id)));
+            return Request.CreateResponse(HttpStatusCode.OK,ModelHelper.CreateLeagueModel(UoW.LeagueRepository.GetLeagueById(id)));
         }
 
         /// <summary>
@@ -495,11 +443,8 @@ namespace FloorballServer.Controllers
         {
 
             List<EventModel> events = new List<EventModel>();
-            foreach (var e in DatabaseManager.GetEventsByMatch(id))
-            {
-                events.Add(ModelHelper.CreateEventModel(e));
-            }
-
+           
+            UoW.EventRepository.GetEventsByMatch(id).ToList().ForEach( e => events.Add(ModelHelper.CreateEventModel(e)));
             return Request.CreateResponse(HttpStatusCode.OK, events);
         }
 
@@ -513,12 +458,7 @@ namespace FloorballServer.Controllers
         {
             List<EventModel> list = new List<EventModel>();
 
-            foreach (var e in DatabaseManager.GetAllEvent())
-            {
-                EventModel model = ModelHelper.CreateEventModel(e);
-                list.Add(model);
-            }
-
+            UoW.EventRepository.GetAllEvent().ToList().ForEach( e => list.Add(ModelHelper.CreateEventModel(e)));
             return Request.CreateResponse(HttpStatusCode.OK, list);
         }
 
@@ -533,12 +473,7 @@ namespace FloorballServer.Controllers
         {
             List<EventMessageModel> list = new List<EventMessageModel>();
 
-            foreach (var e in DatabaseManager.GetAllEventMessage())
-            {
-                EventMessageModel model = ModelHelper.CreateEventMessageModel(e);
-                list.Add(model);
-            }
-
+            UoW.EventMessageRepository.GetAllEventMessage().ToList().ForEach( e => list.Add(ModelHelper.CreateEventMessageModel(e)));
             return Request.CreateResponse(HttpStatusCode.OK, list);
         }
 
@@ -552,12 +487,7 @@ namespace FloorballServer.Controllers
         {
             List<StatisticModel> list = new List<StatisticModel>();
 
-            foreach (var s in DatabaseManager.GetAllStatistic())
-            {
-                StatisticModel model = ModelHelper.CreateStatisticsModel(s);
-                list.Add(model);
-            }
-
+            UoW.StatisticRepository.GetAllStatistic().ToList().ForEach( s => list.Add(ModelHelper.CreateStatisticsModel(s))); 
             return Request.CreateResponse(HttpStatusCode.OK, list);
         }
 
@@ -569,7 +499,7 @@ namespace FloorballServer.Controllers
         [HttpGet]
         public HttpResponseMessage PlayersAndTeams()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, DatabaseManager.GetAllPlayerAndTeamId());
+            return Request.CreateResponse(HttpStatusCode.OK, UoW.PlayerRepository.GetAllPlayerAndTeamId());
         }
 
         //GET api/floorball/players/matches
@@ -579,7 +509,7 @@ namespace FloorballServer.Controllers
         [HttpGet]
         public HttpResponseMessage PlayersAndMatches()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, DatabaseManager.GetAllPlayerAndMatchId());
+            return Request.CreateResponse(HttpStatusCode.OK, UoW.PlayerRepository.GetAllPlayerAndMatchId());
         }
 
         //GET api/floorball/refereess/matches
@@ -589,7 +519,7 @@ namespace FloorballServer.Controllers
         [HttpGet]
         public HttpResponseMessage RefereesAndMatches()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, DatabaseManager.GetAllRefereeAndMatchId());
+            return Request.CreateResponse(HttpStatusCode.OK, UoW.RefereeRepository.GetAllRefereeAndMatchId());
         }
 
 
@@ -602,7 +532,7 @@ namespace FloorballServer.Controllers
         [HttpGet]
         public HttpResponseMessage Events(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, ModelHelper.CreateEventModel(DatabaseManager.GetEventById(id)));
+            return Request.CreateResponse(HttpStatusCode.OK, ModelHelper.CreateEventModel(UoW.EventRepository.GetEventById(id)));
         }
 
         #endregion
@@ -622,7 +552,7 @@ namespace FloorballServer.Controllers
         [HttpPut]
         public HttpResponseMessage AddPlayerToTeam(int playerId, int teamId)
         {
-            DatabaseManager.AddPlayerToTeam(playerId, teamId);
+            UoW.PlayerRepository.AddPlayerToTeam(playerId, teamId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -640,7 +570,7 @@ namespace FloorballServer.Controllers
         [HttpPut]
         public HttpResponseMessage AddPlayerToMatch(int playerId, int matchId)
         {
-            DatabaseManager.AddPlayerToMatch(playerId, matchId);
+            UoW.PlayerRepository.AddPlayerToMatch(playerId, matchId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -658,7 +588,7 @@ namespace FloorballServer.Controllers
         [HttpPut]
         public HttpResponseMessage AddRefereeToMatch(int refereeId, int matchId)
         {
-            DatabaseManager.AddRefereeToMatch(refereeId, matchId);
+            UoW.RefereeRepository.AddRefereeToMatch(refereeId, matchId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -673,9 +603,9 @@ namespace FloorballServer.Controllers
         [HttpPut]
         public HttpResponseMessage UpdateMatch(MatchModel match)
         {
-            Match oldMatch = DatabaseManager.GetMatchById(match.Id);
+            Match oldMatch = UoW.MatchRepository.GetMatchById(match.Id);
 
-            DatabaseManager.UpdateMatch(match.Id, match.Date, match.Time, match.Round, match.StadiumId, match.GoalsH, match.GoalsA, match.State);
+            UoW.MatchRepository.UpdateMatch(match.Id, match.Date, match.Time, match.Round, match.StadiumId, match.GoalsH, match.GoalsA, match.State);
 
             if (match.Time != oldMatch.Time)
             {
@@ -700,7 +630,15 @@ namespace FloorballServer.Controllers
         [HttpPost]
         public HttpResponseMessage Leagues(LeagueModel league)
         {
-            int id = DatabaseManager.AddLeague(league.Name, league.Year, league.type, league.ClassName, league.Rounds, league.Country);
+            int id = UoW.LeagueRepository.AddLeague( new League
+            {
+                Name = league.Name,
+                Year = league.Year,
+                Type = league.type,
+                ClassName = league.ClassName,
+                Rounds = league.Rounds,
+                Country = league.Country.ToCountryString()
+            });
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
@@ -714,7 +652,11 @@ namespace FloorballServer.Controllers
         [HttpPost]
         public HttpResponseMessage Stadiums(StadiumModel stadium)
         {
-            int id = DatabaseManager.AddStadium(stadium.Name, stadium.Address);
+            int id = UoW.StadiumRepository.AddStadium( new Stadium
+            {
+                Name = stadium.Name,
+                Address = stadium.Address
+            });
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
@@ -728,7 +670,16 @@ namespace FloorballServer.Controllers
         [HttpPost]
         public HttpResponseMessage Teams(TeamModel team)
         {
-            int id = DatabaseManager.AddTeam(team.Name, team.Sex, team.Year, team.Coach, team.StadiumId, team.LeagueId, team.Country);
+            int id = UoW.TeamRepository.AddTeam( new Team
+            {
+                Name = team.Name,
+                Sex = team.Sex,
+                Year = team.Year,
+                Coach = team.Coach,
+                StadiumId = team.StadiumId,
+                LeagueId = team.LeagueId,
+                Country = team.Country.ToCountryString()
+            });
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
@@ -742,7 +693,7 @@ namespace FloorballServer.Controllers
         [HttpPost]
         public HttpResponseMessage Referees(RefereeModel referee)
         {
-            int id = DatabaseManager.AddReferee(referee.Name);
+            int id = UoW.RefereeRepository.AddReferee(new Referee { Name = referee.Name});
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
@@ -756,7 +707,13 @@ namespace FloorballServer.Controllers
         [HttpPost]
         public HttpResponseMessage Players(PlayerModel player)
         {
-            int id = DatabaseManager.AddPlayer(player.FirstName, player.SecondName, player.RegNum,player.Number,player.BirthDate);
+            int id = UoW.PlayerRepository.AddPlayer(new Player
+            {
+                FirstName = player.FirstName,
+                SecondName = player.SecondName,
+                RegNum = player.RegNum,
+                Date = player.BirthDate
+            });
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
@@ -770,20 +727,22 @@ namespace FloorballServer.Controllers
         [HttpPost]
         public HttpResponseMessage Events(EventModel e)
         {
-            //HttpContent requestContent = Request.Content;
-            //string jsonContent = requestContent.ReadAsStringAsync().Result;
-            //EventModel model = JsonConvert.DeserializeObject<EventModel>(jsonContent);
-            
-            int id = DatabaseManager.AddEvent(e.MatchId, e.Type, e.Time/* TimeSpan.ParseExact(e.Time, "h\\h\\:m\\m\\:s\\s", CultureInfo.InvariantCulture)*/, e.PlayerId, e.EventMessageId, e.TeamId);
+
+            int id = UoW.EventRepository.AddEvent(new Event
+            {
+                MatchId = e.MatchId,
+                Type = e.Type,
+                Time = e.Time,
+                PlayerRegNum = e.PlayerId,
+                EventMessageId = e.EventMessageId,
+                TeamId = e.TeamId
+            });
 
             Communicator comm = new Communicator();
-            comm.AddEventToMatch(e, DatabaseManager.GetCountryByEvent(id).ToCountryString()); 
+            comm.AddEventToMatch(e, UoW.EventRepository.GetCountryByEvent(id).ToCountryString()); 
 
             return Request.CreateResponse(HttpStatusCode.OK,id);
         }
-
-
-
 
         #endregion
 
@@ -802,7 +761,7 @@ namespace FloorballServer.Controllers
         [HttpDelete]
         public HttpResponseMessage RemovePlayerFromTeam(int playerId, int teamId)
         {
-            DatabaseManager.RemovePlayerFromTeam(playerId, teamId);
+            UoW.PlayerRepository.RemovePlayerFromTeam(playerId, teamId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -820,7 +779,7 @@ namespace FloorballServer.Controllers
         [HttpDelete]
         public HttpResponseMessage RemovePlayerFromMatch(int playerId, int matchId)
         {
-            DatabaseManager.RemovePlayerFromMatch(playerId, matchId);
+            UoW.PlayerRepository.RemovePlayerFromMatch(playerId, matchId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -833,7 +792,7 @@ namespace FloorballServer.Controllers
         [HttpDelete]
         public HttpResponseMessage RemoveRefereeFromMatch(int refereeId, int matchId)
         {
-            DatabaseManager.RemoveRefereeFromMatch(refereeId, matchId);
+            UoW.RefereeRepository.RemoveRefereeFromMatch(refereeId, matchId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -848,11 +807,10 @@ namespace FloorballServer.Controllers
         [HttpDelete]
         public HttpResponseMessage DeleteEvent(int id)
         {
-            DatabaseManager.RemoveEvent(id);
+            UoW.EventRepository.RemoveEvent(id);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-
 
         #endregion
 

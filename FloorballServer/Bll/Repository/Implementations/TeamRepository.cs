@@ -8,70 +8,50 @@ using System.Threading.Tasks;
 
 namespace Bll.Repository.Implementations
 {
-    public class TeamRepository : ITeamRepository
+    public class TeamRepository : Repository, ITeamRepository
     {
 
-        [Inject]
-        public FloorballEntities ctx { get; set; }
-
-        public int AddPlayer(Player player)
+        public int AddTeam(Team team)
         {
-            throw new NotImplementedException();
+            team.Get = 0;
+            team.Scored = 0;
+            team.Points = 0;
+            team.Standing = 0;
+
+            ctx.Teams.Add(team);
+            ctx.SaveChanges();
+
+            AddUpdate(new Update
+            {
+                name = UpdateEnum.Team.ToUpdateString(),
+                isAdding = true,
+                data1 = team.Id,
+                date = DateTime.Now
+            });
+            
+
+            return team.Id;
         }
 
         public IEnumerable<Team> GetAllTeam()
         {
-            throw new NotImplementedException();
+            return ctx.Teams;
         }
 
         public Team GetTeamById(int id)
         {
-            throw new NotImplementedException();
+            return ctx.Teams.Find(id);
         }
 
         public IEnumerable<Team> GetTeamsByLeague(int leagueId)
         {
-            throw new NotImplementedException();
+            return ctx.Teams.Where( t => t.LeagueId == leagueId);
         }
 
         public IEnumerable<Team> GetTeamsByYear(DateTime year)
         {
-            throw new NotImplementedException();
+            return ctx.Teams.Where( t => t.Year == year );
         }
 
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // TODO: dispose managed state (managed objects).
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
-                disposedValue = true;
-            }
-        }
-
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~TeamRepository() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
-
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
-        }
-        #endregion
     }
 }

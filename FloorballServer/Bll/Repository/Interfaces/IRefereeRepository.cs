@@ -11,11 +11,13 @@ namespace Bll.Repository.Interfaces
 
         #region READ
 
-        Referee GetrefereeById(int id);
+        Referee GetRefereeById(int id);
 
         IEnumerable<Referee> GetRefereesByMatch(int matchId);
 
         IEnumerable<Referee> GetAllReferee();
+
+        Dictionary<int, List<int>> GetAllRefereeAndMatchId();
 
         #endregion
 

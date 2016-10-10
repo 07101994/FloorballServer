@@ -3,22 +3,28 @@ using Bll.Repository.Interfaces;
 using Ninject;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Bll.Repository
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
 
         private FloorballEntities ctx;
+
         private IEventRepository eventRepository;
         private ILeagueRepository leagueRepository;
         private IMatchRepository matchRepository;
         private IPlayerRepository playerRepository;
         private IRefereeRepository refereeRepository;
         private ITeamRepository teamRepository;
+        private IEventMessageRepository eventMessageRepository;
+        private IRepository repository;
+        private IStatisticRepository statisticRepository;
+        private IStadiumRepository stadiumRepository;
 
         [Inject]
         public IEventRepository EventRepository
@@ -57,10 +63,38 @@ namespace Bll.Repository
         }
 
         [Inject]
+        public IEventMessageRepository EventMessageRepository
+        {
+            get { return eventMessageRepository; }
+            set { eventMessageRepository = value; }
+        }
+
+        [Inject]
         public ITeamRepository TeamRepository
         {
             get { return teamRepository; }
             set { teamRepository = value; }
+        }
+
+        [Inject]
+        public IRepository Repository
+        {
+            get { return repository; }
+            set { repository = value; }
+        }
+
+        [Inject]
+        public IStatisticRepository StatisticRepository
+        {
+            get { return statisticRepository; }
+            set { statisticRepository = value; }
+        }
+
+        [Inject]
+        public IStadiumRepository StadiumRepository
+        {
+            get { return stadiumRepository; }
+            set { stadiumRepository = value; }
         }
 
         public UnitOfWork(FloorballEntities ctx)

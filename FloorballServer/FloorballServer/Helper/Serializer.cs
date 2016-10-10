@@ -1,4 +1,5 @@
 ﻿using Bll;
+using Bll.Repository;
 using Bll.UpdateFolder;
 using Newtonsoft.Json;
 using System;
@@ -12,7 +13,15 @@ namespace FloorballServer.Helper
     public class Serializer
     {
 
-        public static string SerializeUpdates(List<Update> updates)
+        private IUnitOfWork UoW;
+
+
+        public Serializer(IUnitOfWork UoW)
+        {
+            this.UoW = UoW;
+        }
+
+        public string SerializeUpdates(List<Update> updates)
         {
             string json = "";
 
@@ -73,7 +82,7 @@ namespace FloorballServer.Helper
             //return json;
         }
 
-        private static UpdateData GetRefereeToMatch(Update u)
+        private UpdateData GetRefereeToMatch(Update u)
         {
             if (u.isAdding)
             {
@@ -95,7 +104,7 @@ namespace FloorballServer.Helper
             }
         }
 
-        private static UpdateData GetPlayerToMatch(Update u)
+        private UpdateData GetPlayerToMatch(Update u)
         {
             if (u.isAdding)
             {
@@ -117,7 +126,7 @@ namespace FloorballServer.Helper
             }
         }
 
-        private static UpdateData GetPlayerToTeam(Update u)
+        private UpdateData GetPlayerToTeam(Update u)
         {
             if (u.isAdding)
             {
@@ -139,14 +148,14 @@ namespace FloorballServer.Helper
             }
         }
 
-        private static UpdateData GetEventMessage(Update u)
+        private UpdateData GetEventMessage(Update u)
         {
             if (u.isAdding)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.EventMessage,
-                    Entity = ModelHelper.CreateEventMessageModel(DatabaseManager.GetEventMessageById(u.data1)),
+                    Entity = ModelHelper.CreateEventMessageModel(UoW.EventMessageRepository.GetEventMessageById(u.data1)),
                     IsAdding = true
                 };
             }
@@ -161,14 +170,14 @@ namespace FloorballServer.Helper
             }
         }
 
-        private static UpdateData GetEvent(Update u)
+        private UpdateData GetEvent(Update u)
         {
             if (u.isAdding)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.Event,
-                    Entity = ModelHelper.CreateEventModel(DatabaseManager.GetEventById(u.data1)),
+                    Entity = ModelHelper.CreateEventModel(UoW.EventRepository.GetEventById(u.data1)),
                     IsAdding = true
                 };
             }
@@ -183,14 +192,14 @@ namespace FloorballServer.Helper
             }
         }
 
-        private static UpdateData GetReferee(Update u)
+        private UpdateData GetReferee(Update u)
         {
             if (u.isAdding)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.Referee,
-                    Entity = ModelHelper.CreateRefereeModel(DatabaseManager.GetRefereeById(u.data1)),
+                    Entity = ModelHelper.CreateRefereeModel(UoW.RefereeRepository.GetRefereeById(u.data1)),
                     IsAdding = true
                 };
             }
@@ -205,14 +214,14 @@ namespace FloorballServer.Helper
             }
         }
 
-        private static UpdateData GetStadium(Update u)
+        private UpdateData GetStadium(Update u)
         {
             if (u.isAdding)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.Stadium,
-                    Entity = ModelHelper.CreateStadiumModel(DatabaseManager.GetStadiumById(u.data1)),
+                    Entity = ModelHelper.CreateStadiumModel(UoW.StadiumRepository.GetStadiumById(u.data1)),
                     IsAdding = true
                 };
             }
@@ -227,14 +236,14 @@ namespace FloorballServer.Helper
             }
         }
 
-        private static UpdateData GetPlayer(Update u)
+        private UpdateData GetPlayer(Update u)
         {
             if (u.isAdding)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.Player,
-                    Entity = ModelHelper.CreatePlayerModel(DatabaseManager.GetPlayerById(u.data1)),
+                    Entity = ModelHelper.CreatePlayerModel(UoW.PlayerRepository.GetPlayerById(u.data1)),
                     IsAdding = true
                 };
             }
@@ -249,14 +258,14 @@ namespace FloorballServer.Helper
             }
         }
 
-        private static UpdateData GetMatch(Update u)
+        private UpdateData GetMatch(Update u)
         {
             if (u.isAdding)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.Match,
-                    Entity = ModelHelper.CreateMatchModel(DatabaseManager.GetMatchById(u.data1)),
+                    Entity = ModelHelper.CreateMatchModel(UoW.MatchRepository.GetMatchById(u.data1)),
                     IsAdding = true
                 };
             }
@@ -271,14 +280,14 @@ namespace FloorballServer.Helper
             }
         }
 
-        private static UpdateData GetTeam(Update u)
+        private UpdateData GetTeam(Update u)
         {
             if (u.isAdding)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.Team,
-                    Entity = ModelHelper.CreateTeamModel(DatabaseManager.GetTeamById(u.data1)),
+                    Entity = ModelHelper.CreateTeamModel(UoW.TeamRepository.GetTeamById(u.data1)),
                     IsAdding = true
                 };
             }
@@ -293,14 +302,14 @@ namespace FloorballServer.Helper
             }
         }
 
-        private static UpdateData GetLeague(Update u)
+        private UpdateData GetLeague(Update u)
         {
             if (u.isAdding)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.League,
-                    Entity = ModelHelper.CreateLeagueModel(DatabaseManager.GetLeagueById(u.data1)),
+                    Entity = ModelHelper.CreateLeagueModel(UoW.LeagueRepository.GetLeagueById(u.data1)),
                     IsAdding = true
                 }; 
             }

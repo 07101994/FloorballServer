@@ -6,19 +6,22 @@ using System.Threading.Tasks;
 
 namespace Bll.Repository.Interfaces
 {
-    public interface IRepository : IDisposable
+    public interface IStadiumRepository : IDisposable
     {
+
         #region READ
-        IEnumerable<Update> GetUpdatesAfterDate(DateTime date);
+
+        IEnumerable<Stadium> GetAllStadium();
+
+        Stadium GetStadiumById(int id);
 
         #endregion
+
 
         #region CREATE
-
-        int AddUpdate(Update update);
+        int AddStadium(Stadium stadium);
 
         #endregion
-
 
     }
 }
