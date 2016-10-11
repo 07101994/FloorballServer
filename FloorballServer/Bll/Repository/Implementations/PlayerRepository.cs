@@ -17,7 +17,13 @@ namespace Bll.Repository.Implementations
             ctx.Players.Add(player);
             ctx.SaveChanges();
 
-            AddUpdate(ctx, UpdateEnum.Player.ToUpdateString(), DateTime.Now, true, player.RegNum);
+            AddUpdate(new Update
+            {
+                isAdding = true,
+                name = UpdateEnum.Player.ToUpdateString(),
+                date = DateTime.Now,
+                data1 = player.RegNum
+            });
 
             return player.RegNum;
         }
@@ -34,7 +40,14 @@ namespace Bll.Repository.Implementations
             match.Players.Add(player);
             ctx.SaveChanges();
 
-            AddUpdate(ctx, UpdateEnum.PlayerMatch.ToUpdateString(), DateTime.Now, true, player.RegNum, match.Id);
+            AddUpdate(new Update
+            {
+                name = UpdateEnum.PlayerMatch.ToUpdateString(),
+                date = DateTime.Now,
+                isAdding = true,
+                data1 = player.RegNum,
+                data2 = match.Id
+            });
         }
 
         public void AddPlayerToTeam(int playerId, int teamId)
@@ -47,12 +60,33 @@ namespace Bll.Repository.Implementations
             AddStatisticsForPlayerInTeam(player, team, ctx);
             ctx.SaveChanges();
 
-            AddUpdate(ctx, UpdateEnum.PlayerTeam.ToUpdateString(), DateTime.Now, true, player.RegNum, team.Id);
+            AddUpdate(new Update
+            {
+                name = UpdateEnum.PlayerTeam.ToUpdateString(),
+                date = DateTime.Now,
+                isAdding = true,
+                data1 = player.RegNum,
+                data2 = team.Id
+            });
         }
 
-        public void Dispose()
+        private void AddStatisticsForPlayerInTeam(Player player, Team team, FloorballEntities ctx)
         {
-            throw new NotImplementedException();
+            string[] types = new string[] { "G", "A", "P2", "P5", "P10", "PV", "APP" };
+
+            foreach (var type in types)
+            {
+                Statistic s = new Statistic();
+                s.Name = type;
+                s.Number = 0;
+                s.Team = team;
+                s.Player = player;
+
+                ctx.Statistics.Add(s);
+
+                //AddUpdate(db, "addStat", DateTime.Now, player.RegNum, team.Id);
+
+            }
         }
 
         public IEnumerable<Player> GetAllPlayer()
@@ -119,7 +153,14 @@ namespace Bll.Repository.Implementations
 
             ctx.SaveChanges();
 
-            AddUpdate(ctx, UpdateEnum.PlayerMatch.ToUpdateString(), DateTime.Now, false, playerId, matchId);
+            AddUpdate(new Update
+            {
+                name = UpdateEnum.PlayerMatch.ToUpdateString(),
+                date = DateTime.Now,
+                isAdding = false, 
+                data1 = playerId,
+                data2 = matchId
+            });
         }
 
         public void RemovePlayerFromTeam(int playerId, int teamId)
@@ -131,12 +172,26 @@ namespace Bll.Repository.Implementations
             RemoveStatisticsForPlayerInTeam(player, team, ctx);
             team.Players.Remove(player);
 
-            //db.Teams.Attach(team);
-            //db.Entry(team).Collection(e => e.Players). = true;
-
             ctx.SaveChanges();
 
-            AddUpdate(ctx, UpdateEnum.PlayerTeam.ToUpdateString(), DateTime.Now, false, playerId, teamId);
+            AddUpdate(new Update
+            {
+                name = UpdateEnum.PlayerTeam.ToUpdateString(),
+                date = DateTime.Now,
+                data1 = playerId,
+                data2 = teamId,
+                isAdding = false
+            });
+        }
+
+        private void RemoveStatisticsForPlayerInTeam(Player player, Team team, FloorballEntities ctx)
+        {
+            var statisctics = ctx.Statistics.Where(s => s.Player.RegNum == player.RegNum && s.Team.Id == team.Id).ToList();
+
+            foreach (var s in statisctics)
+            {
+                ctx.Statistics.Remove(s);
+            }
         }
     }
 }

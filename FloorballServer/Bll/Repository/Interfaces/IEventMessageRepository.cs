@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bll.Repository.Interfaces
 {
-    public interface IEventMessageRepository
+    public interface IEventMessageRepository : IDisposable
     {
 
         #region READ

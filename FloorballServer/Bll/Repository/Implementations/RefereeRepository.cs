@@ -8,18 +8,21 @@ using System.Threading.Tasks;
 
 namespace Bll.Repository.Implementations
 {
-    public class RefereeRepository : IRefereeRepository
+    public class RefereeRepository : Repository, IRefereeRepository
     {
-
-        [Inject]
-        public FloorballEntities ctx { get; set; }
 
         public int AddReferee(Referee referee)
         {
             ctx.Referees.Add(referee);
             ctx.SaveChanges();
 
-            AddUpdate(ctx, UpdateEnum.Referee.ToUpdateString(), DateTime.Now, true, referee.Id);
+            AddUpdate(new Update
+            {
+                name= UpdateEnum.Referee.ToUpdateString(),
+                date = DateTime.Now,
+                isAdding = true,
+                data1 = referee.Id
+            });
 
             return referee.Id;
         }
@@ -32,7 +35,14 @@ namespace Bll.Repository.Implementations
             match.Referees.Add(referee);
             ctx.SaveChanges();
 
-            AddUpdate(ctx, UpdateEnum.RefereeMatch.ToUpdateString(), DateTime.Now, true, refereeId, matchId);
+            AddUpdate(new Update
+            {
+                name = UpdateEnum.RefereeMatch.ToUpdateString(),
+                date = DateTime.Now,
+                isAdding = true,
+                data1 = refereeId,
+                data2 = matchId
+            });
         }
 
         public IEnumerable<Referee> GetAllReferee()
@@ -73,44 +83,14 @@ namespace Bll.Repository.Implementations
 
             ctx.SaveChanges();
 
-            AddUpdate(ctx, UpdateEnum.RefereeMatch.ToUpdateString(), DateTime.Now, false, refereeId, matchId);
-        }
-
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
+            AddUpdate(new Update
             {
-                if (disposing)
-                {
-                    // TODO: dispose managed state (managed objects).
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
-                disposedValue = true;
-            }
+                name = UpdateEnum.RefereeMatch.ToUpdateString(),
+                date = DateTime.Now,
+                isAdding = false,
+                data1 = refereeId,
+                data2 = matchId
+            });
         }
-
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~RefereeRepository() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
-
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
-        }
-
-       
-        #endregion
     }
 }

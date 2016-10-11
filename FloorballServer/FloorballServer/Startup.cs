@@ -28,7 +28,7 @@ namespace FloorballServer
 #endif
             app.MapSignalR(hubConfiguration);
             //var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
-            
+
 
         }
     }

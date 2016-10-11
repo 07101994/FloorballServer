@@ -1,4 +1,5 @@
 ﻿using Bll.Repository.Interfaces;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,67 +10,35 @@ namespace Bll.Repository
 {
     public interface IUnitOfWork : IDisposable
     {
+        [Inject]
+        IEventRepository EventRepository { get; set; }
 
-        IEventRepository EventRepository 
-        {
-            get;
-            set;
-        }
+        [Inject]
+        ILeagueRepository LeagueRepository { get; set; }
 
+        [Inject]
+        IMatchRepository MatchRepository { get; set; }
 
-        ILeagueRepository LeagueRepository
-        {
-            get;
-            set;
-        }
+        [Inject]
+        IPlayerRepository PlayerRepository { get; set;  }
 
-        IMatchRepository MatchRepository
-        {
-            get;
-            set;
-        }
+        [Inject]
+        IRefereeRepository RefereeRepository { get; set;  }
 
-        IPlayerRepository PlayerRepository
-        {
-            get;
-            set;
-        }
+        [Inject]
+        ITeamRepository TeamRepository { get; set; }
 
-        IRefereeRepository RefereeRepository
-        {
-            get;
-            set;
-        }
+        [Inject]
+        IEventMessageRepository EventMessageRepository { get; set; }
 
-        ITeamRepository TeamRepository
-        {
-            get;
-            set;
-        }
+        [Inject]
+        IRepository Repository { get; set; }
 
-        IEventMessageRepository EventMessageRepository
-        {
-            get;
-            set;
-        }
+        [Inject]
+        IStatisticRepository StatisticRepository { get; set; }
 
-        IRepository Repository
-        {
-            get;
-            set;
-        }
-
-        IStatisticRepository StatisticRepository
-        {
-            get;
-            set;
-        }
-
-        IStadiumRepository StadiumRepository
-        {
-            get;
-            set;
-        }
+        [Inject]
+        IStadiumRepository StadiumRepository { get; set; }
 
     }
 }

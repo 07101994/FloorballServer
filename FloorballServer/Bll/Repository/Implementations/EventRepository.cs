@@ -31,8 +31,25 @@ namespace Bll.Repository.Implementations
                 data1 = ev.Id
             });
 
-
             return ev.Id;
+        }
+
+        private void ChangeStatisticFromPlayer(int playerRegNum, int teamId, string type, FloorballEntities ctx, string direction)
+        {
+            Statistic stat = ctx.Statistics.Where(s => s.PlayerRegNum == playerRegNum && s.TeamId == teamId && s.Name == type).First();
+
+            if (direction == "increase")
+            {
+                stat.Number++;
+            }
+            else
+            {
+                stat.Number--;
+            }
+
+            ctx.Statistics.Attach(stat);
+            var entry = ctx.Entry(stat);
+            entry.Property(e => e.Number).IsModified = true;
         }
 
         public IEnumerable<Event> GetAllEvent()

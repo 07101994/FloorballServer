@@ -84,6 +84,7 @@
     <Compile Include="Match.cs">
       <DependentUpon>FloorballModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Ninject\Bindings.cs" />
     <Compile Include="Player.cs">
       <DependentUpon>FloorballModel.tt</DependentUpon>
     </Compile>
