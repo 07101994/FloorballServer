@@ -58,7 +58,7 @@ namespace Bll.Repository.Implementations
         public Dictionary<int, List<int>> GetAllRefereeAndMatchId()
         {
             Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
-            ctx.Matches.Include("Referees").ToList().ForEach(m => dict.Add(m.Id, m.Referees.Select(r => r.Id).ToList()));
+            ctx.Matches.Include("Referees").Where( m => m.Referees.Any()).ToList().ForEach(m => dict.Add(m.Id, m.Referees.Select(r => r.Id).ToList()));
             return dict;
         }
 

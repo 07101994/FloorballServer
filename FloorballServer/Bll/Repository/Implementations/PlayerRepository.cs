@@ -97,14 +97,14 @@ namespace Bll.Repository.Implementations
         public Dictionary<int, List<int>> GetAllPlayerAndMatchId()
         {
             Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
-            ctx.Matches.Include("Players").ToList().ForEach(m => dict.Add(m.Id, m.Players.Select(p => p.RegNum).ToList()));
+            ctx.Matches.Include("Players").Where( m => m.Players.Any()).ToList().ForEach(m => dict.Add(m.Id, m.Players.Select(p => p.RegNum).ToList()));
             return dict;
         }
 
         public Dictionary<int, List<int>> GetAllPlayerAndTeamId()
         {
             Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
-            ctx.Teams.Include("Players").ToList().ForEach(m => dict.Add(m.Id, m.Players.Select(p => p.RegNum).ToList()));
+            ctx.Teams.Include("Players").Where( t => t.Players.Any()).ToList().ForEach(t => dict.Add(t.Id, t.Players.Select(p => p.RegNum).ToList()));
             return dict;
         }
 

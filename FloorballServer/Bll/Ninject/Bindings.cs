@@ -42,7 +42,10 @@ namespace Bll.Ninject
 
         public override void Dispose(bool disposing)
         {
-            Context.Dispose();
+            if (Context != null)
+            {
+                Context.Dispose();
+            }
             base.Dispose(disposing);
         }
     }
