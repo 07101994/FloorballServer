@@ -291,7 +291,7 @@ namespace FloorballServer.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.OK, list);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
 
