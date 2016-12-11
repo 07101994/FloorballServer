@@ -943,10 +943,11 @@ namespace FloorballServer.Controllers
             try
             {
                 Match oldMatch = UoW.MatchRepository.GetMatchById(match.Id);
+                var oldTime = oldMatch.Time;
 
                 UoW.MatchRepository.UpdateMatch(match.Id, match.Date, match.Time, match.Round, match.StadiumId, match.GoalsH, match.GoalsA, match.State);
 
-                if (match.Time != oldMatch.Time)
+                if (match.Time != oldTime)
                 {
                     Communicator comm = new Communicator();
                     comm.UpdateMatchTime(match.Id, match.Time, oldMatch.League.Country);
