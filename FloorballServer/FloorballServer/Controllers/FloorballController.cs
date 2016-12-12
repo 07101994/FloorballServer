@@ -27,8 +27,6 @@ namespace FloorballServer.Controllers
         {
             this.UoW = UoW;
         }
-        
-
 
         #region GET
 
@@ -987,7 +985,8 @@ namespace FloorballServer.Controllers
                     Type = league.type,
                     ClassName = league.ClassName,
                     Rounds = league.Rounds,
-                    Country = league.Country.ToCountryString()
+                    Country = league.Country.ToCountryString(),
+                    Sex = league.Sex
                 });
 
                 return Request.CreateResponse(HttpStatusCode.OK, id);
@@ -1137,7 +1136,7 @@ namespace FloorballServer.Controllers
                     EventMessageId = e.EventMessageId,
                     TeamId = e.TeamId
                 });
-
+                e.Id = id;
                 Communicator comm = new Communicator();
                 comm.AddEventToMatch(e, UoW.EventRepository.GetCountryByEvent(id).ToCountryString());
 

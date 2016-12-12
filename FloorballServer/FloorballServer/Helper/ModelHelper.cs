@@ -65,6 +65,7 @@ namespace FloorballServer.Helper
             model.Rounds = l.Rounds;
             model.ClassName = l.ClassName;
             model.Country = l.Country.ToEnum<CountriesEnum>();
+            model.Sex = l.Sex;
 
             return model;
         }
