@@ -223,6 +223,8 @@
     <Compile Include="Controllers\ApiControllers\StadiumsController.cs" />
     <Compile Include="Controllers\ApiControllers\StatisticsController.cs" />
     <Compile Include="Controllers\ApiControllers\TeamsController.cs" />
+    <Compile Include="Helper\UpdateCollector.cs" />
+    <Compile Include="Models\Floorball\UpdateModel.cs" />
     <Compile Include="Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
@@ -261,7 +263,6 @@
     </Compile>
     <Compile Include="Helper\ModelHelper.cs" />
     <Compile Include="Helper\NewtonsoftJsonSerializer.cs" />
-    <Compile Include="Helper\Serializer.cs" />
     <Compile Include="Helper\UpdateData.cs" />
     <Compile Include="Live\Communicator.cs" />
     <Compile Include="Live\ErrorHandlingPipelineModule.cs" />

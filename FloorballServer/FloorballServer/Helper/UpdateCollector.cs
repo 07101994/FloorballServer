@@ -1,29 +1,27 @@
 ﻿using Bll;
 using Bll.Repository;
-using Bll.UpdateFolder;
-using Newtonsoft.Json;
+using FloorballServer.Models.Floorball;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization.Formatters;
 using System.Web;
+using WebApi.Helper;
 
 namespace FloorballServer.Helper
 {
-    public class Serializer
+    public class UpdateCollector
     {
-
         private IUnitOfWork UoW;
 
-
-        public Serializer(IUnitOfWork UoW)
+        public UpdateCollector(IUnitOfWork UoW)
         {
             this.UoW = UoW;
         }
 
-        public string SerializeUpdates(List<Update> updates)
+        public UpdateModel CollectUpdates(IEnumerable<Update> updates, DateTime updateTime)
         {
-            string json = "";
+            UpdateModel updateModel = new UpdateModel();
+            updateModel.UpdateTime = updateTime;
 
             List<UpdateData> updateDataList = new List<UpdateData>();
 
@@ -70,16 +68,9 @@ namespace FloorballServer.Helper
 
             }
 
-            //json = JsonConvert.SerializeObject(updateDataList, Formatting.Indented, new JsonSerializerSettings
-            //{
-            //    TypeNameHandling = TypeNameHandling.All,
-            //    TypeNameAssemblyFormat = FormatterAssemblyStyle.Simple
-            //});
+            updateModel.Updates = updateDataList;
 
-            json = JsonConvert.SerializeObject(updateDataList, Formatting.Indented);
-
-            return json;
-            //return json;
+            return updateModel;
         }
 
         private UpdateData GetRefereeToMatch(Update u)
@@ -311,18 +302,17 @@ namespace FloorballServer.Helper
                     Type = UpdateEnum.League,
                     Entity = ModelHelper.CreateLeagueModel(UoW.LeagueRepository.GetLeagueById(u.data1)),
                     IsAdding = true
-                }; 
+                };
             }
             else
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.League,
-                    Entity = new { id = u.data1},
+                    Entity = new { id = u.data1 },
                     IsAdding = false
                 };
             }
-        } 
-
+        }
     }
 }

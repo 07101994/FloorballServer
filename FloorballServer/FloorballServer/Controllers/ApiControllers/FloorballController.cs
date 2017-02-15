@@ -1,6 +1,5 @@
 ﻿using Bll;
 using Bll.Repository;
-using Bll.UpdateFolder;
 using FloorballServer.Attributes;
 using FloorballServer.Helper;
 using FloorballServer.Live;
@@ -31,12 +30,15 @@ namespace FloorballServer.Controllers.ApiControllers
         [HttpGet]
         public HttpResponseMessage Updates(DateTime date)
         {
-            List<Update> updates = UoW.Repository.GetUpdatesAfterDate(date).ToList();
+            DateTime updateTime = DateTime.Now;
 
-            Serializer serializer = new Serializer(new UnitOfWork(null));
-            string json = serializer.SerializeUpdates(updates);
+            IEnumerable<Update> updates = UoW.Repository.GetUpdatesAfterDate(date);
 
-            return Request.CreateResponse(HttpStatusCode.OK, json);
+            UpdateCollector collector = new UpdateCollector(new UnitOfWork(null));
+
+            UpdateModel updateModel = collector.CollectUpdates(updates, updateTime);
+
+            return Request.CreateResponse(HttpStatusCode.OK, collector.CollectUpdates(updates, updateTime));
         }
 
         /// <summary>
@@ -48,7 +50,7 @@ namespace FloorballServer.Controllers.ApiControllers
         [HttpGet]
         public HttpResponseMessage Years()
         {
-            List<int> years = UoW.LeagueRepository.GetAllYear().ToList();
+            IEnumerable<int> years = UoW.LeagueRepository.GetAllYear();
 
             return Request.CreateResponse(HttpStatusCode.OK, years);
         }
