@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http.Filters;
 
-namespace FloorballServer.Filters
+namespace FloorballServer.Attributes
 {
     public class FloorballExceptionFilterAttribute : ExceptionFilterAttribute
     {

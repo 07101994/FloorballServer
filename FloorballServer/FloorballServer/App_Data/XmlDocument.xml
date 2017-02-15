@@ -26,6 +26,299 @@
             </summary>
             <param name="kernel">The kernel.</param>
         </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.EventsController.Events">
+            <summary>
+            Get all event
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.EventsController.Events(System.Int32)">
+            <summary>
+            Get event by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.EventsController.Events(FloorballServer.Models.Floorball.EventModel)">
+            <summary>
+            Add event
+            </summary>
+            <param name="e"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.EventsController.DeleteEvent(System.Int32)">
+            <summary>
+            Delete event
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.EventMessagesController.Eventmessages">
+            <summary>
+            Get all eventmessage
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.EventMessagesController.EventMessages(System.Int32)">
+            <summary>
+            Get eventmessages by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.EventMessagesController.EventMessages(System.Char)">
+            <summary>
+            Get eventmessages by category
+            </summary>
+            <param name="categoryNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.Leagues">
+            <summary>
+            Get all leagues.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.Leagues(System.Int32)">
+            <summary>
+            Get league by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.LeaguesByYear(System.String)">
+            <summary>
+            Get all leagues by year.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.MatchesByLeague(System.Int32)">
+            <summary>
+            Get matches by league.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.StatisticsByLeague(System.Int32)">
+            <summary>
+            Get statistics by league.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.Rounds(System.Int32)">
+            <summary>
+            Get rounds by league
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.TeamsByLeague(System.Int32)">
+            <summary>
+            Get teams by league
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.PlayersByLeague(System.Int32)">
+            <summary>
+            Get players by league
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.Leagues(FloorballServer.Models.Floorball.LeagueModel)">
+            <summary>
+            Add league
+            </summary>
+            <param name="league"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.MatchesController.Matches">
+            <summary>
+            Get all match.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.MatchesController.Matches(System.Int32)">
+            <summary>
+            Get match.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.MatchesController.PlayersByMatch(System.Int32)">
+            <summary>
+            Get players by match
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.MatchesController.ActualMatches">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.MatchesController.EventsByMatch(System.Int32)">
+            <summary>
+            Get events by match
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.MatchesController.UpdateMatch(FloorballServer.Models.Floorball.MatchModel)">
+            <summary>
+            Update match
+            </summary>
+            <param name="match"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.PlayersController.Players">
+            <summary>
+            Get all players
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.PlayersController.Players(System.Int32)">
+            <summary>
+            Get player by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.PlayersController.AddPlayerToTeam(System.Int32,System.Int32)">
+            <summary>
+            Add player to team
+            </summary>
+            <param name="playerId"></param>
+            <param name="teamId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.PlayersController.AddPlayerToMatch(System.Int32,System.Int32)">
+            <summary>
+            Add player to match
+            </summary>
+            <param name="playerId"></param>
+            <param name="matchId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.PlayersController.Players(FloorballServer.Models.Floorball.PlayerModel)">
+            <summary>
+            Add player
+            </summary>
+            <param name="player"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.PlayersController.RemovePlayerFromTeam(System.Int32,System.Int32)">
+            <summary>
+            Remove player from team
+            </summary>
+            <param name="playerId"></param>
+            <param name="teamId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.PlayersController.RemovePlayerFromMatch(System.Int32,System.Int32)">
+            <summary>
+            Remove player from match
+            </summary>
+            <param name="playerId"></param>
+            <param name="matchId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.RefereesController.Referees">
+            <summary>
+            Get all refereees
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.RefereesController.Referees(System.Int32)">
+            <summary>
+            Get referee by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.RefereesController.MatchesByReferee(System.Int32)">
+            <summary>
+            Get matches by referee.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.RefereesController.AddRefereeToMatch(System.Int32,System.Int32)">
+            <summary>
+            Add referee to match
+            </summary>
+            <param name="refereeId"></param>
+            <param name="matchId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.RefereesController.Referees(FloorballServer.Models.Floorball.RefereeModel)">
+            <summary>
+            Add referee
+            </summary>
+            <param name="referee"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.StadiumsController.Stadiums">
+            <summary>
+            Get all stadiums
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.StadiumsController.Stadiums(FloorballServer.Models.Floorball.StadiumModel)">
+            <summary>
+            Add stadium
+            </summary>
+            <param name="stadium"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.StatisticsController.Statistics">
+            <summary>
+            Get all statistic
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.TeamsController.Teams">
+            <summary>
+            Get all teams
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.TeamsController.Teams(System.Int32)">
+            <summary>
+            Get team by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.TeamsController.Teams(System.String)">
+            <summary>
+            Get teams by year
+            </summary>
+            <param name="year"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.TeamsController.PlayersByTeam(System.Int32)">
+            <summary>
+            Get players by team
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.TeamsController.Teams(FloorballServer.Models.Floorball.TeamModel)">
+            <summary>
+            Add team.
+            </summary>
+            <param name="team"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.FloorballController.Years">
+            <summary>
+            Get all years
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:FloorballServer.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
             Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
@@ -502,299 +795,6 @@
             Initializes a new instance of the <see cref="T:FloorballServer.Areas.HelpPage.XmlDocumentationProvider"/> class.
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Years">
-            <summary>
-            Get all years
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Leagues">
-            <summary>
-            Get all leagues.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.LeaguesByYear(System.String)">
-            <summary>
-            Get all leagues by year.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.MatchesByLeague(System.Int32)">
-            <summary>
-            Get matches by league.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.MatchesByReferee(System.Int32)">
-            <summary>
-            Get matches by referee.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.StatisticsByLeague(System.Int32)">
-            <summary>
-            Get statistics by league.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.EventMessages(System.Char)">
-            <summary>
-            Get events by category
-            </summary>
-            <param name="categoryNumber"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.EventMessages(System.Int32)">
-            <summary>
-            Get events by category
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Rounds(System.Int32)">
-            <summary>
-            Get rounds by league
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Matches">
-            <summary>
-            Get all match.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Matches(System.Int32)">
-            <summary>
-            Get match.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Teams">
-            <summary>
-            Get all teams
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Teams(System.Int32)">
-            <summary>
-            Get team by id
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.TeamsByLeague(System.Int32)">
-            <summary>
-            Get teams by league
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Teams(System.String)">
-            <summary>
-            Get teams by year
-            </summary>
-            <param name="year"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Players">
-            <summary>
-            Get all players
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.PlayersByTeam(System.Int32)">
-            <summary>
-            Get players by team
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.PlayersByLeague(System.Int32)">
-            <summary>
-            Get players by league
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.PlayersByMatch(System.Int32)">
-            <summary>
-            Get players by match
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Players(System.Int32)">
-            <summary>
-            Get player by id
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Referees">
-            <summary>
-            Get all refereees
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Stadiums">
-            <summary>
-            Get all stadiums
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Referees(System.Int32)">
-            <summary>
-            Get referee by id
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.ActualMatches">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Leagues(System.Int32)">
-            <summary>
-            Get league by id
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.EventsByMatch(System.Int32)">
-            <summary>
-            Get events by match
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Events">
-            <summary>
-            Get all event
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Eventmessages">
-            <summary>
-            Get all eventmessage
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Statistics">
-            <summary>
-            Get all statistic
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Events(System.Int32)">
-            <summary>
-            Get event by id
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.AddPlayerToTeam(System.Int32,System.Int32)">
-            <summary>
-            Add player to team
-            </summary>
-            <param name="playerId"></param>
-            <param name="teamId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.AddPlayerToMatch(System.Int32,System.Int32)">
-            <summary>
-            Add player to match
-            </summary>
-            <param name="playerId"></param>
-            <param name="matchId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.AddRefereeToMatch(System.Int32,System.Int32)">
-            <summary>
-            Add referee to match
-            </summary>
-            <param name="refereeId"></param>
-            <param name="matchId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.UpdateMatch(FloorballServer.Models.Floorball.MatchModel)">
-            <summary>
-            Update match
-            </summary>
-            <param name="match"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Leagues(FloorballServer.Models.Floorball.LeagueModel)">
-            <summary>
-            Add league
-            </summary>
-            <param name="league"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Stadiums(FloorballServer.Models.Floorball.StadiumModel)">
-            <summary>
-            Add stadium
-            </summary>
-            <param name="stadium"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Teams(FloorballServer.Models.Floorball.TeamModel)">
-            <summary>
-            Add team.
-            </summary>
-            <param name="team"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Referees(FloorballServer.Models.Floorball.RefereeModel)">
-            <summary>
-            Add referee
-            </summary>
-            <param name="referee"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Players(FloorballServer.Models.Floorball.PlayerModel)">
-            <summary>
-            Add player
-            </summary>
-            <param name="player"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.Events(FloorballServer.Models.Floorball.EventModel)">
-            <summary>
-            Add event
-            </summary>
-            <param name="e"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.RemovePlayerFromTeam(System.Int32,System.Int32)">
-            <summary>
-            Remove player from team
-            </summary>
-            <param name="playerId"></param>
-            <param name="teamId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.RemovePlayerFromMatch(System.Int32,System.Int32)">
-            <summary>
-            Remove player from match
-            </summary>
-            <param name="playerId"></param>
-            <param name="matchId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FloorballServer.Controllers.FloorballController.DeleteEvent(System.Int32)">
-            <summary>
-            Delete event
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
         </member>
     </members>
 </doc>
