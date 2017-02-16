@@ -133,6 +133,7 @@
           <Property Name="LeagueId" Type="int" Nullable="false" />
           <Property Name="Sex" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Country" Type="nvarchar" MaxLength="10" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Updates">
           <Key>
@@ -588,6 +589,7 @@
           <NavigationProperty Name="Events" Relationship="FloorballModel.FK_Events_Teams" FromRole="Team" ToRole="Event" />
           <Property Name="Sex" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Country" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Events_EventMessages">
           <End Role="EventMessages" Type="Self.EventMessage" Multiplicity="1" />
@@ -931,6 +933,7 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="FloorballModel.Team">
               <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="Sex" ColumnName="Sex" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

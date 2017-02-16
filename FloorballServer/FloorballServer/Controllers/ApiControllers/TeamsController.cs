@@ -103,6 +103,8 @@ namespace FloorballServer.Controllers.ApiControllers
                 Country = team.Country.ToCountryString()
             });
 
+            ImageSaver.SaveImage(team.Image, id + ".png");
+
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
 

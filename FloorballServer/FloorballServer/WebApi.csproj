@@ -223,6 +223,7 @@
     <Compile Include="Controllers\ApiControllers\StadiumsController.cs" />
     <Compile Include="Controllers\ApiControllers\StatisticsController.cs" />
     <Compile Include="Controllers\ApiControllers\TeamsController.cs" />
+    <Compile Include="Helper\ImageSaver.cs" />
     <Compile Include="Helper\UpdateCollector.cs" />
     <Compile Include="Models\Floorball\UpdateModel.cs" />
     <Compile Include="Startup.Auth.cs" />
@@ -289,6 +290,7 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\NokianKRP.png" />
     <Content Include="Content\phoenix.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -359,9 +361,6 @@
       <Project>{eab2b970-6632-49d2-9e10-80bd614ebb35}</Project>
       <Name>Bll</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

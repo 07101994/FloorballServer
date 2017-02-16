@@ -319,6 +319,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.FloorballController.Test">
+            <summary>
+            Use this action for testing.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:FloorballServer.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
             Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
