@@ -53,5 +53,24 @@ namespace Bll.Repository.Implementations
             return ctx.Leagues.Find(id).Rounds;
         }
 
+        public int UpdateLeague(League league)
+        {
+            var updated = ctx.Leagues.Find(league.Id);
+
+            updated.ClassName = league.ClassName;
+            updated.Country = league.Country;
+            updated.Name = league.Name;
+            updated.Rounds = league.Rounds;
+            updated.Sex = league.Sex;
+            updated.Type = league.Type;
+            updated.Year = league.Year;
+
+            ctx.Leagues.Attach(updated);
+            ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
+
+            return updated.Id;
+        }
     }
 }

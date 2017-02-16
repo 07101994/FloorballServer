@@ -18,5 +18,18 @@ namespace Bll.Repository.Interfaces
         IEnumerable<EventMessage> GetEventMessagesByCategory(char startNumber);
 
         #endregion
+
+        #region CREATE
+
+        int AddEventMessage(EventMessage eventMessage);
+
+        #endregion
+
+        #region UPDATE
+
+        int UpdateEventmessage(EventMessage eventMessage);
+
+        #endregion
+
     }
 }

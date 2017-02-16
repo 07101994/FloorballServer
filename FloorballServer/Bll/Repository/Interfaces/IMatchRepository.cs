@@ -31,7 +31,7 @@ namespace Bll.Repository.Interfaces
 
         #region UPDATE
 
-        void UpdateMatch(int matchId, DateTime date, TimeSpan time, short round, int stadiumId, short goalsh, short goalsa, string state);
+        void UpdateMatch(Match match);
 
         #endregion
 

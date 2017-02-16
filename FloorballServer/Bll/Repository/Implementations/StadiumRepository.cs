@@ -37,5 +37,20 @@ namespace Bll.Repository.Implementations
         {
             return ctx.Stadiums;
         }
+
+        public int UpdateStadium(Stadium stadium)
+        {
+            Stadium updated = ctx.Stadiums.Find(stadium.Id);
+
+            updated.Name = stadium.Name;
+            updated.Address = stadium.Address;
+
+            ctx.Stadiums.Attach(updated);
+            ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
+
+            return updated.Id;
+        }
     }
 }

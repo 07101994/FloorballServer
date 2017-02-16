@@ -168,6 +168,30 @@ namespace FloorballServer.Controllers.ApiControllers
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
+        
+        /// <summary>
+        /// Update league.
+        /// </summary>
+        /// <param name="league"></param>
+        /// <returns></returns>
+        [Route("leagues")]
+        [HttpPut]
+        public HttpResponseMessage Put(LeagueModel league)
+        {
+            int id = UoW.LeagueRepository.UpdateLeague(new League {
+                ClassName = league.ClassName,
+                Country = league.Country.ToCountryString(),
+                Id = league.Id,
+                Name = league.Name,
+                Rounds = league.Rounds,
+                Sex = league.Sex,
+                Type = league.type,
+                Year = league.Year 
+
+            });
+
+            return Request.CreateResponse(HttpStatusCode.OK, id);
+        }
 
     }
 }

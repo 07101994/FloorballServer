@@ -108,5 +108,34 @@ namespace FloorballServer.Controllers.ApiControllers
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
 
+        /// <summary>
+        /// Update team
+        /// </summary>
+        /// <param name="team"></param>
+        /// <returns></returns>
+        [Route("teams")]
+        [HttpPut]
+        public HttpResponseMessage Put(TeamModel team)
+        {
+            int id = UoW.TeamRepository.UpdateTeam(new Team
+            {
+                Id = team.Id,
+                Name = team.Name,
+                Sex = team.Sex,
+                Year = team.Year,
+                Coach = team.Coach,
+                StadiumId = team.StadiumId,
+                LeagueId = team.LeagueId,
+                Country = team.Country.ToCountryString()
+            });
+
+            if (team.Image != null)
+            {
+                ImageSaver.SaveImage(team.Image, id + ".png");
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, id);
+        }
+
     }
 }

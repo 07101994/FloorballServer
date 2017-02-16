@@ -29,6 +29,11 @@ namespace Bll.Repository.Interfaces
 
         #endregion
 
+        #region UPDATE
+
+        int UpdateLeague(League league);
+
+        #endregion
 
     }
 }

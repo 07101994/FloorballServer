@@ -117,7 +117,8 @@ namespace FloorballServer.Controllers.ApiControllers
                 FirstName = player.FirstName,
                 SecondName = player.SecondName,
                 RegNum = player.RegNum,
-                Date = player.BirthDate
+                Date = player.BirthDate,
+                Number = player.Number
             });
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
@@ -159,5 +160,25 @@ namespace FloorballServer.Controllers.ApiControllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        /// <summary>
+        /// Update player.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        [Route("players")]
+        [HttpPut]
+        public HttpResponseMessage Put(PlayerModel player)
+        {
+            int id = UoW.PlayerRepository.UpdatePlayer(new Player
+            {
+                FirstName = player.FirstName,
+                SecondName = player.SecondName,
+                RegNum = player.RegNum,
+                Date = player.BirthDate,
+                Number = player.Number
+            });
+
+            return Request.CreateResponse(HttpStatusCode.OK, id);
+        }
     }
 }

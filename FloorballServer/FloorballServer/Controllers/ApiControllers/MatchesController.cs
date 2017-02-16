@@ -108,7 +108,16 @@ namespace FloorballServer.Controllers.ApiControllers
             Match oldMatch = UoW.MatchRepository.GetMatchById(match.Id);
             var oldTime = oldMatch.Time;
 
-            UoW.MatchRepository.UpdateMatch(match.Id, match.Date, match.Time, match.Round, match.StadiumId, match.GoalsH, match.GoalsA, match.State);
+            UoW.MatchRepository.UpdateMatch(new Match {
+                Id = match.Id,
+                Date = match.Date,
+                Time = match.Time,
+                Round = match.Round,
+                StadiumId = match.StadiumId,
+                GoalsA = match.GoalsA,
+                GoalsH = match.GoalsH,
+                State = match.State
+            });
 
             if (match.Time != oldTime)
             {

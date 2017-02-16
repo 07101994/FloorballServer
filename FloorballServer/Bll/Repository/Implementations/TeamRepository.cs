@@ -53,5 +53,32 @@ namespace Bll.Repository.Implementations
             return ctx.Teams.Where( t => t.Year == year );
         }
 
+        public int UpdateTeam(Team team)
+        {
+            Team updated = ctx.Teams.Find(team.Id);
+
+            updated.Name = team.Name;
+            updated.Sex = team.Sex;
+            updated.Year = team.Year;
+            updated.Coach = team.Coach;
+            updated.Country = team.Country;
+            updated.StadiumId = team.StadiumId;
+            updated.LeagueId = team.LeagueId;
+
+            ctx.Teams.Attach(updated);
+            ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
+
+            //AddUpdate(new Update
+            //{
+            //    name = UpdateEnum.Team.ToUpdateString(),
+            //    isAdding = true,
+            //    data1 = team.Id,
+            //    date = DateTime.Now
+            //});
+
+            return team.Id;
+        }
     }
 }

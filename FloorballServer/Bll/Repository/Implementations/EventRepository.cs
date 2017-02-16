@@ -127,5 +127,23 @@ namespace Bll.Repository.Implementations
             ctx.SaveChanges();
         }
 
+        public int UpdateEvent(Event e)
+        {
+            var updated = ctx.Events.Find(e.Id);
+
+            updated.EventMessageId = e.EventMessageId;
+            updated.MatchId = e.MatchId;
+            updated.PlayerRegNum = e.PlayerRegNum;
+            updated.TeamId = e.TeamId;
+            updated.Time = e.Time;
+            updated.Type = e.Type;
+
+            ctx.Events.Attach(updated);
+            ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
+
+            return updated.Id;
+        }
     }
 }

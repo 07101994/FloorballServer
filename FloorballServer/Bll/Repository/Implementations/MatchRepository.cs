@@ -54,20 +54,20 @@ namespace Bll.Repository.Implementations
             return ctx.Referees.Include("Matches").Include("Matches.Players").Where(r => r.Id == refereeId).First().Matches;
         }
 
-        public void UpdateMatch(int matchId, DateTime date, TimeSpan time, short round, int stadiumId, short goalsh, short goalsa, string state)
+        public void UpdateMatch(Match match)
         {
-            Match match = ctx.Matches.Where(m => m.Id == matchId).First();
+            Match updated = ctx.Matches.Find(match.Id);
 
-            match.Date = date;
-            match.Time = time;
-            match.Round = round;
-            match.StadiumId = stadiumId;
-            match.GoalsA = goalsa;
-            match.GoalsH = goalsh;
-            match.State = state;
+            updated.Date = match.Date;
+            updated.Time = match.Time;
+            updated.Round = match.Round;
+            updated.StadiumId = match.StadiumId;
+            updated.GoalsA = match.GoalsA;
+            updated.GoalsH = match.GoalsH;
+            updated.State = match.State;
 
-            ctx.Matches.Attach(match);
-            var entry = ctx.Entry(match);
+            ctx.Matches.Attach(updated);
+            var entry = ctx.Entry(updated);
             entry.State = System.Data.Entity.EntityState.Modified;
 
             ctx.SaveChanges();

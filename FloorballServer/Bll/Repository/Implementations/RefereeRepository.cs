@@ -92,5 +92,19 @@ namespace Bll.Repository.Implementations
                 data2 = matchId
             });
         }
+
+        public int UpdateReferee(Referee referee)
+        {
+            var updated = ctx.Referees.Find(referee.Id);
+
+            updated.Name = referee.Name;
+
+            ctx.Referees.Attach(updated);
+            ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
+
+            return referee.Id;
+        }
     }
 }

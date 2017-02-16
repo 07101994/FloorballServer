@@ -51,5 +51,24 @@ namespace FloorballServer.Controllers.ApiControllers
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
+
+        /// <summary>
+        /// Update stadium
+        /// </summary>
+        /// <param name="stadium"></param>
+        /// <returns></returns>
+        [Route("stadiums")]
+        [HttpPut]
+        public HttpResponseMessage Put(StadiumModel stadium)
+        {
+            int id = UoW.StadiumRepository.UpdateStadium(new Stadium
+            {
+                Id = stadium.Id,
+                Name = stadium.Name,
+                Address = stadium.Address
+            });
+
+            return Request.CreateResponse(HttpStatusCode.OK, id);
+        }
     }
 }

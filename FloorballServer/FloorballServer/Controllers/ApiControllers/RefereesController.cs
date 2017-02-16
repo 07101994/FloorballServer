@@ -118,5 +118,37 @@ namespace FloorballServer.Controllers.ApiControllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        /// <summary>
+        /// Add referee
+        /// </summary>
+        /// <returns></returns>
+        [Route("referees")]
+        [HttpPost]
+        public HttpResponseMessage Referee(RefereeModel refere)
+        {
+            int id = UoW.RefereeRepository.AddReferee(new Referee
+            {
+                Name = refere.Name,
+            });
+
+            return Request.CreateResponse(HttpStatusCode.OK, id);
+        }
+
+        /// <summary>
+        /// Update referee
+        /// </summary>
+        /// <returns></returns>
+        [Route("referees")]
+        [HttpPut]
+        public HttpResponseMessage Put(RefereeModel refere)
+        {
+            int id = UoW.RefereeRepository.UpdateReferee(new Referee {
+                Id = refere.Id,
+                Name = refere.Name,
+            });
+
+            return Request.CreateResponse(HttpStatusCode.OK, id);
+        }
+
     }
 }

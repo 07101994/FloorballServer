@@ -30,9 +30,14 @@ namespace Bll.Repository.Interfaces
         #region DELETE
 
         void RemoveEvent(int id);
-    
+
         #endregion
 
+        #region UPDATE
+
+        int UpdateEvent(Event e);
+
+        #endregion
 
     }
 }

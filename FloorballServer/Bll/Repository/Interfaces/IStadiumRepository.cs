@@ -23,5 +23,11 @@ namespace Bll.Repository.Interfaces
 
         #endregion
 
+        #region UPDATE
+
+        int UpdateStadium(Stadium stadium);
+
+        #endregion
+
     }
 }

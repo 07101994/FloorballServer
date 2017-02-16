@@ -1,4 +1,5 @@
-﻿using Bll.Repository;
+﻿using Bll;
+using Bll.Repository;
 using FloorballServer.Attributes;
 using FloorballServer.Helper;
 using FloorballServer.Models.Floorball;
@@ -63,6 +64,45 @@ namespace FloorballServer.Controllers.ApiControllers
 
             return Request.CreateResponse(HttpStatusCode.OK, eventMessages);
         }
+
+        /// <summary>
+        /// Add event message
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [Route("eventmessages")]
+        [HttpPost]
+        public HttpResponseMessage EventMessages(EventMessageModel model)
+        {
+            int id = UoW.EventMessageRepository.AddEventMessage(new EventMessage
+            {
+                Code = model.Code,
+                Message = model.Message
+            });
+
+
+            return Request.CreateResponse(HttpStatusCode.OK, id);
+        }
+
+        /// <summary>
+        /// Update eventmessage.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [Route("eventmessages")]
+        [HttpPut]
+        public HttpResponseMessage Put(EventMessageModel model)
+        {
+            int id = UoW.EventMessageRepository.UpdateEventmessage(new EventMessage
+            {
+                Code = model.Code,
+                Id = model.Id,
+                Message = model.Message
+            });
+
+            return Request.CreateResponse(HttpStatusCode.OK, id);
+        }
+
 
     }
 }

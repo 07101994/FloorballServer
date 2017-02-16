@@ -74,6 +74,29 @@ namespace FloorballServer.Controllers.ApiControllers
         }
 
         /// <summary>
+        /// Update event.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        [Route("events")]
+        [HttpPut]
+        public HttpResponseMessage Put(EventModel e)
+        {
+            int id = UoW.EventRepository.UpdateEvent(new Event
+            {
+                Id = e.Id,
+                EventMessageId = e.EventMessageId,
+                MatchId = e.MatchId,
+                PlayerRegNum = e.PlayerId,
+                TeamId = e.TeamId,
+                Time = e.Time,
+                Type = e.Type
+            });
+
+            return Request.CreateResponse(HttpStatusCode.OK, id);
+        }
+
+        /// <summary>
         /// Delete event
         /// </summary>
         /// <param name="id"></param>

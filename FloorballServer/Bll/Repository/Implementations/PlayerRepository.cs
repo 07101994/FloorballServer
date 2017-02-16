@@ -10,8 +10,6 @@ namespace Bll.Repository.Implementations
 {
     public class PlayerRepository : Repository , IPlayerRepository
     {
-
-
         public int AddPlayer(Player player)
         {
             ctx.Players.Add(player);
@@ -192,6 +190,23 @@ namespace Bll.Repository.Implementations
             {
                 ctx.Statistics.Remove(s);
             }
+        }
+
+        public int UpdatePlayer(Player player)
+        {
+            var updated = ctx.Players.Find(player.RegNum);
+
+            updated.Date = player.Date;
+            updated.FirstName = player.FirstName;
+            updated.Number = player.Number;
+            updated.SecondName = player.SecondName;
+
+            ctx.Players.Attach(updated);
+            ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
+
+            return updated.RegNum;
         }
     }
 }

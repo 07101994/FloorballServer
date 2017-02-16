@@ -46,6 +46,13 @@
             <param name="e"></param>
             <returns></returns>
         </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.EventsController.Put(FloorballServer.Models.Floorball.EventModel)">
+            <summary>
+            Update event.
+            </summary>
+            <param name="e"></param>
+            <returns></returns>
+        </member>
         <member name="M:FloorballServer.Controllers.ApiControllers.EventsController.DeleteEvent(System.Int32)">
             <summary>
             Delete event
@@ -71,6 +78,20 @@
             Get eventmessages by category
             </summary>
             <param name="categoryNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.EventMessagesController.EventMessages(FloorballServer.Models.Floorball.EventMessageModel)">
+            <summary>
+            Add event message
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.EventMessagesController.Put(FloorballServer.Models.Floorball.EventMessageModel)">
+            <summary>
+            Update eventmessage.
+            </summary>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.Leagues">
@@ -130,6 +151,13 @@
         <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.Leagues(FloorballServer.Models.Floorball.LeagueModel)">
             <summary>
             Add league
+            </summary>
+            <param name="league"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.Put(FloorballServer.Models.Floorball.LeagueModel)">
+            <summary>
+            Update league.
             </summary>
             <param name="league"></param>
             <returns></returns>
@@ -225,6 +253,13 @@
             <param name="matchId"></param>
             <returns></returns>
         </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.PlayersController.Put(FloorballServer.Models.Floorball.PlayerModel)">
+            <summary>
+            Update player.
+            </summary>
+            <param name="player"></param>
+            <returns></returns>
+        </member>
         <member name="M:FloorballServer.Controllers.ApiControllers.RefereesController.Referees">
             <summary>
             Get all refereees
@@ -260,6 +295,18 @@
             <param name="referee"></param>
             <returns></returns>
         </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.RefereesController.Referee(FloorballServer.Models.Floorball.RefereeModel)">
+            <summary>
+            Add referee
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.RefereesController.Put(FloorballServer.Models.Floorball.RefereeModel)">
+            <summary>
+            Update referee
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:FloorballServer.Controllers.ApiControllers.StadiumsController.Stadiums">
             <summary>
             Get all stadiums
@@ -269,6 +316,13 @@
         <member name="M:FloorballServer.Controllers.ApiControllers.StadiumsController.Stadiums(FloorballServer.Models.Floorball.StadiumModel)">
             <summary>
             Add stadium
+            </summary>
+            <param name="stadium"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.StadiumsController.Put(FloorballServer.Models.Floorball.StadiumModel)">
+            <summary>
+            Update stadium
             </summary>
             <param name="stadium"></param>
             <returns></returns>
@@ -309,6 +363,13 @@
         <member name="M:FloorballServer.Controllers.ApiControllers.TeamsController.Teams(FloorballServer.Models.Floorball.TeamModel)">
             <summary>
             Add team.
+            </summary>
+            <param name="team"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FloorballServer.Controllers.ApiControllers.TeamsController.Put(FloorballServer.Models.Floorball.TeamModel)">
+            <summary>
+            Update team
             </summary>
             <param name="team"></param>
             <returns></returns>

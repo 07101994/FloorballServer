@@ -27,7 +27,11 @@ namespace Bll.Repository.Interfaces
 
         #endregion
 
-        
+        #region UPDATE
+
+        int UpdateTeam(Team team);
+
+        #endregion
 
 
     }

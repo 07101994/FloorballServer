@@ -29,6 +29,8 @@ namespace Bll.Repository.Interfaces
 
         #region UPDATE
 
+        int UpdateReferee(Referee referee);
+
         void AddRefereeToMatch(int refereeId, int matchId);
 
         void RemoveRefereeFromMatch(int refereeId, int matchId);

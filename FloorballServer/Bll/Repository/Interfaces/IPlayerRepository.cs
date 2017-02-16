@@ -35,6 +35,8 @@ namespace Bll.Repository.Interfaces
 
         #region UPDATE
 
+        int UpdatePlayer(Player player);
+
         void AddPlayerToMatch(int playerId, int matchId);
 
         void AddPlayerToTeam(int playerId, int matchId);
