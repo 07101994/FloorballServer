@@ -20,7 +20,7 @@ namespace Bll.Repository.Implementations
             {
                 name= UpdateEnum.Referee.ToUpdateString(),
                 date = DateTime.Now,
-                updatetype = UpdateType.Create,
+                updatetype = UpdateType.Create.ToString(),
                 data1 = referee.Id
             });
 
@@ -39,7 +39,7 @@ namespace Bll.Repository.Implementations
             {
                 name = UpdateEnum.RefereeMatch.ToUpdateString(),
                 date = DateTime.Now,
-                updatetype = UpdateType.Create,
+                updatetype = UpdateType.Create.ToString(),
                 data1 = refereeId,
                 data2 = matchId
             });
@@ -87,7 +87,7 @@ namespace Bll.Repository.Implementations
             {
                 name = UpdateEnum.RefereeMatch.ToUpdateString(),
                 date = DateTime.Now,
-                updatetype = UpdateType.Delete,
+                updatetype = UpdateType.Delete.ToString(),
                 data1 = refereeId,
                 data2 = matchId
             });

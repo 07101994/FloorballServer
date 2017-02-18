@@ -134,7 +134,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.TeamsByLeague(System.Int32)">
+        <member name="M:FloorballServer.Controllers.ApiControllers.LeaguesController.TeamsByLeague(System.Int32,System.Boolean)">
             <summary>
             Get teams by league
             </summary>
@@ -333,20 +333,20 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:FloorballServer.Controllers.ApiControllers.TeamsController.Teams">
+        <member name="M:FloorballServer.Controllers.ApiControllers.TeamsController.Teams(System.Boolean)">
             <summary>
             Get all teams
             </summary>
             <returns></returns>
         </member>
-        <member name="M:FloorballServer.Controllers.ApiControllers.TeamsController.Teams(System.Int32)">
+        <member name="M:FloorballServer.Controllers.ApiControllers.TeamsController.Teams(System.Int32,System.Boolean)">
             <summary>
             Get team by id
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:FloorballServer.Controllers.ApiControllers.TeamsController.Teams(System.String)">
+        <member name="M:FloorballServer.Controllers.ApiControllers.TeamsController.Teams(System.String,System.Boolean)">
             <summary>
             Get teams by year
             </summary>

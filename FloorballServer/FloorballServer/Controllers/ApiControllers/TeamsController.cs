@@ -26,11 +26,11 @@ namespace FloorballServer.Controllers.ApiControllers
         //GET api/floorball/teams
         [Route("teams")]
         [HttpGet]
-        public HttpResponseMessage Teams()
+        public HttpResponseMessage Teams(bool withImage = false)
         {
             List<TeamModel> teams = new List<TeamModel>();
 
-            UoW.TeamRepository.GetAllTeam().ToList().ForEach(t => teams.Add(ModelHelper.CreateTeamModel(t)));
+            UoW.TeamRepository.GetAllTeam().ToList().ForEach(t => teams.Add(ModelHelper.CreateTeamModel(t, withImage)));
 
             return Request.CreateResponse(HttpStatusCode.OK, teams);
         }
@@ -43,9 +43,9 @@ namespace FloorballServer.Controllers.ApiControllers
         //GET api/floorball/teams/{id}
         [Route("teams/{id}")]
         [HttpGet]
-        public HttpResponseMessage Teams(int id)
+        public HttpResponseMessage Teams(int id, bool withImage = false)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, ModelHelper.CreateTeamModel(UoW.TeamRepository.GetTeamById(id)));
+            return Request.CreateResponse(HttpStatusCode.OK, ModelHelper.CreateTeamModel(UoW.TeamRepository.GetTeamById(id),withImage));
         }
 
         /// <summary>
@@ -56,12 +56,12 @@ namespace FloorballServer.Controllers.ApiControllers
         //GET api/floorball/teams
         [Route("teams")]
         [HttpGet]
-        public HttpResponseMessage Teams(string year)
+        public HttpResponseMessage Teams(string year, bool withImage = false)
         {
             List<TeamModel> teams = new List<TeamModel>();
 
             DateTime d = DateTime.ParseExact(year, "yyyy", CultureInfo.InvariantCulture);
-            UoW.TeamRepository.GetTeamsByYear(d).ToList().ForEach(t => teams.Add(ModelHelper.CreateTeamModel(t)));
+            UoW.TeamRepository.GetTeamsByYear(d).ToList().ForEach(t => teams.Add(ModelHelper.CreateTeamModel(t,withImage)));
 
             return Request.CreateResponse(HttpStatusCode.OK, teams);
         }

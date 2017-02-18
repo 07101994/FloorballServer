@@ -13,7 +13,7 @@ namespace WebApi.Helper
 
         public object Entity { get; set; }
 
-        public UpdateType UpdateType { get; set; }
+        public string UpdateType { get; set; }
 
     }
 }

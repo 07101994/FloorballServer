@@ -63,7 +63,7 @@
     <Compile Include="EventMessage.cs">
       <DependentUpon>FloorballModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FloorballModel.Context.cs">
+    <Compile Include="FloorballModel.Context1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FloorballModel.Context.tt</DependentUpon>
@@ -145,7 +145,7 @@
     <Content Include="FloorballModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FloorballModel.edmx</DependentUpon>
-      <LastGenOutput>FloorballModel.Context.cs</LastGenOutput>
+      <LastGenOutput>FloorballModel.Context1.cs</LastGenOutput>
     </Content>
     <Content Include="FloorballModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -120,11 +120,11 @@ namespace FloorballServer.Controllers.ApiControllers
         //GET api/floorball/teams/{id}
         [Route("leagues/{id}/teams")]
         [HttpGet]
-        public HttpResponseMessage TeamsByLeague(int id)
+        public HttpResponseMessage TeamsByLeague(int id, bool withImage = false)
         {
             List<TeamModel> teams = new List<TeamModel>();
 
-            UoW.TeamRepository.GetTeamsByLeague(id).ToList().ForEach(t => teams.Add(ModelHelper.CreateTeamModel(t)));
+            UoW.TeamRepository.GetTeamsByLeague(id).ToList().ForEach(t => teams.Add(ModelHelper.CreateTeamModel(t, withImage)));
 
             return Request.CreateResponse(HttpStatusCode.OK, teams);
         }

@@ -19,6 +19,6 @@ namespace Bll
         public System.DateTime date { get; set; }
         public int data1 { get; set; }
         public int data2 { get; set; }
-        public UpdateType updatetype { get; set; }
+        public string updatetype { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace Bll.Repository.Implementations
             ctx.Teams.Add(team);
             ctx.SaveChanges();
 
-            team.ImageName = team.Id + ".png";
+            team.ImageName = team.Id + ".jpg";
             ctx.Teams.Attach(team);
             ctx.Entry(team).Property("ImageName").IsModified = true;
             ctx.SaveChanges();
@@ -28,7 +28,7 @@ namespace Bll.Repository.Implementations
             AddUpdate(new Update
             {
                 name = UpdateEnum.Team.ToUpdateString(),
-                updatetype = UpdateType.Create,
+                updatetype = UpdateType.Create.ToString(),
                 data1 = team.Id,
                 date = DateTime.Now
             });

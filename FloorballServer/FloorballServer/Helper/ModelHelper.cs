@@ -10,7 +10,7 @@ namespace FloorballServer.Helper
     public class ModelHelper
     {
 
-        public static TeamModel CreateTeamModel(Team t)
+        public static TeamModel CreateTeamModel(Team t, bool withImage)
         {
             
             TeamModel model = new TeamModel();
@@ -28,7 +28,10 @@ namespace FloorballServer.Helper
             model.Sex = t.Sex;
             model.Country = t.Country.ToEnum<CountriesEnum>();
             model.ImageName = t.ImageName;
-            model.Image = ImageManager.GetImage(t.ImageName);
+            if (withImage)
+            {
+                model.Image = ImageManager.GetImage(t.ImageName);
+            }
 
             return model;
         }

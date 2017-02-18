@@ -20,7 +20,7 @@ namespace Bll.Repository.Implementations
             AddUpdate(new Update
             {
                 name = UpdateEnum.League.ToUpdateString(),
-                updatetype = UpdateType.Create,
+                updatetype = UpdateType.Create.ToString(),
                 date = DateTime.Now,
                 data1 = league.Id
             });

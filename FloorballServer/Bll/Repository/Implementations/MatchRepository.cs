@@ -20,7 +20,7 @@ namespace Bll.Repository.Implementations
             {
                 name = UpdateEnum.Match.ToUpdateString(),
                 date = DateTime.Now,
-                updatetype = UpdateType.Create,
+                updatetype = UpdateType.Create.ToString(),
                 data1 = match.Id
             });
 

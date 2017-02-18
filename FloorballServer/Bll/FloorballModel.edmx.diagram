@@ -29,7 +29,7 @@
         <AssociationConnector Association="FloorballModel.PlayerTeam" ManuallyRouted="false" />
         <AssociationConnector Association="FloorballModel.RefereeMatch" ManuallyRouted="false" />
         <AssociationConnector Association="FloorballModel.FK_Events_Teams" />
-        <EntityTypeShape EntityType="FloorballModel.Update" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="FloorballModel.Update" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
