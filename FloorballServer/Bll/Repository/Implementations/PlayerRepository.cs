@@ -17,7 +17,7 @@ namespace Bll.Repository.Implementations
 
             AddUpdate(new Update
             {
-                isAdding = true,
+                updatetype = UpdateType.Create,
                 name = UpdateEnum.Player.ToUpdateString(),
                 date = DateTime.Now,
                 data1 = player.RegNum
@@ -42,7 +42,7 @@ namespace Bll.Repository.Implementations
             {
                 name = UpdateEnum.PlayerMatch.ToUpdateString(),
                 date = DateTime.Now,
-                isAdding = true,
+                updatetype = UpdateType.Create,
                 data1 = player.RegNum,
                 data2 = match.Id
             });
@@ -62,7 +62,7 @@ namespace Bll.Repository.Implementations
             {
                 name = UpdateEnum.PlayerTeam.ToUpdateString(),
                 date = DateTime.Now,
-                isAdding = true,
+                updatetype = UpdateType.Create,
                 data1 = player.RegNum,
                 data2 = team.Id
             });
@@ -155,7 +155,7 @@ namespace Bll.Repository.Implementations
             {
                 name = UpdateEnum.PlayerMatch.ToUpdateString(),
                 date = DateTime.Now,
-                isAdding = false, 
+                updatetype = UpdateType.Delete, 
                 data1 = playerId,
                 data2 = matchId
             });
@@ -178,7 +178,7 @@ namespace Bll.Repository.Implementations
                 date = DateTime.Now,
                 data1 = playerId,
                 data2 = teamId,
-                isAdding = false
+                updatetype = UpdateType.Delete
             });
         }
 

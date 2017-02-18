@@ -76,4 +76,9 @@ namespace Bll
         League, Team, Match, Player, Stadium, Referee, Event, EventMessage,
         PlayerTeam, PlayerMatch, RefereeMatch
     }
+
+    public enum UpdateType
+    {
+        Create, Update, Delete
+    }
 }

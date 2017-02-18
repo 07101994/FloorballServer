@@ -13,7 +13,7 @@ namespace WebApi.Helper
 
         public object Entity { get; set; }
 
-        public bool IsAdding { get; set; }
+        public UpdateType UpdateType { get; set; }
 
     }
 }

@@ -144,7 +144,7 @@
           <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="data1" Type="int" Nullable="false" />
           <Property Name="data2" Type="int" Nullable="false" />
-          <Property Name="isAdding" Type="bit" Nullable="false" />
+          <Property Name="updatetype" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <Association Name="FK_EventMatch">
           <End Role="Matches" Type="Self.Matches" Multiplicity="1" />
@@ -828,7 +828,7 @@
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="data1" Type="Int32" Nullable="false" />
           <Property Name="data2" Type="Int32" Nullable="false" />
-          <Property Name="isAdding" Type="Boolean" Nullable="false" />
+          <Property Name="updatetype" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -978,7 +978,7 @@
           <EntitySetMapping Name="Updates">
             <EntityTypeMapping TypeName="FloorballModel.Update">
               <MappingFragment StoreEntitySet="Updates">
-                <ScalarProperty Name="isAdding" ColumnName="isAdding" />
+                <ScalarProperty Name="updatetype" ColumnName="updatetype" />
                 <ScalarProperty Name="data2" ColumnName="data2" />
                 <ScalarProperty Name="data1" ColumnName="data1" />
                 <ScalarProperty Name="date" ColumnName="date" />

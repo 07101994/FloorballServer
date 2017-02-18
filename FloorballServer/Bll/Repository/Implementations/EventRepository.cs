@@ -27,7 +27,7 @@ namespace Bll.Repository.Implementations
             {
                 name = UpdateEnum.Event.ToUpdateString(),
                 date = DateTime.Now,
-                isAdding = true,
+                updatetype = UpdateType.Create,
                 data1 = ev.Id
             });
 
@@ -107,7 +107,7 @@ namespace Bll.Repository.Implementations
                 AddUpdate(new Update
                 {
                     name = UpdateEnum.Event.ToUpdateString(),
-                    isAdding = false,
+                    updatetype = UpdateType.Delete,
                     date = DateTime.Now,
                     data1 = e1.Id
                 });
@@ -119,7 +119,7 @@ namespace Bll.Repository.Implementations
             AddUpdate(new Update
             {
                 name = UpdateEnum.Event.ToUpdateString(),
-                isAdding = false,
+                updatetype = UpdateType.Delete,
                 date = DateTime.Now,
                 data1 = e.Id
             });

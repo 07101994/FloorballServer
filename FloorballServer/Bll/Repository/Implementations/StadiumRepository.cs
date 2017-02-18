@@ -19,7 +19,7 @@ namespace Bll.Repository.Implementations
 
             AddUpdate(new Update
             {
-                isAdding = true,
+                updatetype = UpdateType.Create,
                 date = DateTime.Now,
                 data1 = stadium.Id,
                 name = UpdateEnum.Stadium.ToUpdateString()

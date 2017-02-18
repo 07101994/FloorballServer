@@ -24,7 +24,7 @@ namespace Bll.Repository.Implementations
             AddUpdate(new Update
             {
                 name = UpdateEnum.Team.ToUpdateString(),
-                isAdding = true,
+                updatetype = UpdateType.Create,
                 data1 = team.Id,
                 date = DateTime.Now
             });
@@ -73,7 +73,7 @@ namespace Bll.Repository.Implementations
             //AddUpdate(new Update
             //{
             //    name = UpdateEnum.Team.ToUpdateString(),
-            //    isAdding = true,
+            //    UpdateType = UpdateType.Create,
             //    data1 = team.Id,
             //    date = DateTime.Now
             //});
