@@ -223,7 +223,7 @@
     <Compile Include="Controllers\ApiControllers\StadiumsController.cs" />
     <Compile Include="Controllers\ApiControllers\StatisticsController.cs" />
     <Compile Include="Controllers\ApiControllers\TeamsController.cs" />
-    <Compile Include="Helper\ImageSaver.cs" />
+    <Compile Include="Helper\ImageManager.cs" />
     <Compile Include="Helper\UpdateCollector.cs" />
     <Compile Include="Models\Floorball\UpdateModel.cs" />
     <Compile Include="Startup.Auth.cs" />

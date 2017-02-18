@@ -68,7 +68,7 @@ namespace FloorballServer.Controllers.ApiControllers
         {
             byte[] image = File.ReadAllBytes(HttpContext.Current.Server.MapPa‌​th("~/Content/NokianKRP.png"));
 
-            ImageSaver.SaveImage(image,"test1.png");
+            ImageManager.SaveImage(image,"test1.png");
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

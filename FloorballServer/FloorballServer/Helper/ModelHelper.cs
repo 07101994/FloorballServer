@@ -27,6 +27,8 @@ namespace FloorballServer.Helper
             model.Coach = t.Coach;
             model.Sex = t.Sex;
             model.Country = t.Country.ToEnum<CountriesEnum>();
+            model.ImageName = t.ImageName;
+            model.Image = ImageManager.GetImage(t.ImageName);
 
             return model;
         }

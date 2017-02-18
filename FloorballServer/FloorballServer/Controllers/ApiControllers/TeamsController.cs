@@ -31,6 +31,7 @@ namespace FloorballServer.Controllers.ApiControllers
             List<TeamModel> teams = new List<TeamModel>();
 
             UoW.TeamRepository.GetAllTeam().ToList().ForEach(t => teams.Add(ModelHelper.CreateTeamModel(t)));
+
             return Request.CreateResponse(HttpStatusCode.OK, teams);
         }
 
@@ -103,7 +104,7 @@ namespace FloorballServer.Controllers.ApiControllers
                 Country = team.Country.ToCountryString()
             });
 
-            ImageSaver.SaveImage(team.Image, id + ".png");
+            ImageManager.SaveImage(team.Image, id.ToString());
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
@@ -131,7 +132,7 @@ namespace FloorballServer.Controllers.ApiControllers
 
             if (team.Image != null)
             {
-                ImageSaver.SaveImage(team.Image, id + ".png");
+                ImageManager.SaveImage(team.Image, id.ToString());
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, id);

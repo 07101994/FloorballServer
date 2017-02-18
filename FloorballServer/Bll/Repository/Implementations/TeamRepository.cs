@@ -1,4 +1,4 @@
-﻿using Bll.Repository.Interfaces;
+﻿using Bll.Repository.Interfaces; 
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,6 @@ namespace Bll.Repository.Implementations
 {
     public class TeamRepository : Repository, ITeamRepository
     {
-
         public int AddTeam(Team team)
         {
             team.Get = 0;
@@ -19,6 +18,11 @@ namespace Bll.Repository.Implementations
             team.Standing = 0;
 
             ctx.Teams.Add(team);
+            ctx.SaveChanges();
+
+            team.ImageName = team.Id + ".png";
+            ctx.Teams.Attach(team);
+            ctx.Entry(team).Property("ImageName").IsModified = true;
             ctx.SaveChanges();
 
             AddUpdate(new Update
