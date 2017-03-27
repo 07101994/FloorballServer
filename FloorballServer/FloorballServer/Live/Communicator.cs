@@ -19,24 +19,26 @@ namespace FloorballServer.Live
         }
 
 
-        public void AddEventToMatch(EventModel e, string country)
+        public void AddEventToMatch(EventModel e, string leagueId)
         {
 
-            hub.Clients.Group(country).AddEventToMatch(e);
+            hub.Clients.Group(leagueId).AddEventToMatch(e);
 
         }
 
-
-        public void StartMatch(int matchId, StateEnum state, string country)
+        public void StartMatch(int matchId, StateEnum state, string leagueId)
         {
-
-            hub.Clients.Group(country).ChangeMatchState(matchId,state);
-
+            hub.Clients.Group(leagueId).ChangeMatchState(matchId,state);
         }
 
-        public void UpdateMatchTime(int matchId, TimeSpan time, string country)
+        public void UpdateMatchTime(int matchId, TimeSpan time, string leagueId)
         {
-            hub.Clients.Group(country).UpdateMatchTime(matchId, time);
+            hub.Clients.Group(leagueId).UpdateMatchTime(matchId, time);
+        }
+
+        public void RemoveEventFromMatch(int eventId, string leagueId)
+        {
+            hub.Clients.Group(leagueId).RemoveEventFromMatch(eventId);
         }
 
     }

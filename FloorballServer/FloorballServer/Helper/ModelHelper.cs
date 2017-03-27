@@ -30,7 +30,13 @@ namespace FloorballServer.Helper
             model.ImageName = t.ImageName;
             if (withImage)
             {
-                model.Image = ImageManager.GetImage(t.ImageName);
+                try
+                {
+                    model.Image = ImageManager.GetImage(t.ImageName);
+                }
+                catch (Exception)
+                {
+                }
             }
 
             return model;

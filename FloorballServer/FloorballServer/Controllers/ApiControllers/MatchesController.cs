@@ -122,7 +122,7 @@ namespace FloorballServer.Controllers.ApiControllers
             if (match.Time != oldTime)
             {
                 Communicator comm = new Communicator();
-                comm.UpdateMatchTime(match.Id, match.Time, oldMatch.League.Country);
+                comm.UpdateMatchTime(match.Id, match.Time, oldMatch.League.Id.ToString());
             }
 
             return Request.CreateResponse(HttpStatusCode.OK);

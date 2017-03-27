@@ -38,6 +38,11 @@ namespace Bll.Repository.Implementations
             return ctx.Leagues.Where(l => l.Id == id).FirstOrDefault();
         }
 
+        public League GetLeagueByEvent(int eventId)
+        {
+            return ctx.Events.Include("Match.League").First(e => e.Id == eventId).Match.League;
+        }
+
         public IEnumerable<int> GetAllYear()
         {
             return ctx.Leagues.Select(l => l.Year.Year).Distinct().OrderBy(t => t);
@@ -72,5 +77,6 @@ namespace Bll.Repository.Implementations
 
             return updated.Id;
         }
+       
     }
 }

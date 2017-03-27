@@ -68,7 +68,7 @@ namespace FloorballServer.Controllers.ApiControllers
             });
             e.Id = id;
             Communicator comm = new Communicator();
-            comm.AddEventToMatch(e, UoW.EventRepository.GetCountryByEvent(id).ToCountryString());
+            comm.AddEventToMatch(e, UoW.LeagueRepository.GetLeagueByEvent(e.Id).Id.ToString());
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }
@@ -106,7 +106,12 @@ namespace FloorballServer.Controllers.ApiControllers
         [HttpDelete]
         public HttpResponseMessage DeleteEvent(int id)
         {
+            var league = UoW.LeagueRepository.GetLeagueByEvent(id);
+
             UoW.EventRepository.RemoveEvent(id);
+
+            Communicator comm = new Communicator();
+            comm.RemoveEventFromMatch(id, league.Id.ToString());
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

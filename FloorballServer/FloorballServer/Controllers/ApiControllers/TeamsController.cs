@@ -39,6 +39,7 @@ namespace FloorballServer.Controllers.ApiControllers
         /// Get team by id
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="withImage"></param>
         /// <returns></returns>
         //GET api/floorball/teams/{id}
         [Route("teams/{id}")]
@@ -52,6 +53,7 @@ namespace FloorballServer.Controllers.ApiControllers
         /// Get teams by year
         /// </summary>
         /// <param name="year"></param>
+        /// <param name="withImage"></param>
         /// <returns></returns>
         //GET api/floorball/teams
         [Route("teams")]

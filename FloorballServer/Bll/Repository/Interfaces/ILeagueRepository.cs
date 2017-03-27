@@ -13,6 +13,8 @@ namespace Bll.Repository.Interfaces
 
         League GetLeagueById(int id);
 
+        League GetLeagueByEvent(int eventId);
+
         IEnumerable<League> GetLeaguesByYear(DateTime year);
 
         IEnumerable<League> GetAllLeague();
