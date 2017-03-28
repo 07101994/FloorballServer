@@ -4,6 +4,7 @@ using FloorballServer.Attributes;
 using FloorballServer.Helper;
 using FloorballServer.Live;
 using FloorballServer.Models.Floorball;
+using MessagingService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,7 +69,15 @@ namespace FloorballServer.Controllers.ApiControllers
             });
             e.Id = id;
             Communicator comm = new Communicator();
-            comm.AddEventToMatch(e, UoW.LeagueRepository.GetLeagueByEvent(e.Id).Id.ToString());
+            string leagueId = UoW.LeagueRepository.GetLeagueByEvent(e.Id).Id.ToString();
+
+            comm.AddEventToMatch(e, leagueId);
+
+            Messanger.Instance.SendNotification(new AndroidNotification
+            {
+                Notification = new Notification { Body = "Esemény érkezett!!", Title = "Új esemény"},
+                To = "/topics/event_"+leagueId
+            });
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }

@@ -63,8 +63,8 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
@@ -218,6 +218,7 @@
     <Compile Include="Controllers\ApiControllers\EventMessagesController.cs" />
     <Compile Include="Controllers\ApiControllers\LeaguesController.cs" />
     <Compile Include="Controllers\ApiControllers\MatchesController.cs" />
+    <Compile Include="Controllers\ApiControllers\NotificationController.cs" />
     <Compile Include="Controllers\ApiControllers\PlayersController.cs" />
     <Compile Include="Controllers\ApiControllers\RefereesController.cs" />
     <Compile Include="Controllers\ApiControllers\StadiumsController.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="Controllers\ApiControllers\TeamsController.cs" />
     <Compile Include="Helper\ImageManager.cs" />
     <Compile Include="Helper\UpdateCollector.cs" />
+    <Compile Include="Models\Floorball\NotificationModel.cs" />
     <Compile Include="Models\Floorball\UpdateModel.cs" />
     <Compile Include="Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -360,6 +362,10 @@
     <ProjectReference Include="..\Bll\Bll.csproj">
       <Project>{eab2b970-6632-49d2-9e10-80bd614ebb35}</Project>
       <Name>Bll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessagingService\MessagingService.csproj">
+      <Project>{2c3f1f20-ba9d-4627-b93c-d176a0e2b4a2}</Project>
+      <Name>MessagingService</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

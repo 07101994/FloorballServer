@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bll", "Bll\Bll.csproj", "{E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseMaker", "WpfApplication1\DatabaseMaker.csproj", "{1E88A406-68AC-4BC6-BE50-94C16A479B8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingService", "MessagingService\MessagingService.csproj", "{2C3F1F20-BA9D-4627-B93C-D176A0E2B4A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1E88A406-68AC-4BC6-BE50-94C16A479B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E88A406-68AC-4BC6-BE50-94C16A479B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E88A406-68AC-4BC6-BE50-94C16A479B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C3F1F20-BA9D-4627-B93C-D176A0E2B4A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C3F1F20-BA9D-4627-B93C-D176A0E2B4A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C3F1F20-BA9D-4627-B93C-D176A0E2B4A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C3F1F20-BA9D-4627-B93C-D176A0E2B4A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
