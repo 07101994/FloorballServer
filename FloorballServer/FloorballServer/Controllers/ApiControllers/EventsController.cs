@@ -5,11 +5,13 @@ using FloorballServer.Helper;
 using FloorballServer.Live;
 using FloorballServer.Models.Floorball;
 using MessagingService;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace FloorballServer.Controllers.ApiControllers
@@ -56,7 +58,7 @@ namespace FloorballServer.Controllers.ApiControllers
         //POST api/floorball/events
         [Route("events")]
         [HttpPost]
-        public HttpResponseMessage Events(EventModel e)
+        public async Task<HttpResponseMessage> Events(EventModel e)
         {
             int id = UoW.EventRepository.AddEvent(new Event
             {
@@ -67,17 +69,19 @@ namespace FloorballServer.Controllers.ApiControllers
                 EventMessageId = e.EventMessageId,
                 TeamId = e.TeamId
             });
+
             e.Id = id;
+
             Communicator comm = new Communicator();
             string leagueId = UoW.LeagueRepository.GetLeagueByEvent(e.Id).Id.ToString();
-
             comm.AddEventToMatch(e, leagueId);
 
-            Messanger.Instance.SendNotification(new AndroidNotification
-            {
-                Notification = new Notification { Body = "Esemény érkezett!!", Title = "Új esemény"},
-                To = "/topics/event_"+leagueId
-            });
+            await Messanger.Instance.SendNewEvent(
+                JsonConvert.SerializeObject(e),
+                NotificationHelper.GetEventTitleArgs(UoW.EventRepository.GetEventById(e.Id)),
+                NotificationHelper.GetEventBodyArgs(UoW.EventRepository.GetEventById(e.Id)),
+                "/topics/event_" + leagueId);
+        
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
         }

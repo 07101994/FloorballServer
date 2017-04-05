@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FloorballModelStoreContainer" CdmEntityContainer="FloorballEntities">
+    <EntitySetMapping Name="EventMessages">
+      <EntityTypeMapping TypeName="FloorballModel.EventMessage">
+        <MappingFragment StoreEntitySet="EventMessages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="FloorballModel.Event">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="MatchId" ColumnName="MatchId" />
+          <ScalarProperty Name="PlayerRegNum" ColumnName="PlayerRegNum" />
+          <ScalarProperty Name="EventMessageId" ColumnName="EventMessageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Leagues">
+      <EntityTypeMapping TypeName="FloorballModel.League">
+        <MappingFragment StoreEntitySet="Leagues">
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="Rounds" ColumnName="Rounds" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Matches">
+      <EntityTypeMapping TypeName="FloorballModel.Match">
+        <MappingFragment StoreEntitySet="Matches">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Round" ColumnName="Round" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="GoalsH" ColumnName="GoalsH" />
+          <ScalarProperty Name="GoalsA" ColumnName="GoalsA" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="HomeTeamId" ColumnName="HomeTeamId" />
+          <ScalarProperty Name="AwayTeamId" ColumnName="AwayTeamId" />
+          <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+          <ScalarProperty Name="StadiumId" ColumnName="StadiumId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Players">
+      <EntityTypeMapping TypeName="FloorballModel.Player">
+        <MappingFragment StoreEntitySet="Players">
+          <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="RegNum" ColumnName="RegNum" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Referees">
+      <EntityTypeMapping TypeName="FloorballModel.Referee">
+        <MappingFragment StoreEntitySet="Referees">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Penalty" ColumnName="Penalty" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stadiums">
+      <EntityTypeMapping TypeName="FloorballModel.Stadium">
+        <MappingFragment StoreEntitySet="Stadiums">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Statistics">
+      <EntityTypeMapping TypeName="FloorballModel.Statistic">
+        <MappingFragment StoreEntitySet="Statistics">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="PlayerRegNum" ColumnName="PlayerRegNum" />
+          <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teams">
+      <EntityTypeMapping TypeName="FloorballModel.Team">
+        <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Coach" ColumnName="Coach" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="Standing" ColumnName="Standing" />
+          <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+          <ScalarProperty Name="Match" ColumnName="Match" />
+          <ScalarProperty Name="Scored" ColumnName="Scored" />
+          <ScalarProperty Name="Get" ColumnName="Get" />
+          <ScalarProperty Name="StadiumId" ColumnName="StadiumId" />
+          <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PlayerMatch" TypeName="FloorballModel.PlayerMatch" StoreEntitySet="PlayerMatch">
+      <EndProperty Name="Matches">
+        <ScalarProperty Name="Id" ColumnName="Matches_Id" />
+      </EndProperty>
+      <EndProperty Name="Players">
+        <ScalarProperty Name="RegNum" ColumnName="Players_RegNum" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PlayerTeam" TypeName="FloorballModel.PlayerTeam" StoreEntitySet="PlayerTeam">
+      <EndProperty Name="Players">
+        <ScalarProperty Name="RegNum" ColumnName="Players_RegNum" />
+      </EndProperty>
+      <EndProperty Name="Teams">
+        <ScalarProperty Name="Id" ColumnName="Teams_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RefereeMatch" TypeName="FloorballModel.RefereeMatch" StoreEntitySet="RefereeMatch">
+      <EndProperty Name="Matches">
+        <ScalarProperty Name="Id" ColumnName="Matches_Id" />
+      </EndProperty>
+      <EndProperty Name="Referees">
+        <ScalarProperty Name="Id" ColumnName="Referees_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="Updates">
+      <EntityTypeMapping TypeName="FloorballModel.Update">
+        <MappingFragment StoreEntitySet="Updates">
+          <ScalarProperty Name="updatetype" ColumnName="updatetype" />
+          <ScalarProperty Name="data2" ColumnName="data2" />
+          <ScalarProperty Name="data1" ColumnName="data1" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

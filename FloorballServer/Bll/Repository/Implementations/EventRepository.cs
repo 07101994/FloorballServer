@@ -98,7 +98,7 @@ namespace Bll.Repository.Implementations
 
         public Event GetEventById(int id)
         {
-            return ctx.Events.Include("EventMessage").Include("Player").Where(e => e.Id == id).FirstOrDefault();
+            return ctx.Events.Include("EventMessage").Include("Player").Include("Match").Where(e => e.Id == id).FirstOrDefault();
         }
 
         public CountriesEnum GetCountryByEvent(int id)

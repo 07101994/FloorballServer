@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,13 +37,35 @@ namespace MessagingService
             }
         }
 
-        public async Task SendNotification(BaseNotification notification)
+        private async Task SendNotification(BaseNotification notification)
         {
             var client = new MessagingRestClient(Url);
             await client.ExecuteRequest("", Method.POST, null, null, notification, headers);
 
         }
 
+        public async Task SendNewEvent(string entity, List<string> titleArgs, List<string> bodyArgs, string to)
+        {
+            await Instance.SendNotification(new AndroidNotification
+            {
+                //Notification = new Notification
+                //{
+                //    BodyLocKey = bodyLocKey,
+                //    BodyLocArgs = JsonConvert.SerializeObject(bodyLocArgs),
+                //    TitleLocKey = titleLocKey,
+                //    TitleLocArgs = JsonConvert.SerializeObject(titleLocArgs),
+                //    Sound = "default",
+                //    Action = "Activity_Match",
+                //},
+                Data = new Data
+                {
+                    Entity = entity,
+                    BodyArgs = bodyArgs,
+                    TitleArgs = titleArgs
+                },
+                To = to
+            });
+        }
 
 
     }
