@@ -1,9 +1,0 @@
-D:\Projects\FloorballServer\FloorballServer\MessagingService\bin\Debug\MessagingService.dll
-D:\Projects\FloorballServer\FloorballServer\MessagingService\bin\Debug\MessagingService.pdb
-D:\Projects\FloorballServer\FloorballServer\MessagingService\bin\Debug\Newtonsoft.Json.dll
-D:\Projects\FloorballServer\FloorballServer\MessagingService\bin\Debug\RestSharp.dll
-D:\Projects\FloorballServer\FloorballServer\MessagingService\bin\Debug\Newtonsoft.Json.xml
-D:\Projects\FloorballServer\FloorballServer\MessagingService\bin\Debug\RestSharp.xml
-D:\Projects\FloorballServer\FloorballServer\MessagingService\obj\Debug\MessagingService.csprojResolveAssemblyReference.cache
-D:\Projects\FloorballServer\FloorballServer\MessagingService\obj\Debug\MessagingService.dll
-D:\Projects\FloorballServer\FloorballServer\MessagingService\obj\Debug\MessagingService.pdb
