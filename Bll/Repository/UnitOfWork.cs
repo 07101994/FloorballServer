@@ -13,211 +13,33 @@ namespace Bll.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-
         private FloorballEntities ctx;
-
-        private IEventRepository eventRepository;
-        private ILeagueRepository leagueRepository;
-        private IMatchRepository matchRepository;
-        private IPlayerRepository playerRepository;
-        private IRefereeRepository refereeRepository;
-        private ITeamRepository teamRepository;
-        private IEventMessageRepository eventMessageRepository;
-        private IRepository repository;
-        private IStatisticRepository statisticRepository;
-        private IStadiumRepository stadiumRepository;
 
         private StandardKernel kernel;
 
-        public IEventRepository EventRepository
-        {
-            get;
-            set;
-        }
+        public IEventRepository EventRepository { get; set; }
 
-        public ILeagueRepository LeagueRepository
-        {
-            get;
-            set;
-        }
+        public ILeagueRepository LeagueRepository { get; set; }
 
-        public IMatchRepository MatchRepository
-        {
-            get;
-            set;
-        }
+        public IMatchRepository MatchRepository { get; set; }
 
-        public IPlayerRepository PlayerRepository
-        {
-            get;
-            set;
-        }
+        public IPlayerRepository PlayerRepository { get; set; }
 
-        public IRefereeRepository RefereeRepository
-        {
-            get;
-            set;
-        }
+        public IRefereeRepository RefereeRepository { get; set; }
 
-        public ITeamRepository TeamRepository
-        {
-            get;
-            set;
-        }
+        public ITeamRepository TeamRepository { get; set; }
 
-        public IEventMessageRepository EventMessageRepository
-        {
-            get;
-            set;
-        }
+        public IEventMessageRepository EventMessageRepository { get; set; }
 
-        public IRepository Repository
-        {
-            get;
-            set;
-        }
+        public IRepository Repository { get; set; }
 
-        public IStatisticRepository StatisticRepository
-        {
-            get;
-            set;
-        }
+        public IStatisticRepository StatisticRepository { get; set; }
 
-        public IStadiumRepository StadiumRepository
-        {
-            get;
-            set; 
-        }
+        public IStadiumRepository StadiumRepository { get; set; }
 
-        //public IEventRepository EventRepository
-        //{
-        //    get
-        //    {
-        //        return eventRepository;
-        //    }
+        public IUserRepository UserRepository { get; set; }
 
-        //    set
-        //    {
-        //        eventRepository = value;
-        //    }
-        //}
-
-        //public ILeagueRepository LeagueRepository
-        //{
-        //    get
-        //    {
-        //        return leagueRepository;
-        //    }
-
-        //    set
-        //    {
-        //        leagueRepository = value;
-        //    }
-        //}
-
-        //public IMatchRepository MatchRepository
-        //{
-        //    get
-        //    {
-        //        return matchRepository;
-        //    }
-
-        //    set
-        //    {
-        //        matchRepository = value;
-        //    }
-        //}
-
-        //public IPlayerRepository PlayerRepository
-        //{
-        //    get
-        //    {
-        //        return playerRepository;
-        //    }
-
-        //    set
-        //    {
-        //        playerRepository = value;
-        //    }
-        //}
-
-        //public IRefereeRepository RefereeRepository
-        //{
-        //    get
-        //    {
-        //        return refereeRepository;
-        //    }
-
-        //    set
-        //    {
-        //        refereeRepository = value;
-        //    }
-        //}
-
-        //public ITeamRepository TeamRepository
-        //{
-        //    get
-        //    {
-        //        return teamRepository;
-        //    }
-
-        //    set
-        //    {
-        //        teamRepository = value;
-        //    }
-        //}
-
-        //public IEventMessageRepository EventMessageRepository
-        //{
-        //    get
-        //    {
-        //        return eventMessageRepository;
-        //    }
-
-        //    set
-        //    {
-        //        eventMessageRepository = value;
-        //    }
-        //}
-
-        //public IRepository Repository
-        //{
-        //    get
-        //    {
-        //        return repository;
-        //    }
-
-        //    set
-        //    {
-        //        repository = value;
-        //    }
-        //}
-
-        //public IStatisticRepository StatisticRepository
-        //{
-        //    get
-        //    {
-        //        return statisticRepository;
-        //    }
-
-        //    set
-        //    {
-        //        statisticRepository = value;
-        //    }
-        //}
-
-        //public IStadiumRepository StadiumRepository
-        //{
-        //    get
-        //    {
-        //        return stadiumRepository;
-        //    }
-
-        //    set
-        //    {
-        //        stadiumRepository = value;
-        //    }
-        //}
+        public IRoleRepository RoleRepository { get; set; }
 
         public UnitOfWork(FloorballEntities ctx)
         {
@@ -234,6 +56,8 @@ namespace Bll.Repository
             StatisticRepository = kernel.Get<IStatisticRepository>();
             LeagueRepository = kernel.Get<ILeagueRepository>();
             RefereeRepository = kernel.Get<IRefereeRepository>();
+            UserRepository = kernel.Get<IUserRepository>();
+            RoleRepository = kernel.Get<IRoleRepository>();
             Repository = kernel.Get<IRepository>();
 
         }

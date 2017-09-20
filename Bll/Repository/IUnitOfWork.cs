@@ -40,5 +40,11 @@ namespace Bll.Repository
         [Inject]
         IStadiumRepository StadiumRepository { get; set; }
 
+        [Inject]
+        IUserRepository UserRepository { get; set; }
+
+        [Inject]
+        IRoleRepository RoleRepository { get; set; }
+
     }
 }

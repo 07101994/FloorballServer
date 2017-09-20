@@ -13,12 +13,12 @@ namespace Bll.Repository.Implementations
 
         public IEnumerable<Statistic> GetAllStatistic()
         {
-            return ctx.Statistics;
+            return Ctx.Statistics;
         }
 
         public IEnumerable<Statistic> GetStatisticsByLeague(int leagueId)
         {
-            return ctx.Statistics.Where(s => s.Team.LeagueId == leagueId);
+            return Ctx.Statistics.Where(s => s.Team.LeagueId == leagueId);
         }
     }
 }

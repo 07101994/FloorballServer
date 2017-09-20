@@ -8,7 +8,6 @@ using System.Web.Http;
 
 namespace FloorballServer.Controllers.ApiControllers
 {
-    //[RoutePrefix("api/floorball")]
     public abstract class BaseApiController : ApiController
     {
         protected IUnitOfWork UoW;

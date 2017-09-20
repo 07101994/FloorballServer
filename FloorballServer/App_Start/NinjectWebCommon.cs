@@ -1,6 +1,3 @@
-using Ninject;
-using Ninject.Web.Common;
-
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(FloorballServer.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(FloorballServer.App_Start.NinjectWebCommon), "Stop")]
 
@@ -10,7 +7,12 @@ namespace FloorballServer.App_Start
     using System.Web;
 
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+
+    using Ninject;
     using Bll.Repository;
+    using global::Ninject.Web.Common;
+    using global::Ninject;
+
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -46,6 +48,7 @@ namespace FloorballServer.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
+
                 return kernel;
             }
             catch
@@ -62,6 +65,6 @@ namespace FloorballServer.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
-        }
+        }        
     }
 }

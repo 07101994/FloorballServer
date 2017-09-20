@@ -12,17 +12,17 @@ namespace Bll.Repository.Implementations
     {
 
         [Inject]
-        public FloorballEntities ctx { get; set; }
+        public virtual FloorballEntities Ctx { get; set; }
 
         public IEnumerable<Update> GetUpdatesAfterDate(DateTime date)
         {
-            return ctx.Updates.Where(u => DateTime.Compare(u.date, date) > 0);
+            return Ctx.Updates.Where(u => DateTime.Compare(u.date, date) > 0);
         }
 
         public int AddUpdate(Update update)
         {
-            ctx.Updates.Add(update);
-            ctx.SaveChanges();
+            Ctx.Updates.Add(update);
+            Ctx.SaveChanges();
 
             return update.id;
         }
@@ -36,7 +36,7 @@ namespace Bll.Repository.Implementations
             {
                 if (disposing)
                 {
-                    ctx.Dispose();
+                    Ctx.Dispose();
                 }
 
                 disposedValue = true;
