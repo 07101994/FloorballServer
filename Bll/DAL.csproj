@@ -90,6 +90,7 @@
     <Compile Include="EventMessage.cs">
       <DependentUpon>FloorballModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="FloorballCtx.cs" />
     <Compile Include="FloorballModel.Context1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -111,6 +112,16 @@
     <Compile Include="Match.cs">
       <DependentUpon>FloorballModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Event.cs" />
+    <Compile Include="Model\EventMessage.cs" />
+    <Compile Include="Model\League.cs" />
+    <Compile Include="Model\Match.cs" />
+    <Compile Include="Model\Player.cs" />
+    <Compile Include="Model\Referee.cs" />
+    <Compile Include="Model\Stadium.cs" />
+    <Compile Include="Model\Statistic.cs" />
+    <Compile Include="Model\Team.cs" />
+    <Compile Include="Model\Update.cs" />
     <Compile Include="Ninject\Bindings.cs" />
     <Compile Include="Player.cs">
       <DependentUpon>FloorballModel.tt</DependentUpon>
