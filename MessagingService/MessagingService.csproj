@@ -74,9 +74,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bll\Bll.csproj">
+    <ProjectReference Include="..\Bll\DAL.csproj">
       <Project>{eab2b970-6632-49d2-9e10-80bd614ebb35}</Project>
-      <Name>Bll</Name>
+      <Name>DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

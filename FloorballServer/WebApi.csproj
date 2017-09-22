@@ -371,9 +371,9 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bll\Bll.csproj">
+    <ProjectReference Include="..\Bll\DAL.csproj">
       <Project>{eab2b970-6632-49d2-9e10-80bd614ebb35}</Project>
-      <Name>Bll</Name>
+      <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\MessagingService\MessagingService.csproj">
       <Project>{2c3f1f20-ba9d-4627-b93c-d176a0e2b4a2}</Project>

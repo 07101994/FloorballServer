@@ -1,4 +1,4 @@
-﻿using Bll.Repository;
+﻿using DAL.Repository;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Ninject;
 using System;

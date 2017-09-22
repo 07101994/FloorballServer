@@ -1,5 +1,6 @@
-﻿using Bll.Repository.Implementations;
-using Bll.Repository.Interfaces;
+﻿using DAL.Repository.Implementations;
+using DAL.Repository.Interfaces;
+using DAL.Repository.Interfaces;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Repository
+namespace DAL.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {

@@ -1,4 +1,4 @@
-﻿using Bll.Repository;
+﻿using DAL.Repository;
 using Ninject.Modules;
 using System;
 using System.Collections.Generic;

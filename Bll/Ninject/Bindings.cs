@@ -1,6 +1,6 @@
-﻿using Bll.Repository;
-using Bll.Repository.Implementations;
-using Bll.Repository.Interfaces;
+﻿using DAL.Repository;
+using DAL.Repository.Implementations;
+using DAL.Repository.Interfaces;
 using Ninject.Modules;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Ninject
+namespace DAL.Ninject
 {
     public class Bindings : NinjectModule
     {

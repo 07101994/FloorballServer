@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Repository.Interfaces
+namespace DAL.Repository.Interfaces
 {
     public interface IRefereeRepository : IDisposable
     {

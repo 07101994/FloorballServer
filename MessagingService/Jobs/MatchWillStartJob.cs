@@ -1,4 +1,4 @@
-﻿using Bll.Repository;
+﻿using DAL.Repository;
 using Newtonsoft.Json;
 using Quartz;
 using System;

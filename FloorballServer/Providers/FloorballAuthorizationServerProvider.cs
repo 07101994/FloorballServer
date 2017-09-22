@@ -1,4 +1,4 @@
-﻿using Bll.Repository;
+﻿using DAL.Repository;
 using Microsoft.Owin.Security.OAuth;
 using Ninject;
 using System;

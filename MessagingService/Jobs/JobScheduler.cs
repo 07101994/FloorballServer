@@ -1,4 +1,4 @@
-﻿using Bll.Repository;
+﻿using DAL.Repository;
 using Quartz;
 using Quartz.Impl;
 using System;

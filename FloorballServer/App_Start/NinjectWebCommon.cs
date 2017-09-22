@@ -9,7 +9,7 @@ namespace FloorballServer.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
-    using Bll.Repository;
+    using DAL.Repository;
     using global::Ninject.Web.Common;
     using global::Ninject;
 

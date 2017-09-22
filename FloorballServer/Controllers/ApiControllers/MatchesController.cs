@@ -1,5 +1,5 @@
-﻿using Bll;
-using Bll.Repository;
+﻿using DAL;
+using DAL.Repository;
 using FloorballServer.Attributes;
 using FloorballServer.Helper;
 using FloorballServer.Live;
