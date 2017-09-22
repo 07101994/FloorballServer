@@ -13,8 +13,8 @@ namespace Bll.Repository.Implementations
 
         public int AddMatch(Match match)
         {
-            ctx.Matches.Add(match);
-            ctx.SaveChanges();
+            Ctx.Matches.Add(match);
+            Ctx.SaveChanges();
 
             AddUpdate( new Update
             {
@@ -31,32 +31,32 @@ namespace Bll.Repository.Implementations
         {
             DateTime threshold = DateTime.Now.AddDays(3);
 
-            return ctx.Matches.Where(m => m.Date < threshold && m.Date >= DateTime.Now);
+            return Ctx.Matches.Where(m => m.Date < threshold && m.Date >= DateTime.Now);
         }
 
         public IEnumerable<Match> GetAllMatch()
         {
-            return ctx.Matches;
+            return Ctx.Matches;
         }
 
         public Match GetMatchById(int id)
         {
-            return ctx.Matches.Include("HomeTeam").Include("AwayTeam").Include("Players").Include("League").Include("HomeTeam.Players").Include("AwayTeam.Players").Where(m => m.Id == id).FirstOrDefault();
+            return Ctx.Matches.Include("HomeTeam").Include("AwayTeam").Include("Players").Include("League").Include("HomeTeam.Players").Include("AwayTeam.Players").Where(m => m.Id == id).FirstOrDefault();
         }
 
         public IEnumerable<Match> GetMatchesByLeague(int id)
         {
-            return ctx.Leagues.Include("Matches").Include("Matches.HomeTeam").Include("Matches.AwayTeam").Where(l => l.Id == id).First().Matches;
+            return Ctx.Leagues.Include("Matches").Include("Matches.HomeTeam").Include("Matches.AwayTeam").Where(l => l.Id == id).First().Matches;
         }
 
         public IEnumerable<Match> GetMatchesByReferee(int refereeId)
         {
-            return ctx.Referees.Include("Matches").Include("Matches.Players").Where(r => r.Id == refereeId).First().Matches;
+            return Ctx.Referees.Include("Matches").Include("Matches.Players").Where(r => r.Id == refereeId).First().Matches;
         }
 
         public void UpdateMatch(Match match)
         {
-            Match updated = ctx.Matches.Find(match.Id);
+            Match updated = Ctx.Matches.Find(match.Id);
 
             updated.Date = match.Date;
             updated.Time = match.Time;
@@ -66,11 +66,11 @@ namespace Bll.Repository.Implementations
             updated.GoalsH = match.GoalsH;
             updated.State = match.State;
 
-            ctx.Matches.Attach(updated);
-            var entry = ctx.Entry(updated);
+            Ctx.Matches.Attach(updated);
+            var entry = Ctx.Entry(updated);
             entry.State = System.Data.Entity.EntityState.Modified;
 
-            ctx.SaveChanges();
+            Ctx.SaveChanges();
         }
 
     }

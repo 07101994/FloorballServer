@@ -14,8 +14,8 @@ namespace Bll.Repository.Implementations
         public int AddLeague(League league)
         {
             
-            ctx.Leagues.Add(league);
-            ctx.SaveChanges();
+            Ctx.Leagues.Add(league);
+            Ctx.SaveChanges();
 
             AddUpdate(new Update
             {
@@ -30,37 +30,37 @@ namespace Bll.Repository.Implementations
 
         public IEnumerable<League> GetAllLeague()
         {
-            return ctx.Leagues;
+            return Ctx.Leagues;
         }
 
         public League GetLeagueById(int id)
         {
-            return ctx.Leagues.Where(l => l.Id == id).FirstOrDefault();
+            return Ctx.Leagues.Where(l => l.Id == id).FirstOrDefault();
         }
 
         public League GetLeagueByEvent(int eventId)
         {
-            return ctx.Events.Include("Match.League").First(e => e.Id == eventId).Match.League;
+            return Ctx.Events.Include("Match.League").First(e => e.Id == eventId).Match.League;
         }
 
         public IEnumerable<int> GetAllYear()
         {
-            return ctx.Leagues.Select(l => l.Year.Year).Distinct().OrderBy(t => t);
+            return Ctx.Leagues.Select(l => l.Year.Year).Distinct().OrderBy(t => t);
         }
 
         public IEnumerable<League> GetLeaguesByYear(DateTime year)
         {
-            return ctx.Leagues.Where(l => l.Year == year);
+            return Ctx.Leagues.Where(l => l.Year == year);
         }
 
         public int GetNumberOfRoundsInLeague(int id)
         {
-            return ctx.Leagues.Find(id).Rounds;
+            return Ctx.Leagues.Find(id).Rounds;
         }
 
         public int UpdateLeague(League league)
         {
-            var updated = ctx.Leagues.Find(league.Id);
+            var updated = Ctx.Leagues.Find(league.Id);
 
             updated.ClassName = league.ClassName;
             updated.Country = league.Country;
@@ -70,10 +70,10 @@ namespace Bll.Repository.Implementations
             updated.Type = league.Type;
             updated.Year = league.Year;
 
-            ctx.Leagues.Attach(updated);
-            ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
+            Ctx.Leagues.Attach(updated);
+            Ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
 
-            ctx.SaveChanges();
+            Ctx.SaveChanges();
 
             return updated.Id;
         }

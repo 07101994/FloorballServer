@@ -14,8 +14,8 @@ namespace Bll.Repository.Implementations
         public int AddStadium(Stadium stadium)
         {
 
-            ctx.Stadiums.Add(stadium);
-            ctx.SaveChanges();
+            Ctx.Stadiums.Add(stadium);
+            Ctx.SaveChanges();
 
             AddUpdate(new Update
             {
@@ -30,25 +30,25 @@ namespace Bll.Repository.Implementations
 
         public Stadium GetStadiumById(int id)
         {
-            return ctx.Stadiums.Find(id);
+            return Ctx.Stadiums.Find(id);
         }
 
         public IEnumerable<Stadium> GetAllStadium()
         {
-            return ctx.Stadiums;
+            return Ctx.Stadiums;
         }
 
         public int UpdateStadium(Stadium stadium)
         {
-            Stadium updated = ctx.Stadiums.Find(stadium.Id);
+            Stadium updated = Ctx.Stadiums.Find(stadium.Id);
 
             updated.Name = stadium.Name;
             updated.Address = stadium.Address;
 
-            ctx.Stadiums.Attach(updated);
-            ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
+            Ctx.Stadiums.Attach(updated);
+            Ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
 
-            ctx.SaveChanges();
+            Ctx.SaveChanges();
 
             return updated.Id;
         }

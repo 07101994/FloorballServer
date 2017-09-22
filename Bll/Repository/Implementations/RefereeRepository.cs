@@ -13,8 +13,8 @@ namespace Bll.Repository.Implementations
 
         public int AddReferee(Referee referee)
         {
-            ctx.Referees.Add(referee);
-            ctx.SaveChanges();
+            Ctx.Referees.Add(referee);
+            Ctx.SaveChanges();
 
             AddUpdate(new Update
             {
@@ -29,11 +29,11 @@ namespace Bll.Repository.Implementations
 
         public void AddRefereeToMatch(int refereeId, int matchId)
         {
-            var referee = ctx.Referees.Find(refereeId);
-            var match = ctx.Matches.Find(matchId);
+            var referee = Ctx.Referees.Find(refereeId);
+            var match = Ctx.Matches.Find(matchId);
 
             match.Referees.Add(referee);
-            ctx.SaveChanges();
+            Ctx.SaveChanges();
 
             AddUpdate(new Update
             {
@@ -47,30 +47,30 @@ namespace Bll.Repository.Implementations
 
         public IEnumerable<Referee> GetAllReferee()
         {
-                return ctx.Referees;
+                return Ctx.Referees;
         }
 
         public Referee GetRefereeById(int id)
         {
-            return ctx.Referees.Find(id);
+            return Ctx.Referees.Find(id);
         }
 
         public Dictionary<int, List<int>> GetAllRefereeAndMatchId()
         {
             Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
-            ctx.Matches.Include("Referees").Where( m => m.Referees.Any()).ToList().ForEach(m => dict.Add(m.Id, m.Referees.Select(r => r.Id).ToList()));
+            Ctx.Matches.Include("Referees").Where( m => m.Referees.Any()).ToList().ForEach(m => dict.Add(m.Id, m.Referees.Select(r => r.Id).ToList()));
             return dict;
         }
 
         public IEnumerable<Referee> GetRefereesByMatch(int matchId)
         {
-                return ctx.Matches.Include("Referees").Where(m => m.Id == matchId).First().Referees;
+                return Ctx.Matches.Include("Referees").Where(m => m.Id == matchId).First().Referees;
         }
 
         public void RemoveRefereeFromMatch(int refereeId, int matchId)
         {
-            var referee = ctx.Referees.Find(refereeId);
-            var match = ctx.Matches.Find(matchId);
+            var referee = Ctx.Referees.Find(refereeId);
+            var match = Ctx.Matches.Find(matchId);
 
             if (!(referee.Matches.Contains(match)))
                 throw new Exception("Referee cannot be removed from match!");
@@ -78,10 +78,10 @@ namespace Bll.Repository.Implementations
 
             match.Referees.Remove(referee);
 
-            ctx.Matches.Attach(match);
-            ctx.Entry(match).Property(e => e.Referees).IsModified = true;
+            Ctx.Matches.Attach(match);
+            Ctx.Entry(match).Property(e => e.Referees).IsModified = true;
 
-            ctx.SaveChanges();
+            Ctx.SaveChanges();
 
             AddUpdate(new Update
             {
@@ -95,14 +95,14 @@ namespace Bll.Repository.Implementations
 
         public int UpdateReferee(Referee referee)
         {
-            var updated = ctx.Referees.Find(referee.Id);
+            var updated = Ctx.Referees.Find(referee.Id);
 
             updated.Name = referee.Name;
 
-            ctx.Referees.Attach(updated);
-            ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
+            Ctx.Referees.Attach(updated);
+            Ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
 
-            ctx.SaveChanges();
+            Ctx.SaveChanges();
 
             return referee.Id;
         }
