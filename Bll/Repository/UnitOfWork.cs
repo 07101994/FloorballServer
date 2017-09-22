@@ -1,4 +1,5 @@
-﻿using DAL.Repository.Implementations;
+﻿using DAL.Model;
+using DAL.Repository.Implementations;
 using DAL.Repository.Interfaces;
 using DAL.Repository.Interfaces;
 using Ninject;
@@ -14,7 +15,7 @@ namespace DAL.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private FloorballEntities ctx;
+        private FloorballCtx ctx;
 
         private StandardKernel kernel;
 
@@ -42,7 +43,7 @@ namespace DAL.Repository
 
         public IRoleRepository RoleRepository { get; set; }
 
-        public UnitOfWork(FloorballEntities ctx)
+        public UnitOfWork(FloorballCtx ctx)
         {
             this.ctx = ctx;
             kernel = new StandardKernel();

@@ -1,4 +1,5 @@
-﻿using DAL.Repository;
+﻿using DAL.Model;
+using DAL.Repository;
 using DAL.Repository.Implementations;
 using DAL.Repository.Interfaces;
 using Ninject.Modules;
@@ -20,7 +21,7 @@ namespace DAL.Ninject
         public override void Load()
         {
             //Bind dbcontext
-            Bind<DbContext>().To<FloorballEntities>();
+            Bind<DbContext>().To<FloorballCtx>();
 
             //Bind repositories
             Bind<ILeagueRepository>().To<LeagueRepository>().WithConstructorArgument("Ctx",Context);

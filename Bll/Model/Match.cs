@@ -46,9 +46,9 @@ namespace DAL.Model
 
         public virtual Stadium Stadium { get; set; }
 
-        public virtual Team Team { get; set; }
+        public virtual Team HomeTeam { get; set; }
 
-        public virtual Team Team1 { get; set; }
+        public virtual Team AwayTeam { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Player> Players { get; set; }

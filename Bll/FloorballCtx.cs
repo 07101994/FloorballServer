@@ -82,13 +82,13 @@ namespace DAL.Model
 
             modelBuilder.Entity<Team>()
                 .HasMany(e => e.Matches)
-                .WithRequired(e => e.Team)
+                .WithRequired(e => e.HomeTeam)
                 .HasForeignKey(e => e.HomeTeamId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Team>()
                 .HasMany(e => e.Matches1)
-                .WithRequired(e => e.Team1)
+                .WithRequired(e => e.AwayTeam)
                 .HasForeignKey(e => e.AwayTeamId)
                 .WillCascadeOnDelete(false);
 

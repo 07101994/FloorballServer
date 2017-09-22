@@ -1,4 +1,5 @@
-﻿using DAL.Repository.Interfaces;
+﻿using DAL.Model;
+using DAL.Repository.Interfaces;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -68,7 +69,7 @@ namespace DAL.Repository.Implementations
 
         }
 
-        private void ChangeStatisticFromPlayer(int playerRegNum, int teamId, string type, FloorballEntities ctx, string direction)
+        private void ChangeStatisticFromPlayer(int playerRegNum, int teamId, string type, FloorballCtx ctx, string direction)
         {
             Statistic stat = ctx.Statistics.FirstOrDefault(s => s.PlayerRegNum == playerRegNum && s.TeamId == teamId && s.Name == type);
 

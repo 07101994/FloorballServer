@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using DAL.Model;
 
 namespace DAL.Repository.Implementations
 {
@@ -14,7 +15,7 @@ namespace DAL.Repository.Implementations
 
         private RoleManager<IdentityRole> roleManager;
 
-        public override FloorballEntities Ctx
+        public override FloorballCtx Ctx
         {
             get
             {

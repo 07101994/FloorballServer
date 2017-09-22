@@ -1,4 +1,5 @@
-﻿using DAL.Repository.Interfaces;
+﻿using DAL.Model;
+using DAL.Repository.Interfaces;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace DAL.Repository.Implementations
     {
 
         [Inject]
-        public virtual FloorballEntities Ctx { get; set; }
+        public virtual FloorballCtx Ctx { get; set; }
 
         public IEnumerable<Update> GetUpdatesAfterDate(DateTime date)
         {
