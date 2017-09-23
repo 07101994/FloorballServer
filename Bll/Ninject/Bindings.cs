@@ -1,4 +1,7 @@
-﻿using DAL.Model;
+﻿using Bll.Context;
+using Bll.DBInitializer;
+using Bll.Seed;
+using DAL.Model;
 using DAL.Repository;
 using DAL.Repository.Implementations;
 using DAL.Repository.Interfaces;
@@ -21,7 +24,11 @@ namespace DAL.Ninject
         public override void Load()
         {
             //Bind dbcontext
-            Bind<DbContext>().To<FloorballCtx>();
+            Bind<DbContext>().To<LocalCtx>();
+            //Bind db initializer
+            Bind<IDatabaseInitializer<FloorballBaseCtx>>().To<DropCreateDatabaseAlwaysInitializer>();
+            //Bind seeder
+            Bind<ISeeder>().To<LocalSeeder>();
 
             //Bind repositories
             Bind<ILeagueRepository>().To<LeagueRepository>().WithConstructorArgument("Ctx",Context);

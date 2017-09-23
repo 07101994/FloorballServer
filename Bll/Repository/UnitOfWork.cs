@@ -15,7 +15,7 @@ namespace DAL.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private FloorballCtx ctx;
+        private FloorballBaseCtx ctx;
 
         private StandardKernel kernel;
 
@@ -43,7 +43,7 @@ namespace DAL.Repository
 
         public IRoleRepository RoleRepository { get; set; }
 
-        public UnitOfWork(FloorballCtx ctx)
+        public UnitOfWork(FloorballBaseCtx ctx)
         {
             this.ctx = ctx;
             kernel = new StandardKernel();

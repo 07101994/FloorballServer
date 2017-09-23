@@ -13,7 +13,7 @@ namespace DAL.Repository.Implementations
     {
 
         [Inject]
-        public virtual FloorballCtx Ctx { get; set; }
+        public virtual FloorballBaseCtx Ctx { get; set; }
 
         public IEnumerable<Update> GetUpdatesAfterDate(DateTime date)
         {

@@ -69,7 +69,7 @@ namespace DAL.Repository.Implementations
             });
         }
 
-        private void AddStatisticsForPlayerInTeam(Player player, Team team, FloorballCtx ctx)
+        private void AddStatisticsForPlayerInTeam(Player player, Team team, FloorballBaseCtx ctx)
         {
             string[] types = new string[] { "G", "A", "P2", "P5", "P10", "PV", "APP" };
 
@@ -183,7 +183,7 @@ namespace DAL.Repository.Implementations
             });
         }
 
-        private void RemoveStatisticsForPlayerInTeam(Player player, Team team, FloorballCtx ctx)
+        private void RemoveStatisticsForPlayerInTeam(Player player, Team team, FloorballBaseCtx ctx)
         {
             var statisctics = ctx.Statistics.Where(s => s.Player.RegNum == player.RegNum && s.Team.Id == team.Id).ToList();
 

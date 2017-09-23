@@ -15,7 +15,7 @@ namespace DAL.Repository.Implementations
 
         private RoleManager<IdentityRole> roleManager;
 
-        public override FloorballCtx Ctx
+        public override FloorballBaseCtx Ctx
         {
             get
             {

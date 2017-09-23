@@ -4,12 +4,20 @@ namespace DAL.Model
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using global::Ninject;
+    using Bll.Seed;
 
-    public partial class FloorballCtx : DbContext
+    public abstract class FloorballBaseCtx : DbContext
     {
-        public FloorballCtx()
-            : base("name=FloorballCtx")
+       
+        [Inject]
+        public IDatabaseInitializer<FloorballBaseCtx> DbInitializer { get; set; }
+
+        public FloorballBaseCtx(string ctx)
+            : base(ctx)
         {
+            Database.SetInitializer(DbInitializer);
         }
 
         public virtual DbSet<EventMessage> EventMessages { get; set; }
