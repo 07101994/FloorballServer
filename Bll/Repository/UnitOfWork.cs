@@ -1,7 +1,6 @@
 ﻿using DAL.Model;
 using DAL.Repository.Implementations;
 using DAL.Repository.Interfaces;
-using DAL.Repository.Interfaces;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -15,9 +14,11 @@ namespace DAL.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private FloorballBaseCtx ctx;
+        //private FloorballBaseCtx ctx;
 
         private StandardKernel kernel;
+
+        public FloorballBaseCtx Ctx { get; set; }
 
         public IEventRepository EventRepository { get; set; }
 
@@ -43,31 +44,54 @@ namespace DAL.Repository
 
         public IRoleRepository RoleRepository { get; set; }
 
-        public UnitOfWork(FloorballBaseCtx ctx)
+        public UnitOfWork()
         {
-            this.ctx = ctx;
             kernel = new StandardKernel();
             kernel.Load(Assembly.GetExecutingAssembly());
 
+            Ctx = kernel.Get<FloorballBaseCtx>();
+
             TeamRepository = kernel.Get<ITeamRepository>();
+            TeamRepository.Ctx = Ctx;
+
             EventMessageRepository = kernel.Get<IEventMessageRepository>();
+            EventMessageRepository.Ctx = Ctx;
+
             EventRepository = kernel.Get<IEventRepository>();
+            EventRepository.Ctx = Ctx;
+
             MatchRepository = kernel.Get<IMatchRepository>();
+            MatchRepository.Ctx = Ctx;
+
             PlayerRepository = kernel.Get<IPlayerRepository>();
+            PlayerRepository.Ctx = Ctx;
+
             StadiumRepository = kernel.Get<IStadiumRepository>();
+            StadiumRepository.Ctx = Ctx;
+
             StatisticRepository = kernel.Get<IStatisticRepository>();
+            StatisticRepository.Ctx = Ctx;
+
             LeagueRepository = kernel.Get<ILeagueRepository>();
+            LeagueRepository.Ctx = Ctx;
+
             RefereeRepository = kernel.Get<IRefereeRepository>();
+            RefereeRepository.Ctx = Ctx;
+
             UserRepository = kernel.Get<IUserRepository>();
+            UserRepository.Ctx = Ctx;
+
             RoleRepository = kernel.Get<IRoleRepository>();
-            Repository = kernel.Get<IRepository>();
+            RoleRepository.Ctx = Ctx;
+
+            //Repository = kernel.Get<IRepository>();
 
         }
 
 
         public void Save()
         {
-            ctx.SaveChanges();
+            Ctx.SaveChanges();
             
         }
 
@@ -81,7 +105,7 @@ namespace DAL.Repository
             {
                 if (disposing)
                 {
-                    ctx.Dispose();
+                    Ctx.Dispose();
                 }
             }
             disposed = true;

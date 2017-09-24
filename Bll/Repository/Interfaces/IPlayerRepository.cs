@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Interfaces
 {
-    public interface IPlayerRepository : IDisposable
+    public interface IPlayerRepository : IRepository
     {
 
         #region READ

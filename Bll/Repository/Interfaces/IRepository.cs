@@ -9,6 +9,9 @@ namespace DAL.Repository.Interfaces
 {
     public interface IRepository : IDisposable
     {
+
+        FloorballBaseCtx Ctx { get; set; }
+
         #region READ
         IEnumerable<Update> GetUpdatesAfterDate(DateTime date);
 

@@ -12,6 +12,9 @@ namespace FloorballServer.App_Start
     using DAL.Repository;
     using global::Ninject.Web.Common;
     using global::Ninject;
+    using DAL.Model;
+    using Bll.Context;
+    using System.Reflection;
 
     public static class NinjectWebCommon 
     {
@@ -42,6 +45,7 @@ namespace FloorballServer.App_Start
         private static IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
+
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
@@ -64,7 +68,13 @@ namespace FloorballServer.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+            //var name = Assembly.GetExecutingAssembly.
+
+            kernel.Load(Assembly.Load("DAL"));
+
+            //kernel.Bind<FloorballBaseCtx>().To<LocalCtx>();
+            //kernel.Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument("Ctx", new LocalCtx());
+            
         }        
     }
 }

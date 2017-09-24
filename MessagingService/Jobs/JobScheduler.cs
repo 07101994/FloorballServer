@@ -16,7 +16,7 @@ namespace MessagingService.Jobs
 
         public JobScheduler()
         {
-            UoW = new UnitOfWork(null);
+            UoW = new UnitOfWork();
         }
 
 

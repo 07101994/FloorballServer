@@ -13,7 +13,7 @@ namespace MessagingService.Jobs
     {
         public async void Execute(IJobExecutionContext context)
         {
-            var UoW = new UnitOfWork(null);
+            var UoW = new UnitOfWork();
 
             var match = UoW.MatchRepository.GetMatchById(context.MergedJobDataMap.GetInt("matchId"));
 

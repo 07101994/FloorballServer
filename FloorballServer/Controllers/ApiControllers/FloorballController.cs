@@ -37,7 +37,7 @@ namespace FloorballServer.Controllers.ApiControllers
 
             IEnumerable<Update> updates = UoW.Repository.GetUpdatesAfterDate(date);
 
-            UpdateCollector collector = new UpdateCollector(new UnitOfWork(null));
+            UpdateCollector collector = new UpdateCollector(UoW);
 
             UpdateModel updateModel = collector.CollectUpdates(updates, updateTime);
 

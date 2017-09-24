@@ -1,4 +1,5 @@
-﻿using DAL.Repository.Interfaces;
+﻿using DAL.Model;
+using DAL.Repository.Interfaces;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,10 @@ namespace DAL.Repository
 {
     public interface IUnitOfWork : IDisposable
     {
+
+        [Inject]
+        FloorballBaseCtx Ctx { get; set; }
+
         [Inject]
         IEventRepository EventRepository { get; set; }
 

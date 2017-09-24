@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Implementations
 {
-    public class Repository : IRepository
+    public class Repository
     {
 
-        [Inject]
+        //[Inject]
         public virtual FloorballBaseCtx Ctx { get; set; }
 
         public IEnumerable<Update> GetUpdatesAfterDate(DateTime date)

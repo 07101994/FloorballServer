@@ -222,7 +222,6 @@
     <Compile Include="Models\Floorball\NotificationModel.cs" />
     <Compile Include="Models\Floorball\UpdateModel.cs" />
     <Compile Include="Models\Floorball\UserModel.cs" />
-    <Compile Include="Ninject\Bindings.cs" />
     <Compile Include="Providers\FloorballAuthorizationServerProvider.cs" />
     <Compile Include="Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
