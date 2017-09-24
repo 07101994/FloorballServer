@@ -1,5 +1,7 @@
-﻿using DAL.Repository;
+﻿using DAL.Ninject;
+using DAL.Repository;
 using Newtonsoft.Json;
+using Ninject;
 using Quartz;
 using System;
 using System.Collections.Generic;
@@ -9,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace MessagingService.Jobs
 {
-    public class MatchWillStartJob : IJob
+    public class MatchWillStartJob : BaseJob
     {
-        public async void Execute(IJobExecutionContext context)
+        public override async void Execute(IJobExecutionContext context)
         {
-            var UoW = new UnitOfWork();
+            base.Equals(context);
 
             var match = UoW.MatchRepository.GetMatchById(context.MergedJobDataMap.GetInt("matchId"));
 

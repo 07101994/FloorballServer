@@ -15,6 +15,12 @@ namespace FloorballServer.App_Start
     using DAL.Model;
     using Bll.Context;
     using System.Reflection;
+    using DAL.Ninject;
+    using System.Web.Mvc;
+    using System.Web.Http;
+    using System.Web.Routing;
+    using System.Web.Optimization;
+    using MessagingService.Jobs;
 
     public static class NinjectWebCommon 
     {
@@ -28,8 +34,9 @@ namespace FloorballServer.App_Start
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
+
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -44,7 +51,7 @@ namespace FloorballServer.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            var kernel = new StandardKernel(new Bindings());
 
             try
             {
@@ -68,13 +75,7 @@ namespace FloorballServer.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            //var name = Assembly.GetExecutingAssembly.
-
-            kernel.Load(Assembly.Load("DAL"));
-
-            //kernel.Bind<FloorballBaseCtx>().To<LocalCtx>();
-            //kernel.Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument("Ctx", new LocalCtx());
-            
+            //kernel.Load(Assembly.Load("DAL"));
         }        
     }
 }

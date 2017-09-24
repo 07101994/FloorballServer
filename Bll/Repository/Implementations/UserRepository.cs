@@ -10,7 +10,7 @@ using DAL.Model;
 
 namespace DAL.Repository.Implementations
 {
-    class UserRepository : Repository, IUserRepository
+    class UserRepository : FlorballRepository, IUserRepository
     {
 
         private UserManager<IdentityUser> userManager;

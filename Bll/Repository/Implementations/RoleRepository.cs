@@ -10,7 +10,7 @@ using DAL.Model;
 
 namespace DAL.Repository.Implementations
 {
-    public class RoleRepository : Repository, IRoleRepository
+    public class RoleRepository : FlorballRepository, IRoleRepository
     {
 
         private RoleManager<IdentityRole> roleManager;

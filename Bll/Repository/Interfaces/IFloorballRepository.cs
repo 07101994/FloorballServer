@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Interfaces
 {
-    public interface IRepository : IDisposable
+    public interface IFloorballRepository : IRepositoryBase
     {
-
-        FloorballBaseCtx Ctx { get; set; }
 
         #region READ
         IEnumerable<Update> GetUpdatesAfterDate(DateTime date);

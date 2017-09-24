@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Interfaces
 {
-    public interface ITeamRepository : IRepository
+    public interface ITeamRepository : IRepositoryBase
     {
 
         #region READ

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Implementations
 {
-    class StatisticRepository : Repository, IStatisticRepository
+    class StatisticRepository : FlorballRepository, IStatisticRepository
     {
 
         public IEnumerable<Statistic> GetAllStatistic()

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Implementations
 {
-    public class PlayerRepository : Repository , IPlayerRepository
+    public class PlayerRepository : FlorballRepository , IPlayerRepository
     {
         public int AddPlayer(Player player)
         {

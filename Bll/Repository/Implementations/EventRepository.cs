@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Implementations
 {
-    public class EventRepository : Repository, IEventRepository
+    public class EventRepository : FlorballRepository, IEventRepository
     {
 
         public int AddEvent(Event ev)

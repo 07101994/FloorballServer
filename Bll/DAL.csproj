@@ -119,7 +119,7 @@
     <Compile Include="Repository\Implementations\LeagueRepository.cs" />
     <Compile Include="Repository\Implementations\PlayerRepository.cs" />
     <Compile Include="Repository\Implementations\RefereeRepository.cs" />
-    <Compile Include="Repository\Implementations\Repository.cs" />
+    <Compile Include="Repository\Implementations\FloorballRepository.cs" />
     <Compile Include="Repository\Implementations\RoleRepository.cs" />
     <Compile Include="Repository\Implementations\StadiumRepository.cs" />
     <Compile Include="Repository\Implementations\StatisticRepository.cs" />
@@ -131,7 +131,8 @@
     <Compile Include="Repository\Interfaces\IMatchRepository.cs" />
     <Compile Include="Repository\Interfaces\IPlayerRepository.cs" />
     <Compile Include="Repository\Interfaces\IRefereeRepository.cs" />
-    <Compile Include="Repository\Interfaces\IRepository.cs" />
+    <Compile Include="Repository\Interfaces\IFloorballRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRepositoryBase.cs" />
     <Compile Include="Repository\Interfaces\IRoleRepository.cs" />
     <Compile Include="Repository\Interfaces\IStadiumRepository.cs" />
     <Compile Include="Repository\Interfaces\IStatisticRepository.cs" />

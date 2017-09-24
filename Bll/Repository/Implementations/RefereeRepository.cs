@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Implementations
 {
-    public class RefereeRepository : Repository, IRefereeRepository
+    public class RefereeRepository : FlorballRepository, IRefereeRepository
     {
 
         public int AddReferee(Referee referee)

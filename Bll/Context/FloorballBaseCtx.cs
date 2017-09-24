@@ -8,7 +8,7 @@ namespace DAL.Model
     using global::Ninject;
     using Bll.Seed;
 
-    public abstract class FloorballBaseCtx : DbContext
+    public abstract class FloorballBaseCtx : IdentityDbContext<IdentityUser>
     {
        
         [Inject]
@@ -33,6 +33,8 @@ namespace DAL.Model
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<EventMessage>()
                 .HasMany(e => e.Events)
                 .WithRequired(e => e.EventMessage)

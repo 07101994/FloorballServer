@@ -1,4 +1,6 @@
-﻿using DAL.Repository;
+﻿using DAL.Ninject;
+using DAL.Repository;
+using Ninject;
 using Quartz;
 using Quartz.Impl;
 using System;
@@ -11,14 +13,14 @@ namespace MessagingService.Jobs
 {
     public class JobScheduler
     {
-
-        public UnitOfWork UoW { get; set; }
+        
+        public IUnitOfWork UoW { get; set; }
 
         public JobScheduler()
         {
-            UoW = new UnitOfWork();
+            IKernel kernel = new StandardKernel(new Bindings());
+            UoW = kernel.Get<IUnitOfWork>();
         }
-
 
         public void Start(int hours)
         {

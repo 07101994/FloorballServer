@@ -14,75 +14,205 @@ namespace DAL.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        //private FloorballBaseCtx ctx;
-
-        private StandardKernel kernel;
-
         public FloorballBaseCtx Ctx { get; set; }
 
-        public IEventRepository EventRepository { get; set; }
+        private IEventRepository eventRepository;
 
-        public ILeagueRepository LeagueRepository { get; set; }
-
-        public IMatchRepository MatchRepository { get; set; }
-
-        public IPlayerRepository PlayerRepository { get; set; }
-
-        public IRefereeRepository RefereeRepository { get; set; }
-
-        public ITeamRepository TeamRepository { get; set; }
-
-        public IEventMessageRepository EventMessageRepository { get; set; }
-
-        public IRepository Repository { get; set; }
-
-        public IStatisticRepository StatisticRepository { get; set; }
-
-        public IStadiumRepository StadiumRepository { get; set; }
-
-        public IUserRepository UserRepository { get; set; }
-
-        public IRoleRepository RoleRepository { get; set; }
-
-        public UnitOfWork()
+        [Inject]
+        public IEventRepository EventRepository
         {
-            kernel = new StandardKernel();
-            kernel.Load(Assembly.GetExecutingAssembly());
+            get => eventRepository;
+            set
+            {
+                eventRepository = value;
+                eventRepository.Ctx = Ctx;
+            }
+        }
 
-            Ctx = kernel.Get<FloorballBaseCtx>();
+        private ILeagueRepository leagueRepository;
 
-            TeamRepository = kernel.Get<ITeamRepository>();
-            TeamRepository.Ctx = Ctx;
+        [Inject]
+        public ILeagueRepository LeagueRepository
+        {
+            get => leagueRepository; 
+            set
+            {
+                leagueRepository = value;
+                leagueRepository.Ctx = Ctx;
+            }
+        }
 
-            EventMessageRepository = kernel.Get<IEventMessageRepository>();
-            EventMessageRepository.Ctx = Ctx;
+        private IMatchRepository matchRepository;
 
-            EventRepository = kernel.Get<IEventRepository>();
-            EventRepository.Ctx = Ctx;
+        [Inject]
+        public IMatchRepository MatchRepository
+        {
+            get => matchRepository;
+            set
+            {
+                matchRepository = value;
+                matchRepository.Ctx = Ctx;
+            }
+        }
 
-            MatchRepository = kernel.Get<IMatchRepository>();
-            MatchRepository.Ctx = Ctx;
+        private IPlayerRepository playerRepository;
 
-            PlayerRepository = kernel.Get<IPlayerRepository>();
-            PlayerRepository.Ctx = Ctx;
+        [Inject]
+        public IPlayerRepository PlayerRepository
+        {
+            get => playerRepository; 
+            set
+            {
+                playerRepository = value;
+                playerRepository.Ctx = Ctx;
+            }
+        }
 
-            StadiumRepository = kernel.Get<IStadiumRepository>();
-            StadiumRepository.Ctx = Ctx;
+        private IRefereeRepository refereeRepository;
 
-            StatisticRepository = kernel.Get<IStatisticRepository>();
-            StatisticRepository.Ctx = Ctx;
+        [Inject]
+        public IRefereeRepository RefereeRepository
+        {
+            get => refereeRepository;
+            set
+            {
+                refereeRepository = value;
+                refereeRepository.Ctx = Ctx;
+            }
+        }
 
-            LeagueRepository = kernel.Get<ILeagueRepository>();
-            LeagueRepository.Ctx = Ctx;
+        private ITeamRepository teamRepository;
 
-            RefereeRepository = kernel.Get<IRefereeRepository>();
-            RefereeRepository.Ctx = Ctx;
+        [Inject]
+        public ITeamRepository TeamRepository
+        {
+            get => teamRepository;
+            set
+            {
+                teamRepository = value;
+                teamRepository.Ctx = Ctx;
+            }
+        }
 
-            UserRepository = kernel.Get<IUserRepository>();
-            UserRepository.Ctx = Ctx;
+        private IEventMessageRepository eventMessageRepository;
 
-            RoleRepository = kernel.Get<IRoleRepository>();
-            RoleRepository.Ctx = Ctx;
+        [Inject]
+        public IEventMessageRepository EventMessageRepository
+        {
+            get => eventMessageRepository;
+            set
+            {
+                eventMessageRepository = value;
+                eventMessageRepository.Ctx = Ctx;
+            }
+        }
+
+        private IStatisticRepository statisticRepository;
+
+        [Inject]
+        public IStatisticRepository StatisticRepository
+        {
+            get => statisticRepository; 
+            set
+            {
+                statisticRepository = value;
+                statisticRepository.Ctx = Ctx;
+            }
+        }
+
+        private IStadiumRepository stadiumRepository;
+
+        [Inject]
+        public IStadiumRepository StadiumRepository
+        {
+            get => stadiumRepository; 
+            set
+            {
+                stadiumRepository = value;
+                stadiumRepository.Ctx = Ctx;
+            }
+        }
+
+        private IUserRepository userRepository;
+
+        [Inject]
+        public IUserRepository UserRepository
+        {
+            get => userRepository; 
+            set
+            {
+                userRepository = value;
+                userRepository.Ctx = Ctx;
+            }
+        }
+
+        private IRoleRepository roleRepository;
+
+        [Inject]
+        public IRoleRepository RoleRepository
+        {
+            get => roleRepository;
+            set
+            {
+                roleRepository = value;
+                roleRepository.Ctx = Ctx;
+            }
+        }
+
+        private IFloorballRepository repository;
+
+        [Inject]
+        public IFloorballRepository Repository
+        {
+            get => repository;
+            set
+            {
+                repository = value;
+                repository.Ctx = Ctx;
+            }
+        }
+
+        public UnitOfWork(FloorballBaseCtx ctx)
+        {
+            Ctx = ctx;
+
+            //kernel = new StandardKernel();
+            //kernel.Load(Assembly.GetExecutingAssembly());
+
+            //Ctx = kernel.Get<FloorballBaseCtx>();
+
+            //TeamRepository = kernel.Get<ITeamRepository>();
+            //TeamRepository.Ctx = Ctx;
+
+            //EventMessageRepository = kernel.Get<IEventMessageRepository>();
+            //EventMessageRepository.Ctx = Ctx;
+
+            //EventRepository = kernel.Get<IEventRepository>();
+            //EventRepository.Ctx = Ctx;
+
+            //MatchRepository = kernel.Get<IMatchRepository>();
+            //MatchRepository.Ctx = Ctx;
+
+            //PlayerRepository = kernel.Get<IPlayerRepository>();
+            //PlayerRepository.Ctx = Ctx;
+
+            //StadiumRepository = kernel.Get<IStadiumRepository>();
+            //StadiumRepository.Ctx = Ctx;
+
+            //StatisticRepository = kernel.Get<IStatisticRepository>();
+            //StatisticRepository.Ctx = Ctx;
+
+            //LeagueRepository = kernel.Get<ILeagueRepository>();
+            //LeagueRepository.Ctx = Ctx;
+
+            //RefereeRepository = kernel.Get<IRefereeRepository>();
+            //RefereeRepository.Ctx = Ctx;
+
+            //UserRepository = kernel.Get<IUserRepository>();
+            //UserRepository.Ctx = Ctx;
+
+            //RoleRepository = kernel.Get<IRoleRepository>();
+            //RoleRepository.Ctx = Ctx;
 
             //Repository = kernel.Get<IRepository>();
 

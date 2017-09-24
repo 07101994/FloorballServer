@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Implementations
 {
-    public class MatchRepository : Repository , IMatchRepository
+    public class MatchRepository : FlorballRepository , IMatchRepository
     {
 
         public int AddMatch(Match match)

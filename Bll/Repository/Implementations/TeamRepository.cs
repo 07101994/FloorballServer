@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Implementations
 {
-    public class TeamRepository : Repository, ITeamRepository
+    public class TeamRepository : FlorballRepository, ITeamRepository
     {
         public int AddTeam(Team team)
         {

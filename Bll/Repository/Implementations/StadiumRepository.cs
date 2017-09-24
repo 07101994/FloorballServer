@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Implementations
 {
-    public class StadiumRepository : Repository, IStadiumRepository
+    public class StadiumRepository : FlorballRepository, IStadiumRepository
     {
 
         public int AddStadium(Stadium stadium)

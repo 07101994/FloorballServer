@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Interfaces
 {
-    public interface IMatchRepository : IRepository
+    public interface IMatchRepository : IRepositoryBase
     {
 
         #region READ

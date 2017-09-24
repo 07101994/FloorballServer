@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Implementations
 {
-    public class EventMessageRepository : Repository, IEventMessageRepository
+    public class EventMessageRepository : FlorballRepository, IEventMessageRepository
     {
         public int AddEventMessage(EventMessage eventMessage)
         {
