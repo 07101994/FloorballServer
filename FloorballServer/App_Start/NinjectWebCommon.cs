@@ -11,7 +11,6 @@ namespace FloorballServer.App_Start
     using Ninject;
     using DAL.Repository;
     using global::Ninject.Web.Common;
-    using global::Ninject;
     using DAL.Model;
     using Bll.Context;
     using System.Reflection;

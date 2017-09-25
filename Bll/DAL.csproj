@@ -92,16 +92,9 @@
     <Compile Include="Context\LocalCtx.cs" />
     <Compile Include="Context\RemoteCtx.cs" />
     <Compile Include="DatabaseManager.cs" />
-    <Compile Include="DBInitializer\CreateDatabaseIfNotExistsInitializer.cs" />
-    <Compile Include="DBInitializer\DropCreateDatabaseAlwaysInitializer.cs" />
-    <Compile Include="DBInitializer\DropCreateDatabaseIfModelChanges.cs" />
+    <Compile Include="DBInitializer\LocalDBInitializer.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Context\FloorballBaseCtx.cs" />
-    <Compile Include="Migrations\201709231140532_Initial.cs" />
-    <Compile Include="Migrations\201709231140532_Initial.Designer.cs">
-      <DependentUpon>201709231140532_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\EventMessage.cs" />
     <Compile Include="Model\League.cs" />
@@ -141,9 +134,11 @@
     <Compile Include="Repository\Interfaces\IUserRepository.cs" />
     <Compile Include="Repository\IUnitOfWork.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
+    <Compile Include="Seed\BaseSeeder.cs" />
     <Compile Include="Seed\ISeeder.cs" />
     <Compile Include="Seed\LocalSeeder.cs" />
     <Compile Include="Seed\RemoteSeeder.cs" />
+    <Compile Include="Util\PasswordHasher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">
@@ -153,11 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709231140532_Initial.resx">
-      <DependentUpon>201709231140532_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

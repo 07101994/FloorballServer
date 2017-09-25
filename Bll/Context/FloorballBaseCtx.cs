@@ -7,17 +7,18 @@ namespace DAL.Model
     using Microsoft.AspNet.Identity.EntityFramework;
     using global::Ninject;
     using Bll.Seed;
+    using DAL.Ninject;
+    using Bll.Context;
 
     public abstract class FloorballBaseCtx : IdentityDbContext<IdentityUser>
     {
-       
-        [Inject]
-        public IDatabaseInitializer<FloorballBaseCtx> DbInitializer { get; set; }
 
-        public FloorballBaseCtx(string ctx)
-            : base(ctx)
+        protected StandardKernel Kernel { get; set; }
+
+        public FloorballBaseCtx(string ctx) : base(ctx)
         {
-            Database.SetInitializer(DbInitializer);
+            Kernel = new StandardKernel(new Bindings());
+            
         }
 
         public virtual DbSet<EventMessage> EventMessages { get; set; }

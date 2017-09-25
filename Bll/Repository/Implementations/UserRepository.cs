@@ -39,8 +39,11 @@ namespace DAL.Repository.Implementations
             {
                 UserName = userName
             };
-            
-            return userManager.Create(user, password); 
+
+            var result = userManager.Create(user, password);
+
+            userManager.AddToRole(user.Id, userRole);
+            return userManager.AddToRole(user.Id, userRole);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Bll.Context;
-using Bll.DBInitializer;
 using Bll.Seed;
+using DAL.DBInitializer;
 using DAL.Model;
 using DAL.Repository;
 using DAL.Repository.Implementations;
@@ -18,7 +18,6 @@ namespace DAL.Ninject
 {
     public class Bindings : NinjectModule
     {
-
         private FloorballBaseCtx Context { get; set; }
 
         public override void Load()
@@ -26,7 +25,7 @@ namespace DAL.Ninject
             //Bind dbcontext
             Bind<FloorballBaseCtx>().To<LocalCtx>();
             //Bind db initializer
-            Bind<IDatabaseInitializer<FloorballBaseCtx>>().To<DropCreateDatabaseAlwaysInitializer>();
+            Bind<IDatabaseInitializer<LocalCtx>>().To<LocalDBInitializer<LocalCtx>.DropCreateDatabaseAlwaysInitializer>();
             //Bind seeder
             Bind<ISeeder>().To<LocalSeeder>();
 
