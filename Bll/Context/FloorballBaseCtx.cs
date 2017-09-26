@@ -107,6 +107,8 @@ namespace DAL.Model
                 .HasMany(e => e.Statistics)
                 .WithRequired(e => e.Team)
                 .WillCascadeOnDelete(false);
+
+            
         }
     }
 }

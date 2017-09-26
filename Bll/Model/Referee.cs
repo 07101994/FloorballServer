@@ -19,9 +19,9 @@ namespace DAL.Model
         [Required]
         public string Name { get; set; }
 
-        public short Number { get; set; }
+        public short Number { get; set; } = 0;
 
-        public short Penalty { get; set; }
+        public short Penalty { get; set; } = 0;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Match> Matches { get; set; }
