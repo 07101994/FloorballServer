@@ -1,5 +1,6 @@
-﻿using Bll;
-using Bll.Repository;
+﻿using DAL;
+using DAL.Model;
+using DAL.Repository;
 using FloorballServer.Models.Floorball;
 using System;
 using System.Collections.Generic;

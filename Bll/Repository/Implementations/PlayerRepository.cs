@@ -1,4 +1,5 @@
-﻿using Bll.Repository.Interfaces;
+﻿using DAL.Model;
+using DAL.Repository.Interfaces;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -6,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Repository.Implementations
+namespace DAL.Repository.Implementations
 {
-    public class PlayerRepository : Repository , IPlayerRepository
+    public class PlayerRepository : FlorballRepository , IPlayerRepository
     {
         public int AddPlayer(Player player)
         {
@@ -68,7 +69,7 @@ namespace Bll.Repository.Implementations
             });
         }
 
-        private void AddStatisticsForPlayerInTeam(Player player, Team team, FloorballEntities ctx)
+        private void AddStatisticsForPlayerInTeam(Player player, Team team, FloorballBaseCtx ctx)
         {
             string[] types = new string[] { "G", "A", "P2", "P5", "P10", "PV", "APP" };
 
@@ -182,7 +183,7 @@ namespace Bll.Repository.Implementations
             });
         }
 
-        private void RemoveStatisticsForPlayerInTeam(Player player, Team team, FloorballEntities ctx)
+        private void RemoveStatisticsForPlayerInTeam(Player player, Team team, FloorballBaseCtx ctx)
         {
             var statisctics = ctx.Statistics.Where(s => s.Player.RegNum == player.RegNum && s.Team.Id == team.Id).ToList();
 

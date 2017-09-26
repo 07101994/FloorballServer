@@ -1,4 +1,5 @@
-﻿using Bll.Repository.Interfaces;
+﻿using DAL.Model;
+using DAL.Repository.Interfaces;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -6,13 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Repository.Implementations
+namespace DAL.Repository.Implementations
 {
-    public class Repository : IRepository
+    public class FlorballRepository : IFloorballRepository
     {
 
-        [Inject]
-        public virtual FloorballEntities Ctx { get; set; }
+        public virtual FloorballBaseCtx Ctx { get; set; }
 
         public IEnumerable<Update> GetUpdatesAfterDate(DateTime date)
         {

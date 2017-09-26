@@ -1,4 +1,4 @@
-﻿using Bll.Repository.Interfaces;
+﻿using DAL.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,15 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using DAL.Model;
 
-namespace Bll.Repository.Implementations
+namespace DAL.Repository.Implementations
 {
-    public class RoleRepository : Repository, IRoleRepository
+    public class RoleRepository : FlorballRepository, IRoleRepository
     {
 
         private RoleManager<IdentityRole> roleManager;
 
-        public override FloorballEntities Ctx
+        public override FloorballBaseCtx Ctx
         {
             get
             {

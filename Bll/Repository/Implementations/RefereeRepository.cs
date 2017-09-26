@@ -1,4 +1,5 @@
-﻿using Bll.Repository.Interfaces;
+﻿using DAL.Model;
+using DAL.Repository.Interfaces;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -6,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Repository.Implementations
+namespace DAL.Repository.Implementations
 {
-    public class RefereeRepository : Repository, IRefereeRepository
+    public class RefereeRepository : FlorballRepository, IRefereeRepository
     {
 
         public int AddReferee(Referee referee)

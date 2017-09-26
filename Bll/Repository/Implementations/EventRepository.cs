@@ -1,4 +1,5 @@
-﻿using Bll.Repository.Interfaces;
+﻿using DAL.Model;
+using DAL.Repository.Interfaces;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -6,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Repository.Implementations
+namespace DAL.Repository.Implementations
 {
-    public class EventRepository : Repository, IEventRepository
+    public class EventRepository : FlorballRepository, IEventRepository
     {
 
         public int AddEvent(Event ev)
@@ -68,7 +69,7 @@ namespace Bll.Repository.Implementations
 
         }
 
-        private void ChangeStatisticFromPlayer(int playerRegNum, int teamId, string type, FloorballEntities ctx, string direction)
+        private void ChangeStatisticFromPlayer(int playerRegNum, int teamId, string type, FloorballBaseCtx ctx, string direction)
         {
             Statistic stat = ctx.Statistics.FirstOrDefault(s => s.PlayerRegNum == playerRegNum && s.TeamId == teamId && s.Name == type);
 

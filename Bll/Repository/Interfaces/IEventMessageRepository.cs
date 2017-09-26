@@ -1,12 +1,13 @@
-﻿using System;
+﻿using DAL.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Repository.Interfaces
+namespace DAL.Repository.Interfaces
 {
-    public interface IEventMessageRepository : IDisposable
+    public interface IEventMessageRepository : IRepositoryBase
     {
 
         #region READ

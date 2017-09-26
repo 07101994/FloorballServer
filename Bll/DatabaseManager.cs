@@ -6,7 +6,7 @@
 //using System.Text;
 //using System.Threading.Tasks;
 
-//namespace Bll
+//namespace DAL
 //{
 //    public class DatabaseManager
 //    {

@@ -21,7 +21,7 @@ namespace FloorballServer
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            RolesConfig.Instance.AddRoles();
+            //RolesConfig.Instance.AddRoles();
 
             //var scheduler = new JobScheduler();
             //scheduler.Start(1);

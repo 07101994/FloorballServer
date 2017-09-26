@@ -1,13 +1,15 @@
-﻿using System;
+﻿using DAL.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Repository.Interfaces
+namespace DAL.Repository.Interfaces
 {
-    public interface IRepository : IDisposable
+    public interface IFloorballRepository : IRepositoryBase
     {
+
         #region READ
         IEnumerable<Update> GetUpdatesAfterDate(DateTime date);
 

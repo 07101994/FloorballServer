@@ -1,4 +1,4 @@
-﻿using Bll.Repository.Interfaces;
+﻿using DAL.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,15 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using DAL.Model;
 
-namespace Bll.Repository.Implementations
+namespace DAL.Repository.Implementations
 {
-    class UserRepository : Repository, IUserRepository
+    class UserRepository : FlorballRepository, IUserRepository
     {
 
         private UserManager<IdentityUser> userManager;
 
-        public override FloorballEntities Ctx
+        public override FloorballBaseCtx Ctx
         {
             get
             {
@@ -38,8 +39,11 @@ namespace Bll.Repository.Implementations
             {
                 UserName = userName
             };
-            
-            return userManager.Create(user, password); 
+
+            var result = userManager.Create(user, password);
+
+            userManager.AddToRole(user.Id, userRole);
+            return userManager.AddToRole(user.Id, userRole);
         }
     }
 }

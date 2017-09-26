@@ -1,6 +1,10 @@
-﻿using Bll.Repository;
-using Bll.Repository.Implementations;
-using Bll.Repository.Interfaces;
+﻿using Bll.Context;
+using Bll.Seed;
+using DAL.DBInitializer;
+using DAL.Model;
+using DAL.Repository;
+using DAL.Repository.Implementations;
+using DAL.Repository.Interfaces;
 using Ninject.Modules;
 using System;
 using System.Collections.Generic;
@@ -10,34 +14,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Ninject
+namespace DAL.Ninject
 {
     public class Bindings : NinjectModule
     {
-
-        private DbContext Context { get; set; }
+        private FloorballBaseCtx Context { get; set; }
 
         public override void Load()
         {
             //Bind dbcontext
-            Bind<DbContext>().To<FloorballEntities>();
+            Bind<FloorballBaseCtx>().To<LocalCtx>();
+            //Bind db initializer
+            Bind<IDatabaseInitializer<LocalCtx>>().To<LocalDBInitializer<LocalCtx>.DropCreateDatabaseAlwaysInitializer>();
+            //Bind seeder
+            Bind<ISeeder>().To<LocalSeeder>();
 
             //Bind repositories
-            Bind<ILeagueRepository>().To<LeagueRepository>().WithConstructorArgument("Ctx",Context);
-            Bind<ITeamRepository>().To<TeamRepository>().WithConstructorArgument("Ctx", Context);
-            Bind<IMatchRepository>().To<MatchRepository>().WithConstructorArgument("Ctx", Context);
-            Bind<IPlayerRepository>().To<PlayerRepository>().WithConstructorArgument("Ctx", Context);
-            Bind<IRefereeRepository>().To<RefereeRepository>().WithConstructorArgument("Ctx", Context);
-            Bind<IStadiumRepository>().To<StadiumRepository>().WithConstructorArgument("Ctx", Context);
-            Bind<IStatisticRepository>().To<StatisticRepository>().WithConstructorArgument("Ctx", Context);
-            Bind<IEventRepository>().To<EventRepository>().WithConstructorArgument("Ctx", Context);
-            Bind<IEventMessageRepository>().To<EventMessageRepository>().WithConstructorArgument("Ctx", Context);
-            Bind<IUserRepository>().To<UserRepository>().WithConstructorArgument("Ctx", Context);
-            Bind<IRoleRepository>().To<RoleRepository>().WithConstructorArgument("Ctx", Context);
-            Bind<IRepository>().To<Repository.Implementations.Repository>().WithConstructorArgument("Ctx", Context);
+            Bind<ILeagueRepository>().To<LeagueRepository>();
+            Bind<ITeamRepository>().To<TeamRepository>();
+            Bind<IMatchRepository>().To<MatchRepository>();
+            Bind<IPlayerRepository>().To<PlayerRepository>();
+            Bind<IRefereeRepository>().To<RefereeRepository>();
+            Bind<IStadiumRepository>().To<StadiumRepository>();
+            Bind<IStatisticRepository>().To<StatisticRepository>();
+            Bind<IEventRepository>().To<EventRepository>();
+            Bind<IEventMessageRepository>().To<EventMessageRepository>();
+            Bind<IUserRepository>().To<UserRepository>();
+            Bind<IRoleRepository>().To<RoleRepository>();
+            Bind<IFloorballRepository>().To<FlorballRepository>();                                 
 
             //Bind UoW
-            Bind<IUnitOfWork>().To<UnitOfWork>();
+            Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument("Ctx", Context);
 
         }
 

@@ -1,4 +1,5 @@
-﻿using Bll.Repository;
+﻿using DAL.Ninject;
+using DAL.Repository;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Ninject;
 using System;
@@ -12,8 +13,8 @@ namespace FloorballServer.App_Start
     public class RolesConfig
     {
 
-        [Inject]
-        public IUnitOfWork UoW { get; set; }
+        //[Inject]
+        static public IUnitOfWork UoW { get; set; }
         
         private static RolesConfig instance;
 
@@ -32,10 +33,10 @@ namespace FloorballServer.App_Start
 
         protected RolesConfig()
         {
-            var kernel = new StandardKernel();
-            kernel.Load(Assembly.GetExecutingAssembly());
-
+            var kernel = new StandardKernel(new Bindings());
+            
             UoW = kernel.Get<IUnitOfWork>();
+
         }
 
         public void AddRoles()

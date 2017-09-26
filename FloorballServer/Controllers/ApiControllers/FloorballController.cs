@@ -1,5 +1,6 @@
-﻿using Bll;
-using Bll.Repository;
+﻿using DAL;
+using DAL.Model;
+using DAL.Repository;
 using FloorballServer.Attributes;
 using FloorballServer.Helper;
 using FloorballServer.Live;
@@ -36,7 +37,7 @@ namespace FloorballServer.Controllers.ApiControllers
 
             IEnumerable<Update> updates = UoW.Repository.GetUpdatesAfterDate(date);
 
-            UpdateCollector collector = new UpdateCollector(new UnitOfWork(null));
+            UpdateCollector collector = new UpdateCollector(UoW);
 
             UpdateModel updateModel = collector.CollectUpdates(updates, updateTime);
 
