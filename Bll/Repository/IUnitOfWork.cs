@@ -38,5 +38,7 @@ namespace DAL.Repository
 
         IRoleRepository RoleRepository { get; set; }
 
+        ISecurityRepository SecurityRepository { get; set; }
+
     }
 }

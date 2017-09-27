@@ -14,7 +14,7 @@ namespace DAL.Security
 
         [Required]
         [MaxLength(50)]
-        public int Subject { get; set; }
+        public string Subject { get; set; }
 
         [Required]
         [MaxLength(50)]

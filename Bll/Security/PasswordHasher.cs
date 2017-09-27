@@ -55,5 +55,12 @@ namespace DAL.Util
             return buffer3.SequenceEqual(buffer4);
         }
 
+        public static string GetHash(string input)
+        {
+            HashAlgorithm hashAlgorithm = new SHA256CryptoServiceProvider();
+
+            return Convert.ToBase64String(hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input)));
+        }
+
     }
 }
