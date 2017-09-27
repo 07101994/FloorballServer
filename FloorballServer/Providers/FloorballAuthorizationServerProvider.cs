@@ -1,4 +1,5 @@
-﻿using DAL.Repository;
+﻿using DAL.Ninject;
+using DAL.Repository;
 using Microsoft.Owin.Security.OAuth;
 using Ninject;
 using System;
@@ -13,12 +14,19 @@ namespace FloorballServer.Providers
     public class FloorballAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
 
-        [Inject]
+        //[Inject]
         public IUnitOfWork UoW { get; set; }
+
+        public FloorballAuthorizationServerProvider()
+        {
+            var kernel = new StandardKernel(new Bindings());
+
+            UoW = kernel.Get<IUnitOfWork>();
+        }
 
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            context.Validated();
+            await Task.Run(() => context.Validated());
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
@@ -37,7 +45,7 @@ namespace FloorballServer.Providers
             identity.AddClaim(new Claim("role", user.Roles.First().RoleId));
             
 
-            context.Validated(identity);
+            await Task.Run(() => context.Validated(identity));
 
         }
 
