@@ -9,6 +9,7 @@ namespace DAL.Model
     using Bll.Seed;
     using DAL.Ninject;
     using Bll.Context;
+    using DAL.Security;
 
     public abstract class FloorballBaseCtx : IdentityDbContext<IdentityUser>
     {
@@ -31,6 +32,8 @@ namespace DAL.Model
         public virtual DbSet<Statistic> Statistics { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Update> Updates { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

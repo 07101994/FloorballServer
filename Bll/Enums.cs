@@ -13,6 +13,11 @@ namespace DAL
     }
 
 
+    public enum ApplicationType
+    {
+        Manager = 0, Consumer = 1
+    }
+
     public static class EnumExtensions
     {
         public static string ToCountryString(this CountriesEnum country)
