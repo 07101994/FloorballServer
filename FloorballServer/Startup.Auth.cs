@@ -62,7 +62,8 @@ namespace FloorballServer
             {
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new FloorballAuthorizationServerProvider(),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                RefreshTokenProvider = new FloorballRefreshTokenProvider(),
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true
             };

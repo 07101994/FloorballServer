@@ -1,5 +1,9 @@
-﻿using DAL.Ninject;
+﻿using DAL;
+using DAL.Ninject;
 using DAL.Repository;
+using DAL.Security;
+using DAL.Util;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Ninject;
 using System;
@@ -26,13 +30,62 @@ namespace FloorballServer.Providers
 
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            await Task.Run(() => context.Validated());
+            string clientId = string.Empty;
+            string clientSecret = string.Empty;
+
+            if (!context.TryGetBasicCredentials(out clientId, out clientSecret))
+            {
+                context.TryGetFormCredentials(out clientId, out clientSecret);
+            }
+
+            if (context.ClientId == null)
+            {
+                context.Validated();
+                context.SetError("invalid_clientId", "ClientId should be sent.");
+            }
+
+            Client client = await Task.Run(() => UoW.SecurityRepository.GetClient(Convert.ToInt32(context.ClientId).ToEnum<ApplicationType>()));
+
+            if (client == null)
+            {
+                context.SetError("invalid_clientId", string.Format("Client '{0}' is not registered in the system.", context.ClientId));
+                return;
+            } 
+
+            if (string.IsNullOrWhiteSpace(clientSecret))
+            {
+                context.SetError("invalid_clientId", "Client secret should be sent.");
+                return;
+            }
+            else
+            {
+                if (client.Secret != PasswordHasher.GetHash(clientSecret))
+                {
+                    context.SetError("invalid_clientId", "Client secret is invalid.");
+                    return;
+                }
+            }
+
+            if (!client.IsActive)
+            {
+                context.SetError("invalid_clientId", "Client is inactive.");
+                return;
+            }
+
+            context.OwinContext.Set("as:clientAllowedOrigin", client.AllowedOrigin);
+            context.OwinContext.Set("as:clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString());
+
+            context.Validated();
+
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin") ?? "*";
 
-            var user = UoW.UserRepository.GetUser(context.UserName, context.Password);
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+
+            var user =  await Task.Run(()=> UoW.UserRepository.GetUser(context.UserName, context.Password));
 
             if (user == null)
             {
@@ -40,12 +93,52 @@ namespace FloorballServer.Providers
                 return;
             }
 
+
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             identity.AddClaim(new Claim("sub", context.UserName));
             identity.AddClaim(new Claim("role", user.Roles.First().RoleId));
-            
 
-            await Task.Run(() => context.Validated(identity));
+            var props = new AuthenticationProperties(new Dictionary<string, string>
+            {
+                {
+                    "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
+                },
+                {
+                    "userName", context.UserName
+                }
+            });
+
+            var ticket = new AuthenticationTicket(identity, props);
+
+            context.Validated(ticket);
+
+        }
+
+        public override Task TokenEndpoint(OAuthTokenEndpointContext context)
+        {
+            foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
+            {
+                context.AdditionalResponseParameters.Add(property.Key, property.Value);
+            }
+
+            return Task.FromResult<object>(null);
+        }
+
+        public override Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
+        {
+            var originalClient = context.Ticket.Properties.Dictionary["as:client_id"];
+            var currentClient = context.ClientId;
+
+            if (originalClient != currentClient)
+            {
+                context.SetError("invalid_clientId", "Refresh token is issued to a different clientId.");
+                return Task.FromResult<object>(null);
+            }
+
+            context.Validated(new AuthenticationTicket(context.Ticket.Identity, context.Ticket.Properties));
+
+            return Task.FromResult<object>(null);
 
         }
 

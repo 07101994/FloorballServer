@@ -1,4 +1,5 @@
 ﻿using DAL.Model;
+using DAL.Security;
 using DAL.Util;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -23,7 +24,20 @@ namespace DAL.Seed
             AddSuperAdmin(ctx);
             AddEventMessages(ctx);
 
+            AddClients(ctx);
+
             ctx.SaveChanges();
+        }
+
+        private void AddClients(FloorballBaseCtx ctx)
+        {
+
+            //var ManagerSecret = Util.PasswordHasher.GetHash("ManagerApp");
+            //var ConsumerSecret = Util.PasswordHasher.GetHash("ConsumerApp");
+
+            ctx.Clients.Add(new Client { Id = "ManagerApp", AllowedOrigin = "*", ApplicationType = ApplicationType.Manager, IsActive = true, Name = "Manager Application", RefreshTokenLifeTime = 10, Secret = "gMGbgbwXK+ntUR+0kCfnIvmuMAZsu1+a3Eod8HN05kI=" });
+            ctx.Clients.Add(new Client { Id = "ConsumerApp", AllowedOrigin = "*", ApplicationType = ApplicationType.Consumer, IsActive = true, Name = "Consumer Application", RefreshTokenLifeTime = 10, Secret = "t6wM7qs9XUcXCCsgEy18NcCQgiZ7NmgB1o/4p9+Mcuo=" });
+
         }
 
         protected ICollection<T> AddEntitiesById<T>(DbSet<T> entites, List<int> ids) where T : class
@@ -89,8 +103,9 @@ namespace DAL.Seed
             ctx.EventMessages.Add(new EventMessage {Id = 47, Code = 601, Message = "Emberelőnyös" });
             ctx.EventMessages.Add(new EventMessage {Id = 48, Code = 602, Message = "Emberhátrányos" });
             ctx.EventMessages.Add(new EventMessage {Id = 49, Code = 603, Message = "Üreskapus" });
-            ctx.EventMessages.Add(new EventMessage {Id = 51, Code = 604, Message = "Büntetőből szerzett" });
-            ctx.EventMessages.Add(new EventMessage {Id = 52, Code = 606, Message = "Normál" });
+            ctx.EventMessages.Add(new EventMessage {Id = 50, Code = 604, Message = "Büntetőből szerzett" });
+            ctx.EventMessages.Add(new EventMessage {Id = 51, Code = 606, Message = "Normál" });
+            ctx.EventMessages.Add(new EventMessage {Code = -1, Message = "Gólpassz" });
 
         }
 

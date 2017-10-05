@@ -41,7 +41,8 @@ namespace DAL.Ninject
             Bind<IEventMessageRepository>().To<EventMessageRepository>();
             Bind<IUserRepository>().To<UserRepository>();
             Bind<IRoleRepository>().To<RoleRepository>();
-            Bind<IFloorballRepository>().To<FlorballRepository>();                                 
+            Bind<IFloorballRepository>().To<FlorballRepository>();
+            Bind<ISecurityRepository>().To<SecurityRepository>();                                 
 
             //Bind UoW
             Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument("Ctx", Context);

@@ -13,6 +13,11 @@ namespace DAL
     }
 
 
+    public enum ApplicationType
+    {
+        Manager = 0, Consumer = 1
+    }
+
     public static class EnumExtensions
     {
         public static string ToCountryString(this CountriesEnum country)
@@ -69,6 +74,12 @@ namespace DAL
         {
             return (T)Enum.Parse(typeof(T), value, true);
         }
+
+        public static T ToEnum<T>(this int value)
+        {
+            return (T)Enum.ToObject(typeof(T),value);
+        }
+
     }
 
     public enum UpdateEnum

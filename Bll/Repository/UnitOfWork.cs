@@ -159,6 +159,19 @@ namespace DAL.Repository
             }
         }
 
+        private ISecurityRepository securityRepository;
+
+        [Inject]
+        public ISecurityRepository SecurityRepository
+        {
+            get => securityRepository;
+            set
+            {
+                securityRepository = value;
+                securityRepository.Ctx = Ctx;
+            }
+        }
+
         private IFloorballRepository repository;
 
         [Inject]

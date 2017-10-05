@@ -95,7 +95,7 @@ namespace Bll.Seed
 
         private void AddEvents(FloorballBaseCtx ctx)
         {
-            ctx.Events.Add(new Event { Id = 1, EventMessageId = 52, MatchId = 1, PlayerRegNum = 1, TeamId = 1, Time = new TimeSpan(00,10,10), Type = "G" });
+            ctx.Events.Add(new Event { Id = 1, EventMessageId = 51, MatchId = 1, PlayerRegNum = 1, TeamId = 1, Time = new TimeSpan(00,10,10), Type = "G" });
             ctx.Events.Add(new Event { Id = 2, EventMessageId = 52, MatchId = 1, PlayerRegNum = 2, TeamId = 1, Time = new TimeSpan(00,10,10), Type = "A" });
             ctx.Events.Add(new Event { Id = 3, EventMessageId = 10, MatchId = 1, PlayerRegNum = 4, TeamId = 4, Time = new TimeSpan(00,22,40), Type = "G" });
             ctx.Events.Add(new Event { Id = 4, EventMessageId = 47, MatchId = 1, PlayerRegNum = 5, TeamId = 4, Time = new TimeSpan(00,51,00), Type = "P2" });
