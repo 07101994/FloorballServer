@@ -1,4 +1,5 @@
-﻿using DAL.Ninject;
+﻿using DAL;
+using DAL.Ninject;
 using DAL.Repository;
 using DAL.Security;
 using DAL.Util;
@@ -43,32 +44,38 @@ namespace FloorballServer.Providers
                 context.SetError("invalid_clientId", "ClientId should be sent.");
             }
 
-            Client client = await Task.Run(() => UoW.SecurityRepository.GetClient(context.ClientId));
+            Client client = await Task.Run(() => UoW.SecurityRepository.GetClient(Convert.ToInt32(context.ClientId).ToEnum<ApplicationType>()));
 
             if (client == null)
             {
                 context.SetError("invalid_clientId", string.Format("Client '{0}' is not registered in the system.", context.ClientId));
-            }
+                return;
+            } 
 
             if (string.IsNullOrWhiteSpace(clientSecret))
             {
                 context.SetError("invalid_clientId", "Client secret should be sent.");
+                return;
             }
             else
             {
                 if (client.Secret != PasswordHasher.GetHash(clientSecret))
                 {
                     context.SetError("invalid_clientId", "Client secret is invalid.");
+                    return;
                 }
             }
 
             if (!client.IsActive)
             {
                 context.SetError("invalid_clientId", "Client is inactive.");
+                return;
             }
 
             context.OwinContext.Set("as:clientAllowedOrigin", client.AllowedOrigin);
             context.OwinContext.Set("as:clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString());
+
+            context.Validated();
 
         }
 

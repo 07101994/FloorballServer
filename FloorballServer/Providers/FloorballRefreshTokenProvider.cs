@@ -50,6 +50,13 @@ namespace FloorballServer.Providers
 
             token.ProtectedTicket = context.SerializeTicket();
 
+            var exsistingToken = UoW.SecurityRepository.GetRefreshToken(token.Subject, token.ClientId);
+
+            if (exsistingToken != null)
+            {
+                UoW.SecurityRepository.RemoveRefreshToken(exsistingToken);
+            }
+
             if (UoW.SecurityRepository.AddRefreshToken(token))
             {
                 context.SetToken(refreshTokenId);

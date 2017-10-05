@@ -74,6 +74,12 @@ namespace DAL
         {
             return (T)Enum.Parse(typeof(T), value, true);
         }
+
+        public static T ToEnum<T>(this int value)
+        {
+            return (T)Enum.ToObject(typeof(T),value);
+        }
+
     }
 
     public enum UpdateEnum

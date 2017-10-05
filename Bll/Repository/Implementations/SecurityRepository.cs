@@ -1,5 +1,6 @@
 ﻿using DAL.Repository.Interfaces;
 using DAL.Security;
+using DAL.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,14 +25,19 @@ namespace DAL.Repository.Implementations
             return Ctx.SaveChanges() > 0;
         }
 
-        public Client GetClient(string clientId)
+        public Client GetClient(ApplicationType appType)
         {
-            return Ctx.Clients.Find(clientId);
+            return Ctx.Clients.Where(c => c.ApplicationType == appType).SingleOrDefault();
         }
 
         public RefreshToken GetRefreshToken(string tokenId)
         {
             return Ctx.RefreshTokens.Find(tokenId);
+        }
+
+        public RefreshToken GetRefreshToken(string subject, string clientId)
+        {
+            return Ctx.RefreshTokens.Where(t => t.Subject == subject && t.ClientId == clientId).SingleOrDefault();
         }
 
         public IEnumerable<RefreshToken> GetRefreshTokens()
@@ -46,7 +52,14 @@ namespace DAL.Repository.Implementations
 
         public bool RemoveRefreshToken(RefreshToken token)
         {
-            Ctx.RefreshTokens.Remove(token);
+
+            try
+            {
+                Ctx.RefreshTokens.Remove(token);
+            }
+            catch (Exception)
+            {
+            }
 
             return Ctx.SaveChanges() > 0;
         }

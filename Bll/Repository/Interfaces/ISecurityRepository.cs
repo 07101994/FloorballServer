@@ -9,7 +9,7 @@ namespace DAL.Repository.Interfaces
 {
     public interface ISecurityRepository : IRepositoryBase
     {
-        Client GetClient(string clientId);
+        Client GetClient(ApplicationType appType);
 
         bool AddRefreshToken(RefreshToken token);
 
@@ -18,6 +18,8 @@ namespace DAL.Repository.Interfaces
         bool RemoveRefreshToken(RefreshToken token);
 
         RefreshToken GetRefreshToken(string tokenId);
+
+        RefreshToken GetRefreshToken(string subject, string clientId);
 
         IEnumerable<RefreshToken> GetRefreshTokens();
 
