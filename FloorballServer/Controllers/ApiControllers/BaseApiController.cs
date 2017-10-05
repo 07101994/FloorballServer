@@ -1,4 +1,4 @@
-﻿using Bll.Repository;
+﻿using DAL.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,6 @@ using System.Web.Http;
 
 namespace FloorballServer.Controllers.ApiControllers
 {
-    //[RoutePrefix("api/floorball")]
     public abstract class BaseApiController : ApiController
     {
         protected IUnitOfWork UoW;

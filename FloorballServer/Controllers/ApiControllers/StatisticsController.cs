@@ -1,4 +1,4 @@
-﻿using Bll.Repository;
+﻿using DAL.Repository;
 using FloorballServer.Attributes;
 using FloorballServer.Helper;
 using FloorballServer.Models.Floorball;

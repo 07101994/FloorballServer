@@ -1,4 +1,5 @@
-﻿using Bll.Repository.Interfaces; 
+﻿using DAL.Model;
+using DAL.Repository.Interfaces; 
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -6,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Repository.Implementations
+namespace DAL.Repository.Implementations
 {
-    public class TeamRepository : Repository, ITeamRepository
+    public class TeamRepository : FlorballRepository, ITeamRepository
     {
         public int AddTeam(Team team)
         {
@@ -17,13 +18,13 @@ namespace Bll.Repository.Implementations
             team.Points = 0;
             team.Standing = 0;
 
-            ctx.Teams.Add(team);
-            ctx.SaveChanges();
+            Ctx.Teams.Add(team);
+            Ctx.SaveChanges();
 
             team.ImageName = team.Id + ".jpg";
-            ctx.Teams.Attach(team);
-            ctx.Entry(team).Property("ImageName").IsModified = true;
-            ctx.SaveChanges();
+            Ctx.Teams.Attach(team);
+            Ctx.Entry(team).Property("ImageName").IsModified = true;
+            Ctx.SaveChanges();
 
             AddUpdate(new Update
             {
@@ -39,27 +40,27 @@ namespace Bll.Repository.Implementations
 
         public IEnumerable<Team> GetAllTeam()
         {
-            return ctx.Teams;
+            return Ctx.Teams;
         }
 
         public Team GetTeamById(int id)
         {
-            return ctx.Teams.Find(id);
+            return Ctx.Teams.Find(id);
         }
 
         public IEnumerable<Team> GetTeamsByLeague(int leagueId)
         {
-            return ctx.Teams.Where( t => t.LeagueId == leagueId);
+            return Ctx.Teams.Where( t => t.LeagueId == leagueId);
         }
 
         public IEnumerable<Team> GetTeamsByYear(DateTime year)
         {
-            return ctx.Teams.Where( t => t.Year == year );
+            return Ctx.Teams.Where( t => t.Year == year );
         }
 
         public int UpdateTeam(Team team)
         {
-            Team updated = ctx.Teams.Find(team.Id);
+            Team updated = Ctx.Teams.Find(team.Id);
 
             updated.Name = team.Name;
             updated.Sex = team.Sex;
@@ -69,10 +70,10 @@ namespace Bll.Repository.Implementations
             updated.StadiumId = team.StadiumId;
             updated.LeagueId = team.LeagueId;
 
-            ctx.Teams.Attach(updated);
-            ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
+            Ctx.Teams.Attach(updated);
+            Ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
 
-            ctx.SaveChanges();
+            Ctx.SaveChanges();
 
             //AddUpdate(new Update
             //{

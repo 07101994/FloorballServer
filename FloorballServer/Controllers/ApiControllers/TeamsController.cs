@@ -1,5 +1,6 @@
-﻿using Bll;
-using Bll.Repository;
+﻿using DAL;
+using DAL.Model;
+using DAL.Repository;
 using FloorballServer.Attributes;
 using FloorballServer.Helper;
 using FloorballServer.Models.Floorball;
@@ -13,6 +14,7 @@ using System.Web.Http;
 
 namespace FloorballServer.Controllers.ApiControllers
 {
+    [Authorize]
     [FloorballExceptionFilter]
     [RoutePrefix("api/floorball")]
     public class TeamsController : BaseApiController

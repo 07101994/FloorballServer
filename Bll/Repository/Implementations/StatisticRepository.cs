@@ -1,4 +1,5 @@
-﻿using Bll.Repository.Interfaces;
+﻿using DAL.Model;
+using DAL.Repository.Interfaces;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -6,19 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Repository.Implementations
+namespace DAL.Repository.Implementations
 {
-    class StatisticRepository : Repository, IStatisticRepository
+    class StatisticRepository : FlorballRepository, IStatisticRepository
     {
 
         public IEnumerable<Statistic> GetAllStatistic()
         {
-            return ctx.Statistics;
+            return Ctx.Statistics;
         }
 
         public IEnumerable<Statistic> GetStatisticsByLeague(int leagueId)
         {
-            return ctx.Statistics.Where(s => s.Team.LeagueId == leagueId);
+            return Ctx.Statistics.Where(s => s.Team.LeagueId == leagueId);
         }
     }
 }

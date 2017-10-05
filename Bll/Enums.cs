@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bll
+namespace DAL
 {
     public enum CountriesEnum
     {

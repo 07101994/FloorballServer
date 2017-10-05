@@ -6,7 +6,7 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using FloorballServer.Models.Floorball;
 using Newtonsoft.Json;
-using Bll;
+using DAL;
 
 namespace FloorballServer.Live
 {

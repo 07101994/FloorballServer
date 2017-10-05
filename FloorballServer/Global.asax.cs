@@ -1,4 +1,5 @@
-﻿using MessagingService.Jobs;
+﻿using FloorballServer.App_Start;
+using MessagingService.Jobs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace FloorballServer
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //RolesConfig.Instance.AddRoles();
 
             //var scheduler = new JobScheduler();
             //scheduler.Start(1);

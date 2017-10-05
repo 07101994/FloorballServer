@@ -1,4 +1,5 @@
-﻿using Bll.Repository.Interfaces;
+﻿using DAL.Model;
+using DAL.Repository.Interfaces;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -6,39 +7,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Repository
+namespace DAL.Repository
 {
     public interface IUnitOfWork : IDisposable
     {
-        [Inject]
+
+        FloorballBaseCtx Ctx { get; set; }
+
         IEventRepository EventRepository { get; set; }
 
-        [Inject]
         ILeagueRepository LeagueRepository { get; set; }
 
-        [Inject]
         IMatchRepository MatchRepository { get; set; }
 
-        [Inject]
         IPlayerRepository PlayerRepository { get; set;  }
 
-        [Inject]
         IRefereeRepository RefereeRepository { get; set;  }
 
-        [Inject]
         ITeamRepository TeamRepository { get; set; }
 
-        [Inject]
         IEventMessageRepository EventMessageRepository { get; set; }
 
-        [Inject]
-        IRepository Repository { get; set; }
+        IFloorballRepository Repository { get; set; }
 
-        [Inject]
         IStatisticRepository StatisticRepository { get; set; }
 
-        [Inject]
         IStadiumRepository StadiumRepository { get; set; }
+
+        IUserRepository UserRepository { get; set; }
+
+        IRoleRepository RoleRepository { get; set; }
 
     }
 }
