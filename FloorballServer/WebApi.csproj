@@ -371,7 +371,7 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bll\DAL.csproj">
+    <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{eab2b970-6632-49d2-9e10-80bd614ebb35}</Project>
       <Name>DAL</Name>
     </ProjectReference>
