@@ -89,10 +89,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\DontDropDbJustCreateTablesIfModelChangedStart.cs" />
+    <Compile Include="Context\DemoCtx.cs" />
     <Compile Include="Context\LocalCtx.cs" />
     <Compile Include="Context\RemoteCtx.cs" />
     <Compile Include="DatabaseManager.cs" />
+    <Compile Include="DBInitializer\DemoDBInitilizer.cs" />
     <Compile Include="DBInitializer\LocalDBInitializer.cs" />
+    <Compile Include="DBInitializer\RemoteDBInitializer.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Context\FloorballBaseCtx.cs" />
     <Compile Include="Model\Event.cs" />
@@ -139,6 +142,7 @@
     <Compile Include="Security\Client.cs" />
     <Compile Include="Security\RefreshToken.cs" />
     <Compile Include="Seed\BaseSeeder.cs" />
+    <Compile Include="Seed\DemoSeeder.cs" />
     <Compile Include="Seed\ISeeder.cs" />
     <Compile Include="Seed\LocalSeeder.cs" />
     <Compile Include="Seed\RemoteSeeder.cs" />

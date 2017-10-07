@@ -14,7 +14,7 @@ using System.Web.Http;
 
 namespace FloorballServer.Controllers.ApiControllers
 {
-    [Authorize]
+    //[Authorize]
     [FloorballExceptionFilter]
     [RoutePrefix("api/floorball")]
     public class TeamsController : BaseApiController

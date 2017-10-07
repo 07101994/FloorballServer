@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bll.Context
+namespace DAL.Context
 {
-    public class RemoteCtx : FloorballBaseCtx
+    public class DemoCtx : FloorballBaseCtx
     {
-        public RemoteCtx() : base("name=FloorballRemote")
+        public DemoCtx() : base("name=FloorballDemo")
         {
-            Database.SetInitializer(Kernel.Get<IDatabaseInitializer<RemoteCtx>>());
+            Database.SetInitializer(Kernel.Get<IDatabaseInitializer<DemoCtx>>());
         }
     }
 }
