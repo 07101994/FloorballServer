@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -6,7 +7,6 @@ using System.Web;
 
 namespace FloorballServer.Models.Floorball
 {
-    [KnownType(typeof(RefereeModel))]
     public class RefereeModel
     {
 
@@ -17,5 +17,7 @@ namespace FloorballServer.Models.Floorball
         public short Number { get; set; }
 
         public short Penalty { get; set; }
+
+        public CountriesEnum Country { get; set; }
     }
 }

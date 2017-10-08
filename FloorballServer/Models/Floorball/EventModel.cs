@@ -8,7 +8,6 @@ using System.Web.Script.Serialization;
 
 namespace FloorballServer.Models.Floorball
 {
-    [KnownType(typeof(EventModel))]
     public class EventModel
     {
         public int Id { get; set; }

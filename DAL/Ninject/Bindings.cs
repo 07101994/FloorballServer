@@ -62,7 +62,7 @@ namespace DAL.Ninject
             //Bind dbcontext
             Bind<FloorballBaseCtx>().To<LocalCtx>();
             //Bind db initializer
-            Bind<IDatabaseInitializer<LocalCtx>>().To<LocalDBInitializer<LocalCtx>.DropCreateDatabaseIfModelChangesInitializer>();
+            Bind<IDatabaseInitializer<LocalCtx>>().To<LocalDBInitializer<LocalCtx>.DropCreateDatabaseAlwaysInitializer>();
             //Bind seeder
             Bind<ISeeder>().To<LocalSeeder>();
         }

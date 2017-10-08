@@ -99,7 +99,8 @@ namespace FloorballServer.Helper
                 Id = r.Id,
                 Name = r.Name,
                 Number = r.Number,
-                Penalty = r.Penalty
+                Penalty = r.Penalty,
+                Country = r.Country
             };
         }
 

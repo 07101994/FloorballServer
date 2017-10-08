@@ -6,7 +6,6 @@ using System.Web;
 
 namespace FloorballServer.Models.Floorball
 {
-    [KnownType(typeof(EventMessageModel))]
     public class EventMessageModel
     {
 

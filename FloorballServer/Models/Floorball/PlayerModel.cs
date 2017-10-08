@@ -7,7 +7,6 @@ using System.Web;
 
 namespace FloorballServer.Models.Floorball
 {
-    [KnownType(typeof(PlayerModel))]
     public class PlayerModel
     {
         public int Id { get; set; }
@@ -16,7 +15,7 @@ namespace FloorballServer.Models.Floorball
 
         public string LastName { get; set; }
 
-        public int Number { get; set; }
+        public short Number { get; set; }
 
         public DateTime BirthDate { get; set; }
 

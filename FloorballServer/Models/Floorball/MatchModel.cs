@@ -7,7 +7,6 @@ using System.Web;
 
 namespace FloorballServer.Models.Floorball
 {
-    [KnownType(typeof(MatchModel))]
     public class MatchModel
     {
         public int Id { get; set; }

@@ -6,7 +6,6 @@ using System.Web;
 
 namespace FloorballServer.Models.Floorball
 {
-    [KnownType(typeof(StadiumModel))]
     public class StadiumModel
     {
 

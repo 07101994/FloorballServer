@@ -8,7 +8,6 @@ using WebApi.Helper;
 
 namespace FloorballServer.Models.Floorball
 {
-    [KnownType(typeof(UpdateModel))]
     public class UpdateModel
     {
         public List<UpdateData> Updates { get; set; }

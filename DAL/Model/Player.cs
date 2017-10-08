@@ -27,7 +27,7 @@ namespace DAL.Model
 
         public DateTime BirthDate { get; set; }
 
-        public int Number { get; set; }
+        public short Number { get; set; }
 
         [Required]
         [StringLength(50)]

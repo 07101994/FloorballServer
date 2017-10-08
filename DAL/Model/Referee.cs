@@ -21,6 +21,8 @@ namespace DAL.Model
 
         public DateTime BirthDate { get; set; }
 
+        public CountriesEnum Country { get; set; }
+
         public short Number { get; set; } = 0;
 
         public short Penalty { get; set; } = 0;
