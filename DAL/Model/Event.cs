@@ -11,13 +11,13 @@ namespace DAL.Model
         public int Id { get; set; }
 
         [Required]
-        public string Type { get; set; }
+        public EventType Type { get; set; }
 
         public TimeSpan Time { get; set; }
 
         public int MatchId { get; set; }
 
-        public int PlayerRegNum { get; set; }
+        public int PlayerId { get; set; }
 
         public int EventMessageId { get; set; }
 

@@ -23,19 +23,19 @@ namespace DAL.Model
         public string Name { get; set; }
 
         [Required]
-        public string Type { get; set; }
+        public LeagueTypeEnum Type { get; set; }
 
         [Required]
-        public string ClassName { get; set; }
+        public ClassEnum Class { get; set; }
 
-        public int Rounds { get; set; }
+        public short Rounds { get; set; }
 
         [Required]
-        public string Country { get; set; }
+        public CountriesEnum Country { get; set; }
 
         [Required]
         [StringLength(10)]
-        public string Sex { get; set; }
+        public GenderEnum Gender { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Match> Matches { get; set; }

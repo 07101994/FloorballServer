@@ -20,10 +20,10 @@ namespace DAL.Repository.Implementations
 
             AddUpdate(new Update
             {
-                name = UpdateEnum.League.ToUpdateString(),
-                updatetype = UpdateType.Create.ToString(),
-                date = DateTime.Now,
-                data1 = league.Id
+                Name = UpdateEnum.League,
+                Updatetype = UpdateType.Create,
+                Date = DateTime.Now,
+                Data1 = league.Id
             });
 
             return league.Id;
@@ -63,11 +63,11 @@ namespace DAL.Repository.Implementations
         {
             var updated = Ctx.Leagues.Find(league.Id);
 
-            updated.ClassName = league.ClassName;
+            updated.Class = league.Class;
             updated.Country = league.Country;
             updated.Name = league.Name;
             updated.Rounds = league.Rounds;
-            updated.Sex = league.Sex;
+            updated.Gender = league.Gender;
             updated.Type = league.Type;
             updated.Year = league.Year;
 

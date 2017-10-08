@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -12,11 +13,9 @@ namespace FloorballServer.Models.Floorball
     {
         public int Id { get; set; }
 
-        public string Type { get; set; }
+        public EventType Type { get; set; }
 
         public TimeSpan Time { get; set; }
-
-        //public string Time { get; set; }
 
         public int MatchId { get; set; }
 

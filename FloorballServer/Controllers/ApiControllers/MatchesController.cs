@@ -115,8 +115,8 @@ namespace FloorballServer.Controllers.ApiControllers
                 Time = match.Time,
                 Round = match.Round,
                 StadiumId = match.StadiumId,
-                GoalsA = match.GoalsA,
-                GoalsH = match.GoalsH,
+                ScoreA = match.ScoreA,
+                ScoreH = match.ScoreH,
                 State = match.State
             });
 

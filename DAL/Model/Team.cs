@@ -34,7 +34,7 @@ namespace DAL.Model
 
         public int TeamId { get; set; }
 
-        public short Match { get; set; }
+        public short MatchNumber { get; set; }
 
         public short Scored { get; set; }
 
@@ -46,10 +46,10 @@ namespace DAL.Model
 
         [Required]
         [StringLength(50)]
-        public string Sex { get; set; }
+        public GenderEnum Gender { get; set; }
 
         [StringLength(10)]
-        public string Country { get; set; }
+        public CountriesEnum Country { get; set; }
 
         [StringLength(50)]
         public string ImageName { get; set; }

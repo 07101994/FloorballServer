@@ -19,10 +19,10 @@ namespace DAL.Repository.Implementations
 
             AddUpdate(new Update
             {
-                name= UpdateEnum.Referee.ToUpdateString(),
-                date = DateTime.Now,
-                updatetype = UpdateType.Create.ToString(),
-                data1 = referee.Id
+                Name= UpdateEnum.Referee,
+                Date = DateTime.Now,
+                Updatetype = UpdateType.Create,
+                Data1 = referee.Id
             });
 
             return referee.Id;
@@ -38,11 +38,11 @@ namespace DAL.Repository.Implementations
 
             AddUpdate(new Update
             {
-                name = UpdateEnum.RefereeMatch.ToUpdateString(),
-                date = DateTime.Now,
-                updatetype = UpdateType.Create.ToString(),
-                data1 = refereeId,
-                data2 = matchId
+                Name = UpdateEnum.RefereeMatch,
+                Date = DateTime.Now,
+                Updatetype = UpdateType.Create,
+                Data1 = refereeId,
+                Data2 = matchId
             });
         }
 
@@ -86,11 +86,11 @@ namespace DAL.Repository.Implementations
 
             AddUpdate(new Update
             {
-                name = UpdateEnum.RefereeMatch.ToUpdateString(),
-                date = DateTime.Now,
-                updatetype = UpdateType.Delete.ToString(),
-                data1 = refereeId,
-                data2 = matchId
+                Name = UpdateEnum.RefereeMatch,
+                Date = DateTime.Now,
+                Updatetype = UpdateType.Delete,
+                Data1 = refereeId,
+                Data2 = matchId
             });
         }
 

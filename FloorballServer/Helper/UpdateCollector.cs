@@ -28,7 +28,7 @@ namespace FloorballServer.Helper
 
             foreach (var u in updates)
             {
-                switch (u.name.ToEnum<UpdateEnum>())
+                switch (u.Name)
                 {
                     case UpdateEnum.League:
                         updateDataList.Add(GetLeague(u));
@@ -79,8 +79,8 @@ namespace FloorballServer.Helper
             return new UpdateData
             {
                 Type = UpdateEnum.RefereeMatch,
-                Entity = new { refereeId = u.data1, matchId = u.data2 },
-                UpdateType = u.updatetype.ToString()
+                Entity = new { refereeId = u.Data1, matchId = u.Data2 },
+                UpdateType = u.Updatetype.ToString()
             };
         }
 
@@ -89,8 +89,8 @@ namespace FloorballServer.Helper
             return new UpdateData
             {
                 Type = UpdateEnum.PlayerMatch,
-                Entity = new { playerId = u.data1, matchId = u.data2 },
-                UpdateType = u.updatetype.ToString()
+                Entity = new { playerId = u.Data1, matchId = u.Data2 },
+                UpdateType = u.Updatetype.ToString()
             };
         }
 
@@ -99,20 +99,20 @@ namespace FloorballServer.Helper
             return new UpdateData
             {
                 Type = UpdateEnum.PlayerTeam,
-                Entity = new { playerId = u.data1, teamId = u.data2 },
-                UpdateType = u.updatetype.ToString()
+                Entity = new { playerId = u.Data1, teamId = u.Data2 },
+                UpdateType = u.Updatetype.ToString()
             };
         }
 
         private UpdateData GetEventMessage(Update u)
         {
-            if (u.updatetype == UpdateType.Create.ToString() || u.updatetype == UpdateType.Update.ToString())
+            if (u.Updatetype == UpdateType.Create || u.Updatetype == UpdateType.Update)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.EventMessage,
-                    Entity = ModelHelper.CreateEventMessageModel(UoW.EventMessageRepository.GetEventMessageById(u.data1)),
-                    UpdateType = u.updatetype.ToString()
+                    Entity = ModelHelper.CreateEventMessageModel(UoW.EventMessageRepository.GetEventMessageById(u.Data1)),
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
             else
@@ -120,21 +120,21 @@ namespace FloorballServer.Helper
                 return new UpdateData
                 {
                     Type = UpdateEnum.EventMessage,
-                    Entity = new { id = u.data1 },
-                    UpdateType = u.updatetype.ToString()
+                    Entity = new { id = u.Data1 },
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
         }
 
         private UpdateData GetEvent(Update u)
         {
-            if (u.updatetype == UpdateType.Create.ToString() || u.updatetype == UpdateType.Update.ToString())
+            if (u.Updatetype == UpdateType.Create || u.Updatetype == UpdateType.Update)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.Event,
-                    Entity = ModelHelper.CreateEventModel(UoW.EventRepository.GetEventById(u.data1)),
-                    UpdateType = u.updatetype.ToString()
+                    Entity = ModelHelper.CreateEventModel(UoW.EventRepository.GetEventById(u.Data1)),
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
             else
@@ -142,21 +142,21 @@ namespace FloorballServer.Helper
                 return new UpdateData
                 {
                     Type = UpdateEnum.Event,
-                    Entity = new { id = u.data1 },
-                    UpdateType = u.updatetype.ToString()
+                    Entity = new { id = u.Data1 },
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
         }
 
         private UpdateData GetReferee(Update u)
         {
-            if (u.updatetype == UpdateType.Create.ToString() || u.updatetype == UpdateType.Update.ToString())
+            if (u.Updatetype == UpdateType.Create || u.Updatetype == UpdateType.Update)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.Referee,
-                    Entity = ModelHelper.CreateRefereeModel(UoW.RefereeRepository.GetRefereeById(u.data1)),
-                    UpdateType = u.updatetype.ToString()
+                    Entity = ModelHelper.CreateRefereeModel(UoW.RefereeRepository.GetRefereeById(u.Data1)),
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
             else
@@ -164,21 +164,21 @@ namespace FloorballServer.Helper
                 return new UpdateData
                 {
                     Type = UpdateEnum.Referee,
-                    Entity = new { id = u.data1 },
-                    UpdateType = u.updatetype.ToString()
+                    Entity = new { id = u.Data1 },
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
         }
 
         private UpdateData GetStadium(Update u)
         {
-            if (u.updatetype == UpdateType.Create.ToString() || u.updatetype == UpdateType.Update.ToString())
+            if (u.Updatetype == UpdateType.Create || u.Updatetype == UpdateType.Update)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.Stadium,
-                    Entity = ModelHelper.CreateStadiumModel(UoW.StadiumRepository.GetStadiumById(u.data1)),
-                    UpdateType = u.updatetype.ToString()
+                    Entity = ModelHelper.CreateStadiumModel(UoW.StadiumRepository.GetStadiumById(u.Data1)),
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
             else
@@ -186,21 +186,21 @@ namespace FloorballServer.Helper
                 return new UpdateData
                 {
                     Type = UpdateEnum.Stadium,
-                    Entity = new { id = u.data1 },
-                    UpdateType = u.updatetype.ToString()
+                    Entity = new { id = u.Data1 },
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
         }
 
         private UpdateData GetPlayer(Update u)
         {
-            if (u.updatetype == UpdateType.Create.ToString() || u.updatetype == UpdateType.Update.ToString())
+            if (u.Updatetype == UpdateType.Create || u.Updatetype == UpdateType.Update)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.Player,
-                    Entity = ModelHelper.CreatePlayerModel(UoW.PlayerRepository.GetPlayerById(u.data1)),
-                    UpdateType = u.updatetype.ToString()
+                    Entity = ModelHelper.CreatePlayerModel(UoW.PlayerRepository.GetPlayerById(u.Data1)),
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
             else
@@ -208,21 +208,21 @@ namespace FloorballServer.Helper
                 return new UpdateData
                 {
                     Type = UpdateEnum.Player,
-                    Entity = new { id = u.data1 },
-                    UpdateType = u.updatetype.ToString()
+                    Entity = new { id = u.Data1 },
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
         }
 
         private UpdateData GetMatch(Update u)
         {
-            if (u.updatetype == UpdateType.Create.ToString() || u.updatetype == UpdateType.Update.ToString())
+            if (u.Updatetype == UpdateType.Create || u.Updatetype == UpdateType.Update)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.Match,
-                    Entity = ModelHelper.CreateMatchModel(UoW.MatchRepository.GetMatchById(u.data1)),
-                    UpdateType = u.updatetype.ToString()
+                    Entity = ModelHelper.CreateMatchModel(UoW.MatchRepository.GetMatchById(u.Data1)),
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
             else
@@ -230,21 +230,21 @@ namespace FloorballServer.Helper
                 return new UpdateData
                 {
                     Type = UpdateEnum.Match,
-                    Entity = new { id = u.data1 },
-                    UpdateType = u.updatetype.ToString()
+                    Entity = new { id = u.Data1 },
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
         }
 
         private UpdateData GetTeam(Update u)
         {
-            if (u.updatetype == UpdateType.Create.ToString() || u.updatetype == UpdateType.Update.ToString())
+            if (u.Updatetype == UpdateType.Create || u.Updatetype == UpdateType.Update)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.Team,
-                    Entity = ModelHelper.CreateTeamModel(UoW.TeamRepository.GetTeamById(u.data1), true),
-                    UpdateType = u.updatetype.ToString()
+                    Entity = ModelHelper.CreateTeamModel(UoW.TeamRepository.GetTeamById(u.Data1), true),
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
             else
@@ -252,21 +252,21 @@ namespace FloorballServer.Helper
                 return new UpdateData
                 {
                     Type = UpdateEnum.Team,
-                    Entity = new { id = u.data1 },
-                    UpdateType = u.updatetype.ToString()
+                    Entity = new { id = u.Data1 },
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
         }
 
         private UpdateData GetLeague(Update u)
         {
-            if (u.updatetype == UpdateType.Create.ToString() || u.updatetype == UpdateType.Update.ToString())
+            if (u.Updatetype == UpdateType.Create || u.Updatetype == UpdateType.Update)
             {
                 return new UpdateData
                 {
                     Type = UpdateEnum.League,
-                    Entity = ModelHelper.CreateLeagueModel(UoW.LeagueRepository.GetLeagueById(u.data1)),
-                    UpdateType = u.updatetype.ToString()
+                    Entity = ModelHelper.CreateLeagueModel(UoW.LeagueRepository.GetLeagueById(u.Data1)),
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
             else
@@ -274,8 +274,8 @@ namespace FloorballServer.Helper
                 return new UpdateData
                 {
                     Type = UpdateEnum.League,
-                    Entity = new { id = u.data1 },
-                    UpdateType = u.updatetype.ToString()
+                    Entity = new { id = u.Data1 },
+                    UpdateType = u.Updatetype.ToString()
                 };
             }
         }

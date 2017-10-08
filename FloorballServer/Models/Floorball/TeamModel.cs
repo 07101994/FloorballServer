@@ -34,7 +34,7 @@ namespace FloorballServer.Models.Floorball
 
         public int LeagueId { get; set; }
 
-        public string Sex { get; set; }
+        public GenderEnum Sex { get; set; }
 
         public CountriesEnum  Country { get; set; }
 

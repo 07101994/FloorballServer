@@ -20,10 +20,10 @@ namespace DAL.Repository.Implementations
 
             AddUpdate(new Update
             {
-                updatetype = UpdateType.Create.ToString(),
-                date = DateTime.Now,
-                data1 = stadium.Id,
-                name = UpdateEnum.Stadium.ToUpdateString()
+                Updatetype = UpdateType.Create,
+                Date = DateTime.Now,
+                Data1 = stadium.Id,
+                Name = UpdateEnum.Stadium
             });
 
             return stadium.Id;

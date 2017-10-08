@@ -20,10 +20,10 @@ namespace DAL.Repository.Implementations
 
             AddUpdate( new Update
             {
-                name = UpdateEnum.Match.ToUpdateString(),
-                date = DateTime.Now,
-                updatetype = UpdateType.Create.ToString(),
-                data1 = match.Id
+                Name = UpdateEnum.Match,
+                Date = DateTime.Now,
+                Updatetype = UpdateType.Create,
+                Data1 = match.Id
             });
 
             return match.Id;
@@ -64,8 +64,8 @@ namespace DAL.Repository.Implementations
             updated.Time = match.Time;
             updated.Round = match.Round;
             updated.StadiumId = match.StadiumId;
-            updated.GoalsA = match.GoalsA;
-            updated.GoalsH = match.GoalsH;
+            updated.ScoreA = match.ScoreA;
+            updated.ScoreH = match.ScoreH;
             updated.State = match.State;
 
             Ctx.Matches.Attach(updated);

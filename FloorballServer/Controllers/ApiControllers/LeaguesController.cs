@@ -118,6 +118,7 @@ namespace FloorballServer.Controllers.ApiControllers
         /// Get teams by league
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="withImage"></param>
         /// <returns></returns>
         //GET api/floorball/teams/{id}
         [Route("leagues/{id}/teams")]
@@ -161,11 +162,11 @@ namespace FloorballServer.Controllers.ApiControllers
             {
                 Name = league.Name,
                 Year = league.Year,
-                Type = league.type,
-                ClassName = league.ClassName,
+                Type = league.Type,
+                Class = league.Class,
                 Rounds = league.Rounds,
-                Country = league.Country.ToCountryString(),
-                Sex = league.Sex
+                Country = league.Country,
+                Gender = league.Gender
             });
 
             return Request.CreateResponse(HttpStatusCode.OK, id);
@@ -181,13 +182,13 @@ namespace FloorballServer.Controllers.ApiControllers
         public HttpResponseMessage Put(LeagueModel league)
         {
             int id = UoW.LeagueRepository.UpdateLeague(new League {
-                ClassName = league.ClassName,
-                Country = league.Country.ToCountryString(),
+                Class = league.Class,
+                Country = league.Country,
                 Id = league.Id,
                 Name = league.Name,
                 Rounds = league.Rounds,
-                Sex = league.Sex,
-                Type = league.type,
+                Gender = league.Gender,
+                Type = league.Type,
                 Year = league.Year 
 
             });

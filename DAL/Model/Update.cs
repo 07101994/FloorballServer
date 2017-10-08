@@ -8,19 +8,19 @@ namespace DAL.Model
 
     public partial class Update
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        public string name { get; set; }
+        public UpdateEnum Name { get; set; }
 
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
 
-        public int data1 { get; set; }
+        public int Data1 { get; set; }
 
-        public int data2 { get; set; }
+        public int Data2 { get; set; }
 
         [Required]
         [StringLength(10)]
-        public string updatetype { get; set; }
+        public UpdateType Updatetype { get; set; }
     }
 }

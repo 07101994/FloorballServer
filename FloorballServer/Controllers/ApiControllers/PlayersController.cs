@@ -116,9 +116,9 @@ namespace FloorballServer.Controllers.ApiControllers
             int id = UoW.PlayerRepository.AddPlayer(new Player
             {
                 FirstName = player.FirstName,
-                SecondName = player.SecondName,
-                RegNum = player.RegNum,
-                Date = player.BirthDate,
+                LastName = player.LastName,
+                Id = player.Id,
+                BirthDate = player.BirthDate,
                 Number = player.Number
             });
 
@@ -173,9 +173,9 @@ namespace FloorballServer.Controllers.ApiControllers
             int id = UoW.PlayerRepository.UpdatePlayer(new Player
             {
                 FirstName = player.FirstName,
-                SecondName = player.SecondName,
-                RegNum = player.RegNum,
-                Date = player.BirthDate,
+                LastName = player.LastName,
+                Id = player.Id,
+                BirthDate = player.BirthDate,
                 Number = player.Number
             });
 

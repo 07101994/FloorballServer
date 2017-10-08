@@ -19,6 +19,8 @@ namespace DAL.Model
         [Required]
         public string Name { get; set; }
 
+        public DateTime BirthDate { get; set; }
+
         public short Number { get; set; } = 0;
 
         public short Penalty { get; set; } = 0;

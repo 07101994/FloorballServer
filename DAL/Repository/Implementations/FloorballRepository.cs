@@ -16,7 +16,7 @@ namespace DAL.Repository.Implementations
 
         public IEnumerable<Update> GetUpdatesAfterDate(DateTime date)
         {
-            return Ctx.Updates.Where(u => DateTime.Compare(u.date, date) > 0);
+            return Ctx.Updates.Where(u => DateTime.Compare(u.Date, date) > 0);
         }
 
         public int AddUpdate(Update update)
@@ -24,7 +24,7 @@ namespace DAL.Repository.Implementations
             Ctx.Updates.Add(update);
             Ctx.SaveChanges();
 
-            return update.id;
+            return update.Id;
         }
 
         #region IDisposable Support

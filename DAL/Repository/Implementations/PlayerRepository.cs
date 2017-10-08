@@ -18,18 +18,18 @@ namespace DAL.Repository.Implementations
 
             AddUpdate(new Update
             {
-                updatetype = UpdateType.Create.ToString(),
-                name = UpdateEnum.Player.ToUpdateString(),
-                date = DateTime.Now,
-                data1 = player.RegNum
+                Updatetype = UpdateType.Create,
+                Name = UpdateEnum.Player,
+                Date = DateTime.Now,
+                Data1 = player.Id
             });
 
-            return player.RegNum;
+            return player.Id;
         }
 
         public void AddPlayerToMatch(int playerId, int matchId)
         {
-            var player = Ctx.Players.Include("Matches").Include("Teams").Where(p => p.RegNum == playerId).FirstOrDefault();
+            var player = Ctx.Players.Include("Matches").Include("Teams").Where(p => p.Id == playerId).FirstOrDefault();
 
             var match = Ctx.Matches.Include("Players").Where(m => m.Id == matchId).FirstOrDefault();
 
@@ -41,11 +41,11 @@ namespace DAL.Repository.Implementations
 
             AddUpdate(new Update
             {
-                name = UpdateEnum.PlayerMatch.ToUpdateString(),
-                date = DateTime.Now,
-                updatetype = UpdateType.Create.ToString(),
-                data1 = player.RegNum,
-                data2 = match.Id
+                Name = UpdateEnum.PlayerMatch,
+                Date = DateTime.Now,
+                Updatetype = UpdateType.Create,
+                Data1 = player.Id,
+                Data2 = match.Id
             });
         }
 
@@ -61,22 +61,21 @@ namespace DAL.Repository.Implementations
 
             AddUpdate(new Update
             {
-                name = UpdateEnum.PlayerTeam.ToUpdateString(),
-                date = DateTime.Now,
-                updatetype = UpdateType.Create.ToString(),
-                data1 = player.RegNum,
-                data2 = team.Id
+                Name = UpdateEnum.PlayerTeam,
+                Date = DateTime.Now,
+                Updatetype = UpdateType.Create,
+                Data1 = player.Id,
+                Data2 = team.Id
             });
         }
 
         private void AddStatisticsForPlayerInTeam(Player player, Team team, FloorballBaseCtx ctx)
         {
-            string[] types = new string[] { "G", "A", "P2", "P5", "P10", "PV", "APP" };
 
-            foreach (var type in types)
+            foreach (var type in Enum.GetValues(typeof(StatType)))
             {
                 Statistic s = new Statistic();
-                s.Name = type;
+                s.Type = (StatType)type;
                 s.Number = 0;
                 s.Team = team;
                 s.Player = player;
@@ -96,14 +95,14 @@ namespace DAL.Repository.Implementations
         public Dictionary<int, List<int>> GetAllPlayerAndMatchId()
         {
             Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
-            Ctx.Matches.Include("Players").Where( m => m.Players.Any()).ToList().ForEach(m => dict.Add(m.Id, m.Players.Select(p => p.RegNum).ToList()));
+            Ctx.Matches.Include("Players").Where( m => m.Players.Any()).ToList().ForEach(m => dict.Add(m.Id, m.Players.Select(p => p.Id).ToList()));
             return dict;
         }
 
         public Dictionary<int, List<int>> GetAllPlayerAndTeamId()
         {
             Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
-            Ctx.Teams.Include("Players").Where( t => t.Players.Any()).ToList().ForEach(t => dict.Add(t.Id, t.Players.Select(p => p.RegNum).ToList()));
+            Ctx.Teams.Include("Players").Where( t => t.Players.Any()).ToList().ForEach(t => dict.Add(t.Id, t.Players.Select(p => p.Id).ToList()));
             return dict;
         }
 
@@ -137,7 +136,7 @@ namespace DAL.Repository.Implementations
 
         public void RemovePlayerFromMatch(int playerId, int matchId)
         {
-            var player = Ctx.Players.Include("Matches").Include("Teams").Where(p => p.RegNum == playerId).FirstOrDefault();
+            var player = Ctx.Players.Include("Matches").Include("Teams").Where(p => p.Id == playerId).FirstOrDefault();
 
             var match = Ctx.Matches.Include("Players").Where(m => m.Id == matchId).FirstOrDefault();
 
@@ -154,11 +153,11 @@ namespace DAL.Repository.Implementations
 
             AddUpdate(new Update
             {
-                name = UpdateEnum.PlayerMatch.ToUpdateString(),
-                date = DateTime.Now,
-                updatetype = UpdateType.Delete.ToString(), 
-                data1 = playerId,
-                data2 = matchId
+                Name = UpdateEnum.PlayerMatch,
+                Date = DateTime.Now,
+                Updatetype = UpdateType.Delete, 
+                Data1 = playerId,
+                Data2 = matchId
             });
         }
 
@@ -175,17 +174,17 @@ namespace DAL.Repository.Implementations
 
             AddUpdate(new Update
             {
-                name = UpdateEnum.PlayerTeam.ToUpdateString(),
-                date = DateTime.Now,
-                data1 = playerId,
-                data2 = teamId,
-                updatetype = UpdateType.Delete.ToString()
+                Name = UpdateEnum.PlayerTeam,
+                Date = DateTime.Now,
+                Data1 = playerId,
+                Data2 = teamId,
+                Updatetype = UpdateType.Delete
             });
         }
 
         private void RemoveStatisticsForPlayerInTeam(Player player, Team team, FloorballBaseCtx ctx)
         {
-            var statisctics = ctx.Statistics.Where(s => s.Player.RegNum == player.RegNum && s.Team.Id == team.Id).ToList();
+            var statisctics = ctx.Statistics.Where(s => s.Player.Id == player.Id && s.Team.Id == team.Id).ToList();
 
             foreach (var s in statisctics)
             {
@@ -195,19 +194,19 @@ namespace DAL.Repository.Implementations
 
         public int UpdatePlayer(Player player)
         {
-            var updated = Ctx.Players.Find(player.RegNum);
+            var updated = Ctx.Players.Find(player.Id);
 
-            updated.Date = player.Date;
+            updated.BirthDate = player.BirthDate;
             updated.FirstName = player.FirstName;
             updated.Number = player.Number;
-            updated.SecondName = player.SecondName;
+            updated.LastName = player.LastName;
 
             Ctx.Players.Attach(updated);
             Ctx.Entry(updated).State = System.Data.Entity.EntityState.Modified;
 
             Ctx.SaveChanges();
 
-            return updated.RegNum;
+            return updated.Id;
         }
     }
 }

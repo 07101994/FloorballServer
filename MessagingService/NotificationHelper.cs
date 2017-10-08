@@ -16,22 +16,22 @@ namespace MessagingService
 
             switch (e.Type)
             {
-                case "G":
+                case EventType.G:
                     args.Add(e.Match.HomeTeam.Name.ToString());
-                    args.Add(e.Match.GoalsH.ToString());
-                    args.Add(e.Match.GoalsA.ToString());
+                    args.Add(e.Match.ScoreH.ToString());
+                    args.Add(e.Match.ScoreA.ToString());
                     args.Add(e.Match.AwayTeam.Name.ToString());
                     args.Add(e.Time.ToString());
-                    args.Add(e.Player.FirstName + " " + e.Player.SecondName);
+                    args.Add(e.Player.FirstName + " " + e.Player.LastName);
                     args.Add(e.EventMessage.Message);
                     break;
-                case "P2":
+                case EventType.P2:
                     break;
-                case "P5":
+                case EventType.P5:
                     break;
-                case "P10":
+                case EventType.P10:
                     break;
-                case "PV":
+                case EventType.PV:
                     break;
                 default:
                     break;
@@ -46,16 +46,16 @@ namespace MessagingService
 
             switch (e.Type)
             {
-                case "G":
+                case EventType.G:
                     
                     break;
-                case "P2":
+                case EventType.P2:
                     break;
-                case "P5":
+                case EventType.P5:
                     break;
-                case "P10":
+                case EventType.P10:
                     break;
-                case "PV":
+                case EventType.PV:
                     break;
                 default:
                     break;

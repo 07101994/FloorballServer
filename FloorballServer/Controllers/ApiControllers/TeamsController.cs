@@ -100,12 +100,12 @@ namespace FloorballServer.Controllers.ApiControllers
             int id = UoW.TeamRepository.AddTeam(new Team
             {
                 Name = team.Name,
-                Sex = team.Sex,
+                Gender = team.Sex,
                 Year = team.Year,
                 Coach = team.Coach,
                 StadiumId = team.StadiumId,
                 LeagueId = team.LeagueId,
-                Country = team.Country.ToCountryString()
+                Country = team.Country
             });
 
             ImageManager.SaveImage(team.Image, id.ToString());
@@ -126,12 +126,12 @@ namespace FloorballServer.Controllers.ApiControllers
             {
                 Id = team.Id,
                 Name = team.Name,
-                Sex = team.Sex,
+                Gender = team.Sex,
                 Year = team.Year,
                 Coach = team.Coach,
                 StadiumId = team.StadiumId,
                 LeagueId = team.LeagueId,
-                Country = team.Country.ToCountryString()
+                Country = team.Country
             });
 
             if (team.Image != null)

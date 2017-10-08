@@ -55,7 +55,7 @@ namespace FloorballServer.App_Start
             {
                 UoW.RoleRepository.CreateRole(roleName);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
         }

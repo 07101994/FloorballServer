@@ -19,19 +19,21 @@ namespace DAL.Model
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int RegNum { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(50)]
         public string FirstName { get; set; }
 
-        public short Number { get; set; }
+        public DateTime BirthDate { get; set; }
 
-        public DateTime Date { get; set; }
+        public int Number { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string SecondName { get; set; }
+        public string LastName { get; set; }
+
+        public GenderEnum Gender { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events { get; set; }

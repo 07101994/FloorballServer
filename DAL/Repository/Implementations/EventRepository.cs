@@ -16,12 +16,12 @@ namespace DAL.Repository.Implementations
         {
             Ctx.Events.Add(ev);
 
-            if (ev.PlayerRegNum != -1 && ev.Type != "I" && ev.Type != "B")
+            if (ev.PlayerId != -1 && ev.Type != EventType.T && ev.Type != EventType.S)
             {
-                ChangeStatisticFromPlayer(ev.PlayerRegNum, ev.TeamId, ev.Type, Ctx, "increase");
+                ChangeStatisticFromPlayer(ev.PlayerId, ev.TeamId, (StatType)Enum.Parse(typeof(EventType), ev.Type.ToString()), Ctx, "increase");
             }
 
-            if (ev.Type == "G")
+            if (ev.Type == EventType.G)
             {
                 ChangeMatchGoals(ev.MatchId, ev.TeamId, ev.Time, "up");
             }
@@ -30,10 +30,10 @@ namespace DAL.Repository.Implementations
 
             AddUpdate(new Update
             {
-                name = UpdateEnum.Event.ToUpdateString(),
-                date = DateTime.Now,
-                updatetype = UpdateType.Create.ToString(),
-                data1 = ev.Id
+                Name = UpdateEnum.Event,
+                Date = DateTime.Now,
+                Updatetype = UpdateType.Create,
+                Data1 = ev.Id
             });
 
             return ev.Id;
@@ -52,26 +52,26 @@ namespace DAL.Repository.Implementations
 
             if (teamId == match.HomeTeamId)
             {
-                match.GoalsH = direction == "up" ? (short)(match.GoalsH + 1) : (short)(match.GoalsH - 1);
+                match.ScoreH = direction == "up" ? (short)(match.ScoreH + 1) : (short)(match.ScoreH - 1);
                 Ctx.Matches.Attach(match);
                 var entry = Ctx.Entry(match);
-                entry.Property(e => e.GoalsH).IsModified = true;
+                entry.Property(e => e.ScoreH).IsModified = true;
                 entry.Property(e => e.Time).IsModified = true;
             }
             else
             {
-                match.GoalsA = direction == "up" ? (short)(match.GoalsA + 1) : (short)(match.GoalsA - 1);
+                match.ScoreA = direction == "up" ? (short)(match.ScoreA + 1) : (short)(match.ScoreA - 1);
                 Ctx.Matches.Attach(match);
                 var entry = Ctx.Entry(match);
-                entry.Property(e => e.GoalsA).IsModified = true;
+                entry.Property(e => e.ScoreA).IsModified = true;
                 entry.Property(e => e.Time).IsModified = true;
             }
 
         }
 
-        private void ChangeStatisticFromPlayer(int playerRegNum, int teamId, string type, FloorballBaseCtx ctx, string direction)
+        private void ChangeStatisticFromPlayer(int playerRegNum, int teamId, StatType type, FloorballBaseCtx ctx, string direction)
         {
-            Statistic stat = ctx.Statistics.FirstOrDefault(s => s.PlayerRegNum == playerRegNum && s.TeamId == teamId && s.Name == type);
+            Statistic stat = ctx.Statistics.FirstOrDefault(s => s.PlayerId == playerRegNum && s.TeamId == teamId && s.Type == type);
 
             if (stat == null)
             {
@@ -104,7 +104,7 @@ namespace DAL.Repository.Implementations
 
         public CountriesEnum GetCountryByEvent(int id)
         {
-            return Ctx.Events.Include("Match.League").Where(e => e.Id == id).First().Match.League.Country.ToEnum<CountriesEnum>();
+            return Ctx.Events.Include("Match.League").Where(e => e.Id == id).First().Match.League.Country;
         }
 
         public IEnumerable<Event> GetEventsByMatch(int matchId)
@@ -129,9 +129,9 @@ namespace DAL.Repository.Implementations
                     teamId = e.Match.AwayTeamId;
                 }
 
-                ChangeStatisticFromPlayer(e.PlayerRegNum, teamId, e.Type, Ctx, "reduce");
+                ChangeStatisticFromPlayer(e.PlayerId, teamId, (StatType)Enum.Parse(typeof(EventType), e.Type.ToString()), Ctx, "reduce");
 
-                if (e.Type == "G")
+                if (e.Type == EventType.G)
                 {
                     ChangeMatchGoals(e.MatchId, e.TeamId, e.Time, "down");
                 }
@@ -140,10 +140,10 @@ namespace DAL.Repository.Implementations
 
                 AddUpdate(new Update
                 {
-                    name = UpdateEnum.Event.ToUpdateString(),
-                    updatetype = UpdateType.Delete.ToString(),
-                    date = DateTime.Now,
-                    data1 = e.Id
+                    Name = UpdateEnum.Event,
+                    Updatetype = UpdateType.Delete,
+                    Date = DateTime.Now,
+                    Data1 = e.Id
                 });
 
                 Ctx.SaveChanges();
@@ -156,7 +156,7 @@ namespace DAL.Repository.Implementations
 
             updated.EventMessageId = e.EventMessageId;
             updated.MatchId = e.MatchId;
-            updated.PlayerRegNum = e.PlayerRegNum;
+            updated.PlayerId = e.PlayerId;
             updated.TeamId = e.TeamId;
             updated.Time = e.Time;
             updated.Type = e.Type;

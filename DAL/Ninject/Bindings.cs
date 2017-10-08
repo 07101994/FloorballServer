@@ -25,7 +25,7 @@ namespace DAL.Ninject
         public override void Load()
         {
             //Bind remote, local or demo context and seeders
-            BindDemo();
+            BindLocal();
 
             //Bind repositories
             Bind<ILeagueRepository>().To<LeagueRepository>();

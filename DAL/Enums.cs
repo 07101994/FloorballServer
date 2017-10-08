@@ -92,4 +92,29 @@ namespace DAL
     {
         Create, Update, Delete
     }
+
+    public enum LeagueTypeEnum
+    {
+        League, Cup, PlayOff
+    }
+
+    public enum ClassEnum
+    {
+        FirstClass, SecondClass, ThirdClass, U21, U19, U17, U15, U13, U11, U9, All
+    }
+
+    public enum GenderEnum
+    {
+        Men, Women
+    }  
+    
+    public enum EventType
+    {
+        G,A,P2,P5,P10,PV,T,S
+    }
+
+    public enum StatType
+    {
+        G,A,P2,P5,P10,PV,M
+    }
 }

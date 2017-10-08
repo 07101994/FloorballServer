@@ -23,11 +23,11 @@ namespace DAL.Model
         public short Round { get; set; }
 
         [Required]
-        public string State { get; set; } = StateEnum.Confirmed.ToString();
+        public StateEnum State { get; set; } = StateEnum.Confirmed;
 
-        public short GoalsH { get; set; } = 0;
+        public short ScoreH { get; set; } = 0;
 
-        public short GoalsA { get; set; } = 0;
+        public short ScoreA { get; set; } = 0;
 
         public TimeSpan Time { get; set; }
 

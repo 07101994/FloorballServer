@@ -28,10 +28,10 @@ namespace DAL.Repository.Implementations
 
             AddUpdate(new Update
             {
-                name = UpdateEnum.Team.ToUpdateString(),
-                updatetype = UpdateType.Create.ToString(),
-                data1 = team.Id,
-                date = DateTime.Now
+                Name = UpdateEnum.Team,
+                Updatetype = UpdateType.Create,
+                Data1 = team.Id,
+                Date = DateTime.Now
             });
             
 
@@ -63,7 +63,7 @@ namespace DAL.Repository.Implementations
             Team updated = Ctx.Teams.Find(team.Id);
 
             updated.Name = team.Name;
-            updated.Sex = team.Sex;
+            updated.Gender = team.Gender;
             updated.Year = team.Year;
             updated.Coach = team.Coach;
             updated.Country = team.Country;

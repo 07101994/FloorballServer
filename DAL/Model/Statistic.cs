@@ -11,11 +11,11 @@ namespace DAL.Model
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public StatType Type { get; set; }
 
         public short Number { get; set; }
 
-        public int PlayerRegNum { get; set; }
+        public int PlayerId { get; set; }
 
         public int TeamId { get; set; }
 

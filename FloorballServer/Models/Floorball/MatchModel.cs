@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -15,11 +16,11 @@ namespace FloorballServer.Models.Floorball
 
         public short Round { get; set; }
 
-        public string State { get; set; }
+        public StateEnum State { get; set; }
 
-        public short GoalsH { get; set; }
+        public short ScoreH { get; set; }
 
-        public short GoalsA { get; set; }
+        public short ScoreA { get; set; }
 
         public TimeSpan Time { get; set; }
 
@@ -30,9 +31,6 @@ namespace FloorballServer.Models.Floorball
         public int LeagueId { get; set; }
 
         public int StadiumId { get; set; }
-
-        //public List<PlayerModel> Players { get; set; }
-
 
     }
 }

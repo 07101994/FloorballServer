@@ -66,7 +66,7 @@ namespace FloorballServer.Controllers.ApiControllers
                 MatchId = e.MatchId,
                 Type = e.Type,
                 Time = e.Time,
-                PlayerRegNum = e.PlayerId,
+                PlayerId = e.PlayerId,
                 EventMessageId = e.EventMessageId,
                 TeamId = e.TeamId
             });
@@ -101,7 +101,7 @@ namespace FloorballServer.Controllers.ApiControllers
                 Id = e.Id,
                 EventMessageId = e.EventMessageId,
                 MatchId = e.MatchId,
-                PlayerRegNum = e.PlayerId,
+                PlayerId = e.PlayerId,
                 TeamId = e.TeamId,
                 Time = e.Time,
                 Type = e.Type
