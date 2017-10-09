@@ -5,24 +5,16 @@ namespace DAL.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using global::Ninject;
-    using Bll.Seed;
-    using DAL.Ninject;
-    using Bll.Context;
     using DAL.Security;
+    using Bll.Seed;
 
     public abstract class FloorballBaseCtx : IdentityDbContext<IdentityUser>
     {
 
         public ISeeder Seeder { get; set; }
 
-        protected StandardKernel Kernel { get; set; }
-
         public FloorballBaseCtx(string ctx) : base(ctx)
         {
-            Kernel = new StandardKernel(new Bindings());
-            //Seeder = Kernel.Get<ISeeder>();
-
         }
 
         public virtual DbSet<EventMessage> EventMessages { get; set; }

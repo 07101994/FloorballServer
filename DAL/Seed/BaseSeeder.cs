@@ -1,6 +1,5 @@
 ﻿using DAL.Model;
 using DAL.Security;
-using DAL.Util;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;

@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DemoContext.cs" />
+    <Compile Include="DemoSeeder.cs" />
     <Compile Include="Migrations\201710091741120_Initial.cs" />
     <Compile Include="Migrations\201710091741120_Initial.Designer.cs">
       <DependentUpon>201710091741120_Initial.cs</DependentUpon>
@@ -62,19 +63,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{eab2b970-6632-49d2-9e10-80bd614ebb35}</Project>
-      <Name>DAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710091741120_Initial.resx">
       <DependentUpon>201710091741120_Initial.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{023bcfc5-d520-4d36-8ff3-873e2b4f7bd7}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

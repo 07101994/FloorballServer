@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EAB2B970-6632-49D2-9E10-80BD614EBB35}</ProjectGuid>
+    <ProjectGuid>{023BCFC5-D520-4D36-8FF3-873E2B4F7BD7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DAL</RootNamespace>
@@ -30,16 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Devtalk.EF.CodeFirst, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EFCodeFirst.CreateTablesOnly.1.0.2\lib\Devtalk.EF.CodeFirst.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -47,56 +42,19 @@
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WebActivator, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebActivator.1.4\lib\NETFramework40\WebActivator.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\DontDropDbJustCreateTablesIfModelChangedStart.cs" />
-    <Compile Include="Context\DemoCtx.cs" />
-    <Compile Include="Context\LocalCtx.cs" />
-    <Compile Include="Context\RemoteCtx.cs" />
-    <Compile Include="DBInitializer\DemoDBInitilizer.cs" />
-    <Compile Include="DBInitializer\LocalDBInitializer.cs" />
-    <Compile Include="DBInitializer\RemoteDBInitializer.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Context\FloorballBaseCtx.cs" />
+    <Compile Include="FloorballBaseCtx.cs" />
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\EventMessage.cs" />
     <Compile Include="Model\League.cs" />
@@ -107,61 +65,16 @@
     <Compile Include="Model\Statistic.cs" />
     <Compile Include="Model\Team.cs" />
     <Compile Include="Model\Update.cs" />
-    <Compile Include="Ninject\Bindings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\Implementations\EventMessageRepository.cs" />
-    <Compile Include="Repository\Implementations\EventRepository.cs" />
-    <Compile Include="Repository\Implementations\LeagueRepository.cs" />
-    <Compile Include="Repository\Implementations\PlayerRepository.cs" />
-    <Compile Include="Repository\Implementations\RefereeRepository.cs" />
-    <Compile Include="Repository\Implementations\FloorballRepository.cs" />
-    <Compile Include="Repository\Implementations\RoleRepository.cs" />
-    <Compile Include="Repository\Implementations\SecurityRepository.cs" />
-    <Compile Include="Repository\Implementations\StadiumRepository.cs" />
-    <Compile Include="Repository\Implementations\StatisticRepository.cs" />
-    <Compile Include="Repository\Implementations\TeamRepository.cs" />
-    <Compile Include="Repository\Implementations\UserRepository.cs" />
-    <Compile Include="Repository\Interfaces\IEventMessageRepository.cs" />
-    <Compile Include="Repository\Interfaces\IEventRepository.cs" />
-    <Compile Include="Repository\Interfaces\ILeagueRepository.cs" />
-    <Compile Include="Repository\Interfaces\IMatchRepository.cs" />
-    <Compile Include="Repository\Interfaces\IPlayerRepository.cs" />
-    <Compile Include="Repository\Interfaces\IRefereeRepository.cs" />
-    <Compile Include="Repository\Interfaces\IFloorballRepository.cs" />
-    <Compile Include="Repository\Interfaces\IRepositoryBase.cs" />
-    <Compile Include="Repository\Interfaces\IRoleRepository.cs" />
-    <Compile Include="Repository\Interfaces\IStadiumRepository.cs" />
-    <Compile Include="Repository\Interfaces\IStatisticRepository.cs" />
-    <Compile Include="Repository\Interfaces\ITeamRepository.cs" />
-    <Compile Include="Repository\Implementations\MatchRepository.cs" />
-    <Compile Include="Repository\Interfaces\IUserRepository.cs" />
-    <Compile Include="Repository\Interfaces\ISecurityRepository.cs" />
-    <Compile Include="Repository\IUnitOfWork.cs" />
-    <Compile Include="Repository\UnitOfWork.cs" />
     <Compile Include="Security\Client.cs" />
     <Compile Include="Security\RefreshToken.cs" />
     <Compile Include="Seed\BaseSeeder.cs" />
-    <Compile Include="Seed\DemoSeeder.cs" />
     <Compile Include="Seed\ISeeder.cs" />
-    <Compile Include="Seed\LocalSeeder.cs" />
     <Compile Include="Seed\RemoteSeeder.cs" />
-    <Compile Include="Security\PasswordHasher.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
