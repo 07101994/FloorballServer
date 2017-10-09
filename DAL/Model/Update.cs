@@ -20,7 +20,6 @@ namespace DAL.Model
         public int Data2 { get; set; }
 
         [Required]
-        [StringLength(10)]
         public UpdateType Updatetype { get; set; }
     }
 }

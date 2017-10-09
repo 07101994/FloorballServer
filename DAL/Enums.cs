@@ -117,4 +117,9 @@ namespace DAL
     {
         G,A,P2,P5,P10,PV,M
     }
+
+    public enum Role
+    {
+        SuperAdmin, Admin, User, Fan
+    }
 }

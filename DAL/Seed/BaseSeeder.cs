@@ -14,8 +14,26 @@ namespace DAL.Seed
 {
     public class BaseSeeder
     {
+        private List<string> tables = new List<string>{ "Events", "Statistics","Matches", "Teams","Players", "Leagues", "Referees","Stadiums","Updates", "EventMessages" };
+        private List<string> tablesWithoutPrimaryKey = new List<string> { "AspNetRoles","AspNetUSerClaims","AspNetUserLogins","AspNetUserRoles","AspNetUsers","Clients","PlayerMatch","RefereeMatch","PlayerTeam","RefreshTokens"  };
+
         static readonly string SuperAdminUserName = "Tomi";
-        static readonly List<string> Roles = new List<string> { "SuperAdmin", "Admin", "User", "Fan" };
+        static readonly List<Role> Roles = new List<Role> { Role.SuperAdmin, Role.Admin, Role.User, Role.Fan };
+
+        protected void Delete(FloorballBaseCtx ctx)
+        {
+            foreach (var table in tables)
+            {
+                ctx.Database.ExecuteSqlCommand("DELETE FROM [dbo].[" + table + "]");
+                ctx.Database.ExecuteSqlCommand("DBCC CHECKIDENT('[dbo].["+table+"]', RESEED, 0)");
+            }
+
+            foreach (var table in tablesWithoutPrimaryKey)
+            {
+                ctx.Database.ExecuteSqlCommand("DELETE FROM " + table);
+            }
+
+        }
 
         protected void Init(FloorballBaseCtx ctx)
         {
@@ -119,7 +137,7 @@ namespace DAL.Seed
 
             var userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(ctx));
 
-            userManager.AddToRole(userManager.FindByName(SuperAdminUserName).Id, "SuperAdmin");
+            userManager.AddToRole(userManager.FindByName(SuperAdminUserName).Id, Role.SuperAdmin.ToString());
 
         }
 
@@ -127,7 +145,7 @@ namespace DAL.Seed
         {
             foreach (var role in Roles)
             {
-                ctx.Roles.Add(new IdentityRole { Name = role });
+                ctx.Roles.Add(new IdentityRole { Name = role.ToString() });
             }
 
             ctx.SaveChanges();

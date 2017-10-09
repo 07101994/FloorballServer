@@ -34,7 +34,6 @@ namespace DAL.Model
         public CountriesEnum Country { get; set; }
 
         [Required]
-        [StringLength(10)]
         public GenderEnum Gender { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -14,12 +14,15 @@ namespace DAL.Model
     public abstract class FloorballBaseCtx : IdentityDbContext<IdentityUser>
     {
 
+        public ISeeder Seeder { get; set; }
+
         protected StandardKernel Kernel { get; set; }
 
         public FloorballBaseCtx(string ctx) : base(ctx)
         {
             Kernel = new StandardKernel(new Bindings());
-            
+            //Seeder = Kernel.Get<ISeeder>();
+
         }
 
         public virtual DbSet<EventMessage> EventMessages { get; set; }
@@ -62,7 +65,7 @@ namespace DAL.Model
             modelBuilder.Entity<Match>()
                 .HasMany(e => e.Players)
                 .WithMany(e => e.Matches)
-                .Map(m => m.ToTable("PlayerMatch").MapLeftKey("Matches_Id").MapRightKey("Players_RegNum"));
+                .Map(m => m.ToTable("PlayerMatch").MapLeftKey("Matches_Id").MapRightKey("Players_Id"));
 
             modelBuilder.Entity<Match>()
                 .HasMany(e => e.Referees)
@@ -77,7 +80,7 @@ namespace DAL.Model
             modelBuilder.Entity<Player>()
                 .HasMany(e => e.Teams)
                 .WithMany(e => e.Players)
-                .Map(m => m.ToTable("PlayerTeam").MapLeftKey("Players_RegNum").MapRightKey("Teams_Id"));
+                .Map(m => m.ToTable("PlayerTeam").MapLeftKey("Players_Id").MapRightKey("Teams_Id"));
 
             modelBuilder.Entity<Stadium>()
                 .HasMany(e => e.Matches)
@@ -95,13 +98,13 @@ namespace DAL.Model
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Team>()
-                .HasMany(e => e.Matches)
+                .HasMany(e => e.HomeMatches)
                 .WithRequired(e => e.HomeTeam)
                 .HasForeignKey(e => e.HomeTeamId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Team>()
-                .HasMany(e => e.Matches1)
+                .HasMany(e => e.AwayMatches)
                 .WithRequired(e => e.AwayTeam)
                 .HasForeignKey(e => e.AwayTeamId)
                 .WillCascadeOnDelete(false);

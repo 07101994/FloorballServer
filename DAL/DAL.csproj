@@ -92,7 +92,6 @@
     <Compile Include="Context\DemoCtx.cs" />
     <Compile Include="Context\LocalCtx.cs" />
     <Compile Include="Context\RemoteCtx.cs" />
-    <Compile Include="DatabaseManager.cs" />
     <Compile Include="DBInitializer\DemoDBInitilizer.cs" />
     <Compile Include="DBInitializer\LocalDBInitializer.cs" />
     <Compile Include="DBInitializer\RemoteDBInitializer.cs" />
