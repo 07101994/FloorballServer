@@ -69,9 +69,9 @@ namespace DAL.Repository.Implementations
 
         }
 
-        private void ChangeStatisticFromPlayer(int playerRegNum, int teamId, StatType type, FloorballBaseCtx ctx, string direction)
+        private void ChangeStatisticFromPlayer(int playerId, int teamId, StatType type, FloorballBaseCtx ctx, string direction)
         {
-            Statistic stat = ctx.Statistics.FirstOrDefault(s => s.PlayerId == playerRegNum && s.TeamId == teamId && s.Type == type);
+            Statistic stat = ctx.Statistics.FirstOrDefault(s => s.PlayerId == playerId && s.TeamId == teamId && s.Type == type);
 
             if (stat == null)
             {

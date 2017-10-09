@@ -1,12 +1,11 @@
-﻿using Bll.Context;
-using Bll.Seed;
-using DAL.Context;
-using DAL.DBInitializer;
+﻿using Bll.Seed;
 using DAL.Model;
 using DAL.Repository;
 using DAL.Repository.Implementations;
 using DAL.Repository.Interfaces;
 using DAL.Seed;
+using DAL_Demo;
+using DAL_Local;
 using Ninject.Modules;
 using System;
 using System.Collections.Generic;
@@ -60,31 +59,31 @@ namespace DAL.Ninject
         private void BindLocal()
         {
             //Bind dbcontext
-            Bind<FloorballBaseCtx>().To<LocalCtx>();
+            Bind<FloorballBaseCtx>().To<LocalContext>();
             //Bind db initializer
-            Bind<IDatabaseInitializer<LocalCtx>>().To<LocalDBInitializer<LocalCtx>.DropCreateDatabaseAlwaysInitializer>();
+            //Bind<IDatabaseInitializer<LocalCtx>>().To<LocalDBInitializer<LocalCtx>.DropCreateDatabaseAlwaysInitializer>();
             //Bind seeder
-            Bind<ISeeder>().To<LocalSeeder>();
+            //Bind<ISeeder>().To<LocalSeeder>();
         }
 
         private void BindRemote()
         {
             //Bind dbcontext
-            Bind<FloorballBaseCtx>().To<RemoteCtx>();
+            //Bind<FloorballBaseCtx>().To<RemoteCtx>();
             //Bind db initializer
-            Bind<IDatabaseInitializer<RemoteCtx>>().To<RemoteDBInitializer<RemoteCtx>.DropCreateDatabaseIfModelChangesInitializer>();
+            //Bind<IDatabaseInitializer<RemoteCtx>>().To<RemoteDBInitializer<RemoteCtx>.DropCreateDatabaseIfModelChangesInitializer>();
             //Bind seeder
-            Bind<ISeeder>().To<RemoteSeeder>();
+            //Bind<ISeeder>().To<RemoteSeeder>();
         }
 
         private void BindDemo()
         {
             //Bind dbcontext
-            Bind<FloorballBaseCtx>().To<DemoCtx>();
+            Bind<FloorballBaseCtx>().To<DemoContext>();
             //Bind db initializer
-            Bind<IDatabaseInitializer<DemoCtx>>().To<DemoDBInitializer<DemoCtx>.DropCreateDatabaseIfModelChangesInitializer>();
+            //Bind<IDatabaseInitializer<DemoCtx>>().To<DemoDBInitializer<DemoCtx>.DropCreateDatabaseIfModelChangesInitializer>();
             //Bind seeder
-            Bind<ISeeder>().To<DemoSeeder>();
+            //Bind<ISeeder>().To<DemoSeeder>();
         }
 
     }

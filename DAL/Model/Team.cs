@@ -2,6 +2,7 @@ namespace DAL.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -12,8 +13,8 @@ namespace DAL.Model
         public Team()
         {
             Events = new HashSet<Event>();
-            Matches = new HashSet<Match>();
-            Matches1 = new HashSet<Match>();
+            HomeMatches = new HashSet<Match>();
+            AwayMatches = new HashSet<Match>();
             Statistics = new HashSet<Statistic>();
             Players = new HashSet<Player>();
         }
@@ -36,6 +37,7 @@ namespace DAL.Model
 
         public short MatchNumber { get; set; }
 
+        [DefaultValue(0)]
         public short Scored { get; set; }
 
         public short Get { get; set; }
@@ -45,10 +47,8 @@ namespace DAL.Model
         public int LeagueId { get; set; }
 
         [Required]
-        [StringLength(50)]
         public GenderEnum Gender { get; set; }
 
-        [StringLength(10)]
         public CountriesEnum Country { get; set; }
 
         [StringLength(50)]
@@ -60,10 +60,10 @@ namespace DAL.Model
         public virtual League League { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Match> Matches { get; set; }
+        public virtual ICollection<Match> HomeMatches { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Match> Matches1 { get; set; }
+        public virtual ICollection<Match> AwayMatches { get; set; }
 
         public virtual Stadium Stadium { get; set; }
 

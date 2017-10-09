@@ -79,8 +79,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{eab2b970-6632-49d2-9e10-80bd614ebb35}</Project>
+      <Project>{023bcfc5-d520-4d36-8ff3-873e2b4f7bd7}</Project>
       <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{eab2b970-6632-49d2-9e10-80bd614ebb35}</Project>
+      <Name>Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

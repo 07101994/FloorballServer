@@ -17,8 +17,6 @@ namespace DAL.Model
             Teams = new HashSet<Team>();
         }
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Required]
